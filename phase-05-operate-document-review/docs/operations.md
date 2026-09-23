@@ -12,7 +12,7 @@ Readiness:
 
     GET /ready
 
-This checks that SQLite is accessible and that the configured state/database and user-drive locations are readable and writable.
+This checks that the configured metadata database responds and that the mounted user-drive filesystem is readable and writable.
 
 Azure Container Apps uses both endpoints as probes.
 
@@ -113,35 +113,28 @@ Under that path:
 The Azure template mounts its persistent Azure Files share at /data.
 
 
-## SQLite on Azure Files
+## Persistent storage in Azure
 
-Local filesystems and Docker named volumes use SQLite WAL mode by default.
+The Azure deployment separates relational and filesystem state.
 
-Azure Files is an SMB network filesystem. SQLite WAL mode is not appropriate there because WAL depends on shared-memory coordination that assumes processes are on the same host. The Azure Container Apps deployment therefore sets:
+Azure Database for PostgreSQL Flexible Server stores users, sessions, installed-game metadata, launch sessions, catalog metadata, and OIDC state. The Container App authenticates to PostgreSQL with its user-assigned managed identity. Password authentication is disabled on the server.
 
-    DOS_CLOUD_SQLITE_JOURNAL_MODE=DELETE
-    DOS_CLOUD_SQLITE_BUSY_TIMEOUT_MS=10000
+Azure Files is mounted directly at `/data` and contains the DOS filesystem only:
 
-This uses the traditional rollback journal with a ten-second busy timeout. The Azure deployment is also fixed to exactly one replica.
+    /data/user-data/users/<user-id>/C/
 
-This is an intentionally constrained Phase 5 deployment architecture. A horizontally scaled service should move relational/session metadata to Azure SQL or PostgreSQL rather than trying to scale SQLite over Azure Files.
+Games and the emulator read and write those files in place. There is no synchronization layer and no SQLite database stored or copied through Azure Files.
+
+Local development continues to use SQLite when no PostgreSQL configuration is supplied.
 
 ## Backup
 
-A consistent backup should contain both:
+Azure backup has two independent concerns:
 
-- SQLite database
-- user-data directory
+- PostgreSQL uses the Flexible Server backup/restore capability for relational state.
+- Azure Files should be protected with Azure Files backup/snapshots appropriate to the storage account for DOS user drives.
 
-For this single-replica design, the safest application-level procedure is:
-
-1. stop writes or stop the application
-2. copy the SQLite database including any WAL/SHM side files
-3. copy user-data
-4. restart the application
-5. validate /ready
-
-For Azure, use Azure Files backup/snapshots appropriate to the storage account, but still consider SQLite consistency when taking application-consistent backups.
+A restore should recover both stores to compatible points in time, then validate `/ready`, sign-in, an installed game, and a known save.
 
 ## Restore
 
@@ -161,7 +154,7 @@ Watch:
 - application request latency
 - 4xx/5xx rates
 - filesystem RPC failures
-- SQLite write/lock errors
+- PostgreSQL connectivity/query errors
 - Container App restarts
 - Log Analytics ingestion
 

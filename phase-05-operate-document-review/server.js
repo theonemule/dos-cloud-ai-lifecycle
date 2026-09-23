@@ -51,14 +51,19 @@ function safeStatic(root, rel) {
   return resolved;
 }
 
-function createAppServer(options = {}) {
+async function createAppServer(options = {}) {
   const httpsEnabled = options.httpsEnabled ?? (process.env.DOS_CLOUD_HTTPS === "true");
   const port = Number(options.port ?? process.env.PORT ?? (httpsEnabled ? 8443 : 8080));
   const stateRoot = path.resolve(options.stateRoot || ROOT);
   const tlsKeyPath = path.resolve(options.tlsKeyPath ?? process.env.DOS_CLOUD_TLS_KEY ?? path.join(ROOT, "certs", "dev-key.pem"));
   const tlsCertPath = path.resolve(options.tlsCertPath ?? process.env.DOS_CLOUD_TLS_CERT ?? path.join(ROOT, "certs", "dev-cert.pem"));
   const dbPath = path.resolve(options.dbPath || path.join(stateRoot, "var", "doscloud.db"));
-  const usersRoot = path.resolve(options.usersRoot || path.join(stateRoot, "user-data", "users"));
+  const databaseUrl = options.databaseUrl || process.env.DOS_CLOUD_DATABASE_URL || null;
+  const usersRoot = path.resolve(
+    options.usersRoot ||
+    process.env.DOS_CLOUD_USERS_ROOT ||
+    path.join(stateRoot, "user-data", "users")
+  );
   const securityOptions = options.security || {};
   const allowedOrigins = parseAllowedOrigins(options.allowedOrigins ?? process.env.DOS_CLOUD_ALLOWED_ORIGINS);
   const oidcInput = options.oidc || {};
@@ -85,10 +90,10 @@ function createAppServer(options = {}) {
     (localAuthEnabled && process.env.DOS_CLOUD_LOCAL_REGISTRATION_ENABLED !== "false");
   const logger = options.logger || createLogger({ phase: 5 });
 
-  const db = openDatabase(dbPath);
+  const db = await openDatabase(databaseUrl || dbPath);
   const auth = createAuthService({ db, usersRoot, secureCookies });
   const oidc = createOidcService({ db, auth, config: oidcOptions });
-  const catalog = createCatalogService({ db, manifestsRoot: MANIFESTS_ROOT });
+  const catalog = await createCatalogService({ db, manifestsRoot: MANIFESTS_ROOT });
   const library = createLibraryService({ db, catalog, packagesRoot: PACKAGES_ROOT, auth });
   const launch = createLaunchService({ db, catalog, library });
   const loginLimiter = createRateLimiter({
@@ -103,7 +108,7 @@ function createAppServer(options = {}) {
   });
 
   if (options.seedDemoUsers === true || (options.seedDemoUsers == null && process.env.DOS_CLOUD_SEED_DEMO_USERS === "true")) {
-    auth.seedDemoUsers();
+    await auth.seedDemoUsers();
   }
 
   const metricsByUser = new Map();
@@ -154,7 +159,7 @@ function createAppServer(options = {}) {
     return session;
   }
 
-  const cleanup = setInterval(() => {
+  const cleanup = setInterval(async () => {
     const cutoff = Date.now() - 15 * 60 * 1000;
     for (const [key, session] of fsSessions) {
       if (session.lastSeen < cutoff) {
@@ -162,9 +167,13 @@ function createAppServer(options = {}) {
         session.drive.closeAll();
       }
     }
-    db.prepare("DELETE FROM launch_sessions WHERE expires_at <= ?").run(new Date().toISOString());
-    db.prepare("DELETE FROM sessions WHERE expires_at <= ?").run(new Date().toISOString());
-    oidc.cleanExpiredFlows();
+    try {
+      await db.run("DELETE FROM launch_sessions WHERE expires_at <= ?", new Date().toISOString());
+      await db.run("DELETE FROM sessions WHERE expires_at <= ?", new Date().toISOString());
+      await oidc.cleanExpiredFlows();
+    } catch (err) {
+      logger.warn("background_cleanup_failed", { error: err });
+    }
   }, 60 * 1000);
   cleanup.unref();
 
@@ -182,11 +191,11 @@ function createAppServer(options = {}) {
     }
 
     if (url.pathname === "/api/auth/me" && req.method === "GET") {
-      const user = auth.getUserFromRequest(req);
+      const user = await auth.getUserFromRequest(req);
       return json(res, 200, {
         user: auth.publicUser(user),
         auth: user && oidc.enabled ? {
-          oidcLinked: Boolean(auth.getOidcIdentityForUser(user.id, oidc.issuer)),
+          oidcLinked: Boolean(await auth.getOidcIdentityForUser(user.id, oidc.issuer)),
         } : {
           oidcLinked: false,
         },
@@ -199,7 +208,7 @@ function createAppServer(options = {}) {
       }
       loginLimiter.consume(clientKey(req));
       const body = await readJson(req);
-      const result = auth.login(body.username, body.password);
+      const result = await auth.login(body.username, body.password);
       logger.info("auth_login_succeeded", { requestId: req.requestId, userId: result.user.id, username: result.user.username });
       return json(res, 200, { user: auth.publicUser(result.user) }, {
         "set-cookie": auth.sessionCookie(result.token),
@@ -212,8 +221,8 @@ function createAppServer(options = {}) {
       }
       registerLimiter.consume(clientKey(req));
       const body = await readJson(req);
-      const user = auth.createUser(body);
-      const token = auth.login(body.username, body.password).token;
+      const user = await auth.createUser(body);
+      const token = (await auth.login(body.username, body.password)).token;
       logger.info("auth_user_registered", { requestId: req.requestId, userId: user.id, username: user.username });
       return json(res, 201, { user: auth.publicUser(user) }, {
         "set-cookie": auth.sessionCookie(token),
@@ -231,7 +240,7 @@ function createAppServer(options = {}) {
     }
 
     if (url.pathname === "/api/auth/oidc/link/start" && req.method === "POST") {
-      const user = auth.requireUser(req);
+      const user = await auth.requireUser(req);
       const started = await oidc.begin(req, { linkUserId: user.id });
       logger.info("oidc_link_started", { requestId: req.requestId, userId: user.id, issuer: oidc.issuer });
       return json(res, 200, { url: started.url, expiresAt: started.expiresAt });
@@ -255,61 +264,61 @@ function createAppServer(options = {}) {
     }
 
     if (url.pathname === "/api/auth/logout" && req.method === "POST") {
-      const user = auth.getUserFromRequest(req);
-      auth.logout(req);
+      const user = await auth.getUserFromRequest(req);
+      await auth.logout(req);
       logger.info("auth_logout", { requestId: req.requestId, userId: user?.id || null });
       return json(res, 200, { ok: true }, { "set-cookie": auth.clearSessionCookie() });
     }
 
     if (url.pathname === "/api/catalog" && req.method === "GET") {
-      const user = auth.requireUser(req);
-      return json(res, 200, { games: catalog.listForUser(user.id) });
+      const user = await auth.requireUser(req);
+      return json(res, 200, { games: await catalog.listForUser(user.id) });
     }
 
     if (url.pathname === "/api/library" && req.method === "GET") {
-      const user = auth.requireUser(req);
-      return json(res, 200, { games: library.list(user.id) });
+      const user = await auth.requireUser(req);
+      return json(res, 200, { games: await library.list(user.id) });
     }
 
     let match = url.pathname.match(/^\/api\/library\/([a-z0-9-]+)\/install$/);
     if (match && req.method === "POST") {
-      const user = auth.requireUser(req);
-      const result = library.install(user, match[1]);
+      const user = await auth.requireUser(req);
+      const result = await library.install(user, match[1]);
       logger.info("game_installed", { requestId: req.requestId, userId: user.id, gameId: match[1], alreadyInstalled: Boolean(result.alreadyInstalled) });
       return json(res, 200, result);
     }
 
     match = url.pathname.match(/^\/api\/library\/([a-z0-9-]+)$/);
     if (match && req.method === "DELETE") {
-      const user = auth.requireUser(req);
-      const result = library.uninstall(user, match[1]);
+      const user = await auth.requireUser(req);
+      const result = await library.uninstall(user, match[1]);
       logger.info("game_uninstalled", { requestId: req.requestId, userId: user.id, gameId: match[1] });
       return json(res, 200, result);
     }
 
     match = url.pathname.match(/^\/api\/library\/([a-z0-9-]+)\/launch$/);
     if (match && req.method === "POST") {
-      const user = auth.requireUser(req);
-      const session = launch.create(user, { mode: "game", gameId: match[1] });
+      const user = await auth.requireUser(req);
+      const session = await launch.create(user, { mode: "game", gameId: match[1] });
       logger.info("game_launch_created", { requestId: req.requestId, userId: user.id, gameId: match[1], launchId: session.id });
       return json(res, 201, { session });
     }
 
     if (url.pathname === "/api/console/launch" && req.method === "POST") {
-      const user = auth.requireUser(req);
-      const session = launch.create(user, { mode: "console" });
+      const user = await auth.requireUser(req);
+      const session = await launch.create(user, { mode: "console" });
       logger.info("console_launch_created", { requestId: req.requestId, userId: user.id, launchId: session.id });
       return json(res, 201, { session });
     }
 
     match = url.pathname.match(/^\/api\/launch\/([A-Za-z0-9_-]+)$/);
     if (match && req.method === "GET") {
-      const user = auth.requireUser(req);
-      return json(res, 200, { launch: launch.getConfig(user, match[1]) });
+      const user = await auth.requireUser(req);
+      return json(res, 200, { launch: await launch.getConfig(user, match[1]) });
     }
 
     if (url.pathname === "/api/stats" && req.method === "GET") {
-      const user = auth.requireUser(req);
+      const user = await auth.requireUser(req);
       return json(res, 200, metricsFor(user.id));
     }
 
@@ -334,10 +343,10 @@ function createAppServer(options = {}) {
 
       let request;
       try {
-        const user = auth.requireUser(req);
+        const user = await auth.requireUser(req);
         const launchId = String(url.searchParams.get("launch") || "");
         if (!launchId) throw Object.assign(new Error("launch session required"), { statusCode: 403, code: "EACCES" });
-        launch.getOwned(user, launchId);
+        await launch.getOwned(user, launchId);
         const raw = await readBody(req, 4 * 1024 * 1024);
         request = decodePacket(raw);
         const { id, op, ...args } = request.header;
@@ -416,12 +425,15 @@ function createAppServer(options = {}) {
 
       if (url.pathname === "/ready") {
         try {
-          db.prepare("SELECT 1 AS ready").get();
-          fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+          await db.ping();
           fs.mkdirSync(usersRoot, { recursive: true });
-          fs.accessSync(path.dirname(dbPath), fs.constants.R_OK | fs.constants.W_OK);
           fs.accessSync(usersRoot, fs.constants.R_OK | fs.constants.W_OK);
-          return json(res, 200, { ready: true, phase: 5 });
+          return json(res, 200, {
+            ready: true,
+            phase: 5,
+            database: db.kind,
+            filesystem: "direct",
+          });
         } catch (err) {
           logger.error("readiness_failed", { requestId, error: err });
           return json(res, 503, { ready: false, phase: 5 });
@@ -493,6 +505,8 @@ function createAppServer(options = {}) {
       launch,
       usersRoot,
       stateRoot,
+      dbPath,
+      databaseUrl,
       localAuthEnabled,
       localRegistrationEnabled,
       logger,
@@ -509,56 +523,63 @@ function createAppServer(options = {}) {
         });
       });
     },
-    close() {
-      return new Promise(resolve => {
-        clearInterval(cleanup);
-        for (const session of fsSessions.values()) session.drive.closeAll();
-        fsSessions.clear();
-        server.close(() => {
-          try { db.close(); } catch {}
-          try { logger.close(); } catch {}
-          resolve();
-        });
+    async close() {
+      clearInterval(cleanup);
+      for (const session of fsSessions.values()) session.drive.closeAll();
+      fsSessions.clear();
+
+      await new Promise(resolve => {
+        if (!server.listening) return resolve();
+        server.close(() => resolve());
       });
+
+      try {
+        await db.close();
+      } finally {
+        try { logger.close(); } catch {}
+      }
     },
   };
 }
 
 if (require.main === module) {
-  const app = createAppServer({
-    stateRoot: process.env.DOS_CLOUD_STATE_ROOT || ROOT,
-  });
+  (async () => {
+    const app = await createAppServer({
+      stateRoot: process.env.DOS_CLOUD_STATE_ROOT || ROOT,
+    });
 
-  async function shutdown(signal) {
-    app.platform.logger.info("server_shutdown_started", { signal });
-    try {
-      await app.close();
-      process.exit(0);
-    } catch (err) {
-      app.platform.logger.error("server_shutdown_failed", { signal, error: err });
-      process.exit(1);
+    async function shutdown(signal) {
+      app.platform.logger.info("server_shutdown_started", { signal });
+      try {
+        await app.close();
+        process.exit(0);
+      } catch (err) {
+        app.platform.logger.error("server_shutdown_failed", { signal, error: err });
+        process.exit(1);
+      }
     }
-  }
 
-  process.once("SIGTERM", () => shutdown("SIGTERM"));
-  process.once("SIGINT", () => shutdown("SIGINT"));
+    process.once("SIGTERM", () => shutdown("SIGTERM"));
+    process.once("SIGINT", () => shutdown("SIGINT"));
 
-  process.on("unhandledRejection", err => {
-    app.platform.logger.error("unhandled_rejection", { error: err });
-  });
+    process.on("unhandledRejection", err => {
+      app.platform.logger.error("unhandled_rejection", { error: err });
+    });
 
-  app.listen().then(addr => {
+    const addr = await app.listen();
     const scheme = app.platform.httpsEnabled ? "https" : "http";
     app.platform.logger.info("server_started", {
       scheme,
       address: "0.0.0.0",
       port: addr.port,
       stateRoot: app.platform.stateRoot,
+      database: app.platform.db.kind,
       localAuthEnabled: app.platform.localAuthEnabled,
       oidcEnabled: app.platform.oidc.enabled,
     });
-  }).catch(err => {
-    app.platform.logger.error("server_start_failed", { error: err });
+  })().catch(err => {
+    const logger = createLogger({ phase: 5 });
+    logger.error("server_start_failed", { error: err });
     process.exitCode = 1;
   });
 }

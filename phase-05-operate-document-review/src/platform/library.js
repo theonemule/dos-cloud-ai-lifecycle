@@ -35,17 +35,17 @@ function validateArchive(zip) {
 }
 
 function createLibraryService({ db, catalog, packagesRoot, auth }) {
-  function getInstalled(userId, gameId) {
-    return db.prepare("SELECT * FROM user_games WHERE user_id = ? AND game_id = ?").get(userId, gameId);
+  async function getInstalled(userId, gameId) {
+    return db.get("SELECT * FROM user_games WHERE user_id = ? AND game_id = ?", userId, gameId);
   }
 
-  function list(userId) {
-    return catalog.listForUser(userId).filter(g => g.installed);
+  async function list(userId) {
+    return (await catalog.listForUser(userId)).filter(g => g.installed);
   }
 
-  function install(user, gameId) {
+  async function install(user, gameId) {
     const manifest = catalog.get(gameId);
-    const existing = getInstalled(user.id, gameId);
+    const existing = await getInstalled(user.id, gameId);
     if (existing && existing.version === manifest.version) {
       return { installed: true, alreadyInstalled: true, game: catalog.publicGame(manifest, existing) };
     }
@@ -90,33 +90,36 @@ function createLibraryService({ db, catalog, packagesRoot, auth }) {
     }
 
     const at = nowIso();
-    db.prepare(`
-      INSERT INTO user_games(user_id,game_id,version,install_path,installed_at,last_played_at)
-      VALUES (?,?,?,?,?,NULL)
-      ON CONFLICT(user_id,game_id) DO UPDATE SET
-        version=excluded.version,
-        install_path=excluded.install_path,
-        installed_at=excluded.installed_at
-    `).run(user.id, gameId, manifest.version, "GAMES\\" + manifest.install.folder, at);
+    await db.run(
+      `INSERT INTO user_games(user_id,game_id,version,install_path,installed_at,last_played_at)
+       VALUES (?,?,?,?,?,NULL)
+       ON CONFLICT(user_id,game_id) DO UPDATE SET
+         version=excluded.version,
+         install_path=excluded.install_path,
+         installed_at=excluded.installed_at`,
+      user.id, gameId, manifest.version, "GAMES\\" + manifest.install.folder, at
+    );
 
-    const row = getInstalled(user.id, gameId);
+    const row = await getInstalled(user.id, gameId);
     return { installed: true, alreadyInstalled: false, game: catalog.publicGame(manifest, row) };
   }
 
-  function uninstall(user, gameId) {
-    const row = getInstalled(user.id, gameId);
+  async function uninstall(user, gameId) {
+    const row = await getInstalled(user.id, gameId);
     if (!row) return { installed: false };
     const manifest = catalog.get(gameId);
     const destination = path.join(auth.userDriveRoot(user.id), "GAMES", manifest.install.folder);
     fs.rmSync(destination, { recursive: true, force: true });
-    db.prepare("DELETE FROM user_games WHERE user_id = ? AND game_id = ?").run(user.id, gameId);
+    await db.run("DELETE FROM user_games WHERE user_id = ? AND game_id = ?", user.id, gameId);
     return { installed: false };
   }
 
-  function markPlayed(userId, gameId) {
+  async function markPlayed(userId, gameId) {
     if (gameId) {
-      db.prepare("UPDATE user_games SET last_played_at = ? WHERE user_id = ? AND game_id = ?")
-        .run(nowIso(), userId, gameId);
+      await db.run(
+        "UPDATE user_games SET last_played_at = ? WHERE user_id = ? AND game_id = ?",
+        nowIso(), userId, gameId
+      );
     }
   }
 

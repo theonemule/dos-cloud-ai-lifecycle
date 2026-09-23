@@ -55,6 +55,41 @@ import json, os
 print(json.loads(os.environ["FOUNDATION"])["registryName"]["value"])
 PY
 )"
+POSTGRES_SERVER="$(FOUNDATION="$FOUNDATION" python3 - <<'PY'
+import json, os
+print(json.loads(os.environ["FOUNDATION"])["postgresServer"]["value"])
+PY
+)"
+IDENTITY_NAME="$(FOUNDATION="$FOUNDATION" python3 - <<'PY'
+import json, os
+print(json.loads(os.environ["FOUNDATION"])["managedIdentityName"]["value"])
+PY
+)"
+IDENTITY_PRINCIPAL_ID="$(FOUNDATION="$FOUNDATION" python3 - <<'PY'
+import json, os
+print(json.loads(os.environ["FOUNDATION"])["managedIdentityPrincipalId"]["value"])
+PY
+)"
+
+echo "Waiting for PostgreSQL Flexible Server to become ready..."
+PG_STATE=""
+for _ in $(seq 1 60); do
+  PG_STATE="$(az postgres flexible-server show     --resource-group "$RESOURCE_GROUP"     --name "$POSTGRES_SERVER"     --query state -o tsv 2>/dev/null || true)"
+  if [[ "$PG_STATE" == "Ready" ]]; then
+    break
+  fi
+  sleep 10
+done
+if [[ "$PG_STATE" != "Ready" ]]; then
+  echo "PostgreSQL server did not become Ready; last state: $PG_STATE" >&2
+  exit 1
+fi
+
+ADMIN_OBJECT_ID="$(az postgres flexible-server microsoft-entra-admin list   --resource-group "$RESOURCE_GROUP"   --server-name "$POSTGRES_SERVER"   --query '[0].objectId' -o tsv 2>/dev/null || true)"
+if [[ "$ADMIN_OBJECT_ID" != "$IDENTITY_PRINCIPAL_ID" ]]; then
+  echo "Configuring PostgreSQL Microsoft Entra administrator..."
+  az postgres flexible-server microsoft-entra-admin create     --resource-group "$RESOURCE_GROUP"     --server-name "$POSTGRES_SERVER"     --display-name "$IDENTITY_NAME"     --object-id "$IDENTITY_PRINCIPAL_ID"     --type ServicePrincipal     --only-show-errors     --output none
+fi
 
 echo "Building and pushing image to $REGISTRY..."
 az acr build --registry "$REGISTRY" --image "dos-cloud:$IMAGE_TAG" "$APP_ROOT" --only-show-errors --output none

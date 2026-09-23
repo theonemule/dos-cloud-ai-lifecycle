@@ -6,18 +6,18 @@ This deployment creates the supporting Azure resources for DOS Cloud Phase 5:
 - Azure Container Apps environment
 - Azure Container App
 - Log Analytics workspace
-- Azure Storage account and Azure Files share
-- user-assigned managed identity
+- Azure Storage account and Azure Files share for DOS user drives
+- Azure Database for PostgreSQL Flexible Server for relational metadata
+- user-assigned managed identity for ACR, Key Vault, and PostgreSQL authentication
 - Azure Key Vault containing the OIDC client secret
 
 The immutable application, emulator runtime, catalog manifests, and shareware packages are baked into the image.
 
-The Azure Files share is mounted at `/data`. With `DOS_CLOUD_STATE_ROOT=/data`, the application persists:
+The Azure Files share is mounted at `/data`, but it is used only for `/data/user-data/users/...`, each user's DOS C: drive, saves, configuration, installed games, and high scores.
 
-- `/data/var/doscloud.db` for SQLite metadata and sessions
-- `/data/user-data/users/...` for each user's DOS C: drive, saves, configuration, and high scores
+Relational metadata and sessions live in Azure Database for PostgreSQL. Password authentication is disabled. The Container App uses its user-assigned managed identity and an Entra access token for PostgreSQL.
 
-The deployment deliberately fixes the Container App to one replica. SQLite plus a network filesystem is a demonstration/small-scale design, not a scale-out database architecture.
+The deployment remains one replica because active emulator filesystem handles are process-local. The database itself is no longer a scale-out constraint.
 
 ## Deploy
 
@@ -63,11 +63,11 @@ The app writes newline-delimited JSON to stdout. The Container Apps environment 
 
 The application can also emit RFC5424-style syslog over UDP to an external collector by changing the logging environment variables.
 
-## Persistence warning
+## Persistence model
 
-The current application stores both metadata and user filesystem state under one mounted Azure Files share. This makes the deployment faithful to the existing application architecture, but it intentionally keeps `minReplicas=1` and `maxReplicas=1`.
+PostgreSQL is authoritative for relational state. Azure Files is authoritative for DOS filesystem state. Neither store is synchronized into the other.
 
-A future scale-out version should move metadata/session state from SQLite to a managed database while retaining Azure Files or another durable object/filesystem design for DOS user drives.
+Local development and automated tests still use SQLite when no PostgreSQL host is configured. The Azure deployment does not use SQLite.
 
 
 ## GitHub Actions deployment

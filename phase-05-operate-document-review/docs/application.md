@@ -23,7 +23,9 @@ Node application
 - health and readiness endpoints
 - structured operational logging
 
-SQLite
+Relational metadata store
+
+Local development and tests use SQLite. The Azure deployment uses Azure Database for PostgreSQL Flexible Server for:
 
 - users
 - sessions
@@ -73,12 +75,12 @@ Immutable image content:
 - curated shareware packages
 - card screenshots
 
-Mutable state:
+Mutable state is deliberately split by storage semantics:
 
-- SQLite database
-- per-user DOS C: drives
+- relational metadata in PostgreSQL on Azure
+- per-user DOS C: drives directly on Azure Files
 
-Phase 5 uses DOS_CLOUD_STATE_ROOT to relocate all mutable state beneath one root. This is what makes a single Azure Files mount sufficient for the current architecture.
+For local development, SQLite remains the lightweight metadata implementation. In Azure, the Container App uses its user-assigned managed identity to authenticate to PostgreSQL and the Azure Files mount is used only as a filesystem.
 
 ## Authentication
 
@@ -95,6 +97,4 @@ An external username or email match never silently merges an external identity i
 
 The browser performs the CPU-heavy DOS emulation. Server load is primarily HTTP API work and filesystem I/O.
 
-The current metadata store is SQLite. Phase 5 therefore treats the application as a single-replica stateful service.
-
-Moving metadata and sessions to a managed relational database is the principal prerequisite for horizontal scaling.
+The Azure metadata store is PostgreSQL, so database state no longer constrains replicas. The remaining single-replica constraint is the process-local table of open emulator filesystem handles. Horizontal scaling requires that launch/filesystem handle affinity be externalized or explicitly routed to a stable replica.

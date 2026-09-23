@@ -99,9 +99,9 @@ The supplied Bicep creates:
 - Azure Key Vault
 - OIDC secret integration
 
-Azure Files is mounted at /data so SQLite and user DOS drives survive revisions and restarts.
+Azure Files is mounted at `/data` for the DOS user drives. Application metadata, sessions, library records, launch sessions, and OIDC state are stored in Azure Database for PostgreSQL Flexible Server using Microsoft Entra managed-identity authentication. No database password is stored in GitHub or the container configuration.
 
-The deployment is intentionally limited to one replica because the current architecture uses SQLite.
+The supplied deployment remains at one replica because live emulator filesystem handles are process-local, not because of the database.
 
 ## Tests
 

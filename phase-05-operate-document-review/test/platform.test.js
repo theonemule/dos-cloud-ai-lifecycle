@@ -8,7 +8,7 @@ const { encodePacket, decodePacket } = require("../src/protocol");
 
 async function start() {
   const stateRoot = fs.mkdtempSync(path.join(os.tmpdir(), "dos-cloud-platform-"));
-  const app = createAppServer({ port: 0, stateRoot, seedDemoUsers: true });
+  const app = await createAppServer({ port: 0, stateRoot, seedDemoUsers: true });
   const address = await app.listen();
   const base = "http://127.0.0.1:" + address.port;
 

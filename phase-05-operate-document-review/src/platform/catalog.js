@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-function createCatalogService({ db, manifestsRoot }) {
+async function createCatalogService({ db, manifestsRoot }) {
   const manifests = new Map();
 
   function validateManifest(m, filename) {
@@ -25,7 +25,7 @@ function createCatalogService({ db, manifestsRoot }) {
     return m;
   }
 
-  function reload() {
+  async function reload() {
     manifests.clear();
     fs.mkdirSync(manifestsRoot, { recursive: true });
     for (const name of fs.readdirSync(manifestsRoot).filter(x => x.endsWith(".json")).sort()) {
@@ -33,18 +33,17 @@ function createCatalogService({ db, manifestsRoot }) {
       const manifest = validateManifest(JSON.parse(fs.readFileSync(full, "utf8")), name);
       manifest._manifestPath = full;
       manifests.set(manifest.id, manifest);
-      db.prepare(`
-        INSERT INTO games(id,title,subtitle,publisher,year,genre_json,manifest_path,active)
-        VALUES (?,?,?,?,?,?,?,1)
-        ON CONFLICT(id) DO UPDATE SET
-          title=excluded.title,
-          subtitle=excluded.subtitle,
-          publisher=excluded.publisher,
-          year=excluded.year,
-          genre_json=excluded.genre_json,
-          manifest_path=excluded.manifest_path,
-          active=1
-      `).run(
+      await db.run(
+        `INSERT INTO games(id,title,subtitle,publisher,year,genre_json,manifest_path,active)
+         VALUES (?,?,?,?,?,?,?,1)
+         ON CONFLICT(id) DO UPDATE SET
+           title=excluded.title,
+           subtitle=excluded.subtitle,
+           publisher=excluded.publisher,
+           year=excluded.year,
+           genre_json=excluded.genre_json,
+           manifest_path=excluded.manifest_path,
+           active=1`,
         manifest.id,
         manifest.title,
         manifest.subtitle || "",
@@ -85,17 +84,17 @@ function createCatalogService({ db, manifestsRoot }) {
     };
   }
 
-  function listForUser(userId) {
+  async function listForUser(userId) {
     const installed = new Map();
     if (userId) {
-      for (const row of db.prepare("SELECT * FROM user_games WHERE user_id = ?").all(userId)) {
+      for (const row of await db.all("SELECT * FROM user_games WHERE user_id = ?", userId)) {
         installed.set(row.game_id, row);
       }
     }
     return [...manifests.values()].map(m => publicGame(m, installed.get(m.id)));
   }
 
-  reload();
+  await reload();
 
   return { reload, get, listForUser, publicGame, count: () => manifests.size };
 }

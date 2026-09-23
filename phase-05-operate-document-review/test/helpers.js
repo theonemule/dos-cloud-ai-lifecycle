@@ -7,7 +7,7 @@ const { encodePacket, decodePacket } = require("../src/protocol");
 
 async function startApp(options = {}) {
   const stateRoot = fs.mkdtempSync(path.join(os.tmpdir(), "dos-cloud-phase4-"));
-  const app = createAppServer({
+  const app = await createAppServer({
     port: 0,
     stateRoot,
     seedDemoUsers: true,

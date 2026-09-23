@@ -23,9 +23,12 @@
     "docker:up": "docker compose up --build"
   },
   "dependencies": {
+    "@azure/identity": "^4.13.3",
+    "@azure/postgresql-auth": "^1.0.0",
     "adm-zip": "^0.6.1",
     "jose": "^6.2.12",
-    "js-dos": "8.4.1"
+    "js-dos": "8.4.1",
+    "pg": "^8.23.0"
   },
   "devDependencies": {
     "playwright-core": "1.63.0"

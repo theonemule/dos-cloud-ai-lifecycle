@@ -89,7 +89,12 @@ test("operations: request correlation and readiness are exposed", async () => {
     });
     assert.equal(response.status, 200);
     assert.equal(response.headers.get("x-request-id"), "phase5-test-request");
-    assert.deepEqual(await response.json(), { ready: true, phase: 5 });
+    assert.deepEqual(await response.json(), {
+      ready: true,
+      phase: 5,
+      database: "sqlite",
+      filesystem: "direct",
+    });
 
     response = await fetch(ctx.base + "/health");
     assert.equal(response.status, 200);

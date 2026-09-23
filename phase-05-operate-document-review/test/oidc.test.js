@@ -245,7 +245,7 @@ test("OIDC: full authorization-code flow auto-provisions and reuses the same iss
     assert.equal(me.body.auth.oidcLinked, true);
     const firstId = me.body.user.id;
 
-    const identity = ctx.app.platform.auth.getOidcIdentity(provider.issuer, "subject-001");
+    const identity = await ctx.app.platform.auth.getOidcIdentity(provider.issuer, "subject-001");
     assert.equal(identity.user_id, firstId);
     assert.equal(identity.email, "oidc@example.test");
     assert.equal(identity.email_verified, 1);
@@ -271,7 +271,7 @@ test("OIDC: username or email similarity never silently links to an existing loc
   };
   const ctx = await startOidcApp(provider, { seedDemoUsers: true });
   try {
-    const localAlice = ctx.app.platform.auth.getUserByUsername("alice");
+    const localAlice = await ctx.app.platform.auth.getUserByUsername("alice");
     const result = await fullOidcLogin(ctx);
     const me = await ctx.request("/api/auth/me", result.cookie);
 
@@ -279,7 +279,7 @@ test("OIDC: username or email similarity never silently links to an existing loc
     assert.notEqual(me.body.user.username, "alice");
     assert.match(me.body.user.username, /^alice-/);
 
-    const identity = ctx.app.platform.auth.getOidcIdentity(provider.issuer, "external-alice");
+    const identity = await ctx.app.platform.auth.getOidcIdentity(provider.issuer, "external-alice");
     assert.notEqual(identity.user_id, localAlice.id);
   } finally {
     await ctx.close();
@@ -313,7 +313,7 @@ test("OIDC: explicit authenticated link attaches provider identity to that exact
     assert.equal(me.body.user.username, "alice");
     assert.equal(me.body.auth.oidcLinked, true);
 
-    const identity = ctx.app.platform.auth.getOidcIdentity(provider.issuer, "alice-sso-subject");
+    const identity = await ctx.app.platform.auth.getOidcIdentity(provider.issuer, "alice-sso-subject");
     assert.equal(identity.user_id, alice.user.id);
   } finally {
     await ctx.close();

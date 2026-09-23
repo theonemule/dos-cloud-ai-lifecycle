@@ -150,22 +150,21 @@ function createOidcService({ db, auth, config = {} }) {
     return value;
   }
 
-  function cleanExpiredFlows() {
-    db.prepare("DELETE FROM oidc_flows WHERE expires_at <= ?").run(nowIso());
+  async function cleanExpiredFlows() {
+    await db.run("DELETE FROM oidc_flows WHERE expires_at <= ?", nowIso());
   }
 
-  function flowByState(state) {
+  async function flowByState(state) {
     if (!state) return null;
-    return db.prepare(`
+    return db.get(`
       SELECT * FROM oidc_flows
       WHERE state_hash = ? AND expires_at > ?
-    `).get(sha256Base64Url(state), nowIso()) || null;
+    `, sha256Base64Url(state), nowIso());
   }
 
-  function deleteFlow(state) {
+  async function deleteFlow(state) {
     if (!state) return;
-    db.prepare("DELETE FROM oidc_flows WHERE state_hash = ?")
-      .run(sha256Base64Url(state));
+    await db.run("DELETE FROM oidc_flows WHERE state_hash = ?", sha256Base64Url(state));
   }
 
   async function begin(req, { linkUserId = null } = {}) {
@@ -173,7 +172,7 @@ function createOidcService({ db, auth, config = {} }) {
       throw Object.assign(new Error("OIDC is not configured"), { statusCode: 404 });
     }
 
-    cleanExpiredFlows();
+    await cleanExpiredFlows();
     const metadata = await discovery();
     const state = randomBase64Url(32);
     const nonce = randomBase64Url(32);
@@ -183,11 +182,11 @@ function createOidcService({ db, auth, config = {} }) {
     const created = new Date();
     const expires = new Date(created.getTime() + 10 * 60 * 1000);
 
-    db.prepare(`
+    await db.run(`
       INSERT INTO oidc_flows(
         state_hash,issuer,code_verifier,nonce,redirect_uri,link_user_id,created_at,expires_at
       ) VALUES (?,?,?,?,?,?,?,?)
-    `).run(
+    `,
       sha256Base64Url(state),
       issuer,
       codeVerifier,
@@ -314,7 +313,7 @@ function createOidcService({ db, auth, config = {} }) {
     return claims;
   }
 
-  function allocateUsername(claims, subject) {
+  async function allocateUsername(claims, subject) {
     const preferred =
       claimValue(claims, usernameClaim) ||
       claimValue(claims, emailClaim) ||
@@ -322,7 +321,7 @@ function createOidcService({ db, auth, config = {} }) {
     const base = sanitizeUsername(preferred);
     let candidate = base;
     let attempt = 0;
-    while (auth.getUserByUsername(candidate)) {
+    while (await auth.getUserByUsername(candidate)) {
       attempt++;
       const suffix = "-" + sha256Base64Url(issuer + ":" + subject + ":" + attempt)
         .toLowerCase()
@@ -344,7 +343,7 @@ function createOidcService({ db, auth, config = {} }) {
 
     const url = callbackUrl instanceof URL ? callbackUrl : new URL(String(callbackUrl));
     const state = url.searchParams.get("state");
-    const flow = flowByState(state);
+    const flow = await flowByState(state);
     if (!flow) {
       throw Object.assign(new Error("OIDC state is invalid or expired"), {
         statusCode: 401,
@@ -353,7 +352,7 @@ function createOidcService({ db, auth, config = {} }) {
     }
 
     // State is single-use even if the downstream provider exchange fails.
-    deleteFlow(state);
+    await deleteFlow(state);
 
     if (flow.issuer !== issuer) {
       throw Object.assign(new Error("OIDC flow issuer mismatch"), {
@@ -385,23 +384,23 @@ function createOidcService({ db, auth, config = {} }) {
 
     const email = claimValue(claims, emailClaim);
     const emailVerified = claimValue(claims, emailVerifiedClaim) === true;
-    let identity = auth.getOidcIdentity(issuer, claims.sub);
+    let identity = await auth.getOidcIdentity(issuer, claims.sub);
     let user;
     let linked = false;
     let provisioned = false;
 
     if (flow.link_user_id) {
-      auth.linkOidcIdentity(flow.link_user_id, {
+      await auth.linkOidcIdentity(flow.link_user_id, {
         issuer,
         subject: claims.sub,
         email,
         emailVerified,
       });
-      user = auth.getUserById(flow.link_user_id);
+      user = await auth.getUserById(flow.link_user_id);
       linked = true;
     } else if (identity) {
-      auth.touchOidcIdentity(issuer, claims.sub, { email, emailVerified });
-      user = auth.getUserById(identity.user_id);
+      await auth.touchOidcIdentity(issuer, claims.sub, { email, emailVerified });
+      user = await auth.getUserById(identity.user_id);
     } else {
       if (!autoProvision) {
         throw Object.assign(new Error("OIDC account is not provisioned"), {
@@ -410,15 +409,15 @@ function createOidcService({ db, auth, config = {} }) {
         });
       }
 
-      const username = allocateUsername(claims, claims.sub);
+      const username = await allocateUsername(claims, claims.sub);
       const displayName = sanitizeDisplayName(
         claimValue(claims, nameClaim) ||
           claimValue(claims, usernameClaim) ||
           email,
         username
       );
-      user = auth.createExternalUser({ username, displayName });
-      auth.linkOidcIdentity(user.id, {
+      user = await auth.createExternalUser({ username, displayName });
+      await auth.linkOidcIdentity(user.id, {
         issuer,
         subject: claims.sub,
         email,
@@ -434,7 +433,7 @@ function createOidcService({ db, auth, config = {} }) {
       });
     }
 
-    const token = auth.createSession(user.id);
+    const token = await auth.createSession(user.id);
     return {
       user,
       token,

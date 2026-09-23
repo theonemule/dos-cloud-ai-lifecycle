@@ -60,15 +60,15 @@ function buildSessionCookie(token, maxAgeSeconds, secureCookies) {
 function createAuthService({ db, usersRoot, secureCookies = false }) {
   fs.mkdirSync(usersRoot, { recursive: true });
 
-  function getUserByUsername(username) {
-    return db.prepare("SELECT * FROM users WHERE username = ? COLLATE NOCASE").get(normalizeUsername(username));
+  async function getUserByUsername(username) {
+    return db.get("SELECT * FROM users WHERE username = ?", normalizeUsername(username));
   }
 
-  function getUserById(id) {
-    return db.prepare("SELECT * FROM users WHERE id = ?").get(id);
+  async function getUserById(id) {
+    return db.get("SELECT * FROM users WHERE id = ?", id);
   }
 
-  function createUser({ username, displayName, password }) {
+  async function createUser({ username, displayName, password }) {
     username = normalizeUsername(username);
     if (!/^[a-z0-9][a-z0-9._-]{2,31}$/.test(username)) {
       throw Object.assign(new Error("username must be 3-32 characters using letters, numbers, dot, underscore, or dash"), { statusCode: 400 });
@@ -81,7 +81,7 @@ function createAuthService({ db, usersRoot, secureCookies = false }) {
     if (!displayNameValue || displayNameValue.length > 80 || /[\u0000-\u001f\u007f]/.test(displayNameValue)) {
       throw Object.assign(new Error("display name must be 1-80 printable characters"), { statusCode: 400 });
     }
-    if (getUserByUsername(username)) {
+    if (await getUserByUsername(username)) {
       throw Object.assign(new Error("username already exists"), { statusCode: 409 });
     }
 
@@ -89,10 +89,17 @@ function createAuthService({ db, usersRoot, secureCookies = false }) {
     const creds = createPassword(password);
     const createdAt = nowIso();
 
-    db.prepare(`
-      INSERT INTO users(id, username, display_name, password_hash, password_salt, created_at)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `).run(id, username, displayNameValue, creds.hash, creds.salt, createdAt);
+    try {
+      await db.run(
+        "INSERT INTO users(id, username, display_name, password_hash, password_salt, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+        id, username, displayNameValue, creds.hash, creds.salt, createdAt
+      );
+    } catch (err) {
+      if (err?.code === "23505" || /unique/i.test(String(err?.message || ""))) {
+        throw Object.assign(new Error("username already exists"), { statusCode: 409 });
+      }
+      throw err;
+    }
 
     const root = path.join(usersRoot, id, "C");
     fs.mkdirSync(path.join(root, "GAMES"), { recursive: true });
@@ -102,7 +109,7 @@ function createAuthService({ db, usersRoot, secureCookies = false }) {
     return getUserById(id);
   }
 
-  function createExternalUser({ username, displayName }) {
+  async function createExternalUser({ username, displayName }) {
     return createUser({
       username,
       displayName,
@@ -110,42 +117,42 @@ function createAuthService({ db, usersRoot, secureCookies = false }) {
     });
   }
 
-  function getOidcIdentity(issuer, subject) {
-    return db.prepare(`
-      SELECT oi.*, u.username, u.display_name, u.created_at AS user_created_at
-      FROM oidc_identities oi
-      JOIN users u ON u.id = oi.user_id
-      WHERE oi.issuer = ? AND oi.subject = ?
-    `).get(String(issuer), String(subject));
+  async function getOidcIdentity(issuer, subject) {
+    return db.get(
+      `SELECT oi.*, u.username, u.display_name, u.created_at AS user_created_at
+       FROM oidc_identities oi
+       JOIN users u ON u.id = oi.user_id
+       WHERE oi.issuer = ? AND oi.subject = ?`,
+      String(issuer), String(subject)
+    );
   }
 
-  function getOidcIdentityForUser(userId, issuer) {
-    return db.prepare(`
-      SELECT * FROM oidc_identities
-      WHERE user_id = ? AND issuer = ?
-    `).get(userId, String(issuer));
+  async function getOidcIdentityForUser(userId, issuer) {
+    return db.get(
+      "SELECT * FROM oidc_identities WHERE user_id = ? AND issuer = ?",
+      userId, String(issuer)
+    );
   }
 
-  function linkOidcIdentity(userId, { issuer, subject, email = null, emailVerified = false }) {
-    const existing = getOidcIdentity(issuer, subject);
+  async function linkOidcIdentity(userId, { issuer, subject, email = null, emailVerified = false }) {
+    const existing = await getOidcIdentity(issuer, subject);
     if (existing && existing.user_id !== userId) {
       throw Object.assign(new Error("OIDC identity is already linked to another account"), { statusCode: 409 });
     }
 
-    const userProviderIdentity = getOidcIdentityForUser(userId, issuer);
+    const userProviderIdentity = await getOidcIdentityForUser(userId, issuer);
     if (userProviderIdentity && userProviderIdentity.subject !== String(subject)) {
       throw Object.assign(new Error("this account is already linked to a different identity from this provider"), { statusCode: 409 });
     }
 
     const at = nowIso();
-    db.prepare(`
-      INSERT INTO oidc_identities(issuer,subject,user_id,email,email_verified,created_at,last_login_at)
-      VALUES (?,?,?,?,?,?,?)
-      ON CONFLICT(issuer,subject) DO UPDATE SET
-        email=excluded.email,
-        email_verified=excluded.email_verified,
-        last_login_at=excluded.last_login_at
-    `).run(
+    await db.run(
+      `INSERT INTO oidc_identities(issuer,subject,user_id,email,email_verified,created_at,last_login_at)
+       VALUES (?,?,?,?,?,?,?)
+       ON CONFLICT(issuer,subject) DO UPDATE SET
+         email=excluded.email,
+         email_verified=excluded.email_verified,
+         last_login_at=excluded.last_login_at`,
       String(issuer),
       String(subject),
       userId,
@@ -157,12 +164,11 @@ function createAuthService({ db, usersRoot, secureCookies = false }) {
     return getOidcIdentity(issuer, subject);
   }
 
-  function touchOidcIdentity(issuer, subject, { email = null, emailVerified = false } = {}) {
-    db.prepare(`
-      UPDATE oidc_identities
-      SET email = ?, email_verified = ?, last_login_at = ?
-      WHERE issuer = ? AND subject = ?
-    `).run(
+  async function touchOidcIdentity(issuer, subject, { email = null, emailVerified = false } = {}) {
+    await db.run(
+      `UPDATE oidc_identities
+       SET email = ?, email_verified = ?, last_login_at = ?
+       WHERE issuer = ? AND subject = ?`,
       email ? String(email) : null,
       emailVerified ? 1 : 0,
       nowIso(),
@@ -172,44 +178,46 @@ function createAuthService({ db, usersRoot, secureCookies = false }) {
     return getOidcIdentity(issuer, subject);
   }
 
-  function createSession(userId) {
+  async function createSession(userId) {
     const token = crypto.randomBytes(32).toString("base64url");
     const tokenHash = hashToken(token);
     const created = new Date();
     const expires = new Date(created.getTime() + 7 * 24 * 60 * 60 * 1000);
-    db.prepare("INSERT INTO sessions(token_hash, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)")
-      .run(tokenHash, userId, created.toISOString(), expires.toISOString());
+    await db.run(
+      "INSERT INTO sessions(token_hash, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
+      tokenHash, userId, created.toISOString(), expires.toISOString()
+    );
     return token;
   }
 
-  function login(username, password) {
-    const user = getUserByUsername(username);
+  async function login(username, password) {
+    const user = await getUserByUsername(username);
     if (!user || !verifyPassword(password, user)) {
       throw Object.assign(new Error("invalid username or password"), { statusCode: 401 });
     }
-    return { user, token: createSession(user.id) };
+    return { user, token: await createSession(user.id) };
   }
 
-  function getUserFromRequest(req) {
+  async function getUserFromRequest(req) {
     const token = parseCookies(req)[COOKIE_NAME];
     if (!token) return null;
-    const row = db.prepare(`
-      SELECT u.* FROM sessions s
-      JOIN users u ON u.id = s.user_id
-      WHERE s.token_hash = ? AND s.expires_at > ?
-    `).get(hashToken(token), nowIso());
-    return row || null;
+    return db.get(
+      `SELECT u.* FROM sessions s
+       JOIN users u ON u.id = s.user_id
+       WHERE s.token_hash = ? AND s.expires_at > ?`,
+      hashToken(token), nowIso()
+    );
   }
 
-  function requireUser(req) {
-    const user = getUserFromRequest(req);
+  async function requireUser(req) {
+    const user = await getUserFromRequest(req);
     if (!user) throw Object.assign(new Error("authentication required"), { statusCode: 401 });
     return user;
   }
 
-  function logout(req) {
+  async function logout(req) {
     const token = parseCookies(req)[COOKIE_NAME];
-    if (token) db.prepare("DELETE FROM sessions WHERE token_hash = ?").run(hashToken(token));
+    if (token) await db.run("DELETE FROM sessions WHERE token_hash = ?", hashToken(token));
   }
 
   function publicUser(user) {
@@ -221,7 +229,7 @@ function createAuthService({ db, usersRoot, secureCookies = false }) {
     } : null;
   }
 
-  function seedDemoUsers() {
+  async function seedDemoUsers() {
     const users = [
       ["alice", "Alice", "doscloud"],
       ["bob", "Bob", "doscloud"],
@@ -230,7 +238,9 @@ function createAuthService({ db, usersRoot, secureCookies = false }) {
       ["erin", "Erin", "doscloud"],
     ];
     for (const [username, displayName, password] of users) {
-      if (!getUserByUsername(username)) createUser({ username, displayName, password });
+      if (!await getUserByUsername(username)) {
+        await createUser({ username, displayName, password });
+      }
     }
   }
 

@@ -6,10 +6,10 @@ function randomSessionId() {
 }
 
 function createLaunchService({ db, catalog, library }) {
-  function create(user, { mode, gameId = null }) {
+  async function create(user, { mode, gameId = null }) {
     if (mode === "game") {
       if (!gameId) throw Object.assign(new Error("game id required"), { statusCode: 400 });
-      if (!library.getInstalled(user.id, gameId)) {
+      if (!await library.getInstalled(user.id, gameId)) {
         throw Object.assign(new Error("game is not installed for this user"), { statusCode: 409 });
       }
       catalog.get(gameId);
@@ -18,26 +18,28 @@ function createLaunchService({ db, catalog, library }) {
     const id = randomSessionId();
     const created = new Date();
     const expires = new Date(created.getTime() + 2 * 60 * 60 * 1000);
-    db.prepare(`
-      INSERT INTO launch_sessions(id,user_id,game_id,mode,created_at,expires_at)
-      VALUES (?,?,?,?,?,?)
-    `).run(id, user.id, gameId, mode, created.toISOString(), expires.toISOString());
+    await db.run(
+      `INSERT INTO launch_sessions(id,user_id,game_id,mode,created_at,expires_at)
+       VALUES (?,?,?,?,?,?)`,
+      id, user.id, gameId, mode, created.toISOString(), expires.toISOString()
+    );
 
-    if (gameId) library.markPlayed(user.id, gameId);
+    if (gameId) await library.markPlayed(user.id, gameId);
     return { id, mode, gameId, expiresAt: expires.toISOString() };
   }
 
-  function getOwned(user, id) {
-    const row = db.prepare(`
-      SELECT * FROM launch_sessions
-      WHERE id = ? AND user_id = ? AND expires_at > ?
-    `).get(id, user.id, nowIso());
+  async function getOwned(user, id) {
+    const row = await db.get(
+      `SELECT * FROM launch_sessions
+       WHERE id = ? AND user_id = ? AND expires_at > ?`,
+      id, user.id, nowIso()
+    );
     if (!row) throw Object.assign(new Error("launch session not found or expired"), { statusCode: 404 });
     return row;
   }
 
-  function getConfig(user, id) {
-    const row = getOwned(user, id);
+  async function getConfig(user, id) {
+    const row = await getOwned(user, id);
     if (row.mode === "console") {
       return {
         id: row.id,

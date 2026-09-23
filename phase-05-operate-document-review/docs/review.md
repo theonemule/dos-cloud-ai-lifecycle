@@ -34,11 +34,11 @@ The application now has:
 
 ## What is still deliberately demo-oriented
 
-SQLite is the largest constraint.
+The first Azure deployment attempt exposed a useful architectural boundary: a database and a filesystem have different persistence semantics. SQLite on Azure Files failed because network filesystem locking is not a sound database architecture. A proposed snapshot bridge was rejected as needless synchronization complexity.
 
-The Azure design persists SQLite on the same Azure Files share as user DOS drives and forces the application to one replica. This preserves the existing application semantics and makes the conference example deployable without introducing a new data platform during the final lifecycle stage.
+The corrected design moves relational state to Azure Database for PostgreSQL and leaves Azure Files as a directly mounted DOS filesystem. PostgreSQL uses Microsoft Entra managed-identity authentication with password authentication disabled.
 
-It should not be interpreted as the target architecture for a heavily loaded or horizontally scaled service.
+The deployment remains one replica because open emulator filesystem handles are process-local. That is now the relevant scale-out constraint, not database persistence.
 
 Other remaining gaps:
 
@@ -55,12 +55,11 @@ Other remaining gaps:
 
 Before horizontal scale:
 
-1. move users, sessions, library state, launch sessions, and OIDC metadata from SQLite to Azure SQL or PostgreSQL
-2. keep user DOS files on durable file/object storage
-3. make launch-session/handle coordination resilient to multiple replicas
-4. add quotas
-5. add distributed throttling
-6. add alerts and SLOs
+1. make launch-session/open-handle coordination resilient to multiple replicas
+2. keep user DOS files on durable shared storage
+3. add quotas
+4. add distributed throttling
+5. add alerts and SLOs
 
 At that point the Container App can safely scale beyond one replica.
 

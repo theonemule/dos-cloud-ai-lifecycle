@@ -36,12 +36,12 @@ param localRegistrationEnabled bool = false
 
 @minValue(1)
 @maxValue(1)
-@description('SQLite and filesystem state require a single application replica in this design.')
+@description('One replica is retained because emulator filesystem handles are process-local.')
 param minReplicas int = 1
 
 @minValue(1)
 @maxValue(1)
-@description('SQLite and filesystem state require a single application replica in this design.')
+@description('One replica is retained because emulator filesystem handles are process-local.')
 param maxReplicas int = 1
 
 @minValue(10)
@@ -104,6 +104,16 @@ resource registry 'Microsoft.ContainerRegistry/registries@2025-04-01' = {
 resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: identityName
   location: location
+}
+
+module postgres './postgres.bicep' = {
+  name: 'postgres'
+  params: {
+    prefix: prefix
+    location: 'centralus'
+    tenantId: tenant().tenantId
+    databaseName: 'doscloud'
+  }
 }
 
 resource acrPull 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
@@ -270,12 +280,24 @@ resource containerApp 'Microsoft.App/containerApps@2026-01-01' = if (deployApp) 
               value: 'info'
             }
             {
-              name: 'DOS_CLOUD_SQLITE_JOURNAL_MODE'
-              value: 'DELETE'
+              name: 'AZURE_CLIENT_ID'
+              value: identity.properties.clientId
             }
             {
-              name: 'DOS_CLOUD_SQLITE_BUSY_TIMEOUT_MS'
-              value: '10000'
+              name: 'DOS_CLOUD_DATABASE_HOST'
+              value: postgres.outputs.serverFqdn
+            }
+            {
+              name: 'DOS_CLOUD_DATABASE_NAME'
+              value: postgres.outputs.databaseName
+            }
+            {
+              name: 'DOS_CLOUD_DATABASE_USER'
+              value: identity.name
+            }
+            {
+              name: 'DOS_CLOUD_DATABASE_PORT'
+              value: '5432'
             }
             {
               name: 'DOS_CLOUD_OIDC_ISSUER'
@@ -383,3 +405,9 @@ output stateStorageAccount string = storage.name
 output stateFileShare string = stateShare.name
 output logAnalyticsWorkspace string = logAnalytics.name
 output keyVaultName string = keyVault.name
+
+output postgresServer string = postgres.outputs.serverName
+output postgresFqdn string = postgres.outputs.serverFqdn
+
+output managedIdentityName string = identity.name
+output managedIdentityPrincipalId string = identity.properties.principalId

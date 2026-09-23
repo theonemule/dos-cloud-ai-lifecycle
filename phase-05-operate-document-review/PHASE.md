@@ -26,7 +26,9 @@ Implemented:
 - graceful SIGTERM and SIGINT shutdown
 - Docker image and Docker Compose configuration
 - Azure Container Apps Bicep deployment
-- Azure Files persistent state mount
+- Azure Files mounted directly for persistent DOS user drives
+- Azure Database for PostgreSQL for relational metadata and sessions
+- Microsoft Entra managed-identity database authentication
 - Log Analytics integration
 - Key Vault storage for the OIDC client secret
 - managed identity for ACR image pulls and Key Vault access
@@ -49,6 +51,6 @@ Phase 5 adds documentation for:
 
 The review document captures what is now production-shaped, what remains demo-oriented, and the next architectural changes required for scale.
 
-The most important remaining constraint is SQLite on a network-mounted Azure Files share. The Azure deployment intentionally runs exactly one application replica. Scale-out should first move relational/session metadata to a managed database.
+The Azure deployment keeps relational state in Azure Database for PostgreSQL and mounts Azure Files directly only for DOS user drives. SQLite remains a local-development/test fallback. The deployment currently stays at one replica because active emulator filesystem handles are process-local; scale-out requires coordinating or externalizing that handle/session layer.
 
 Previous phases remain frozen lifecycle snapshots.

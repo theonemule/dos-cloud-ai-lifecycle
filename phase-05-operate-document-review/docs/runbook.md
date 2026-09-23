@@ -10,7 +10,7 @@ Check:
 4. Container Apps system logs
 5. Azure Files mount status
 6. permissions on /data
-7. SQLite errors
+7. PostgreSQL connectivity or authentication errors
 
 A healthy process with failed readiness usually indicates state-storage or database access rather than an HTTP listener problem.
 
@@ -63,7 +63,7 @@ Browser DOS emulation itself does not consume server CPU.
 
 ## Container restart
 
-The application handles SIGTERM by closing filesystem handles and SQLite before process exit.
+The application handles SIGTERM by closing filesystem handles and the PostgreSQL connection pool before process exit.
 
 After a revision restart:
 
