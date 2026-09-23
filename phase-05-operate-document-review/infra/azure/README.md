@@ -26,21 +26,24 @@ Requirements:
 - Azure CLI
 - an Azure subscription
 - permission to create the resources in the target resource group
-- permission to update the existing Entra app registration if automatic redirect registration is enabled
-- the Entra client-secret value supplied through the environment
+- permission to update the existing Entra app registration for the one-time bootstrap
+- the Entra client-secret value only for the one-time Key Vault bootstrap
 
-Example:
+One-time bootstrap from an authenticated operator workstation:
 
     export DOS_CLOUD_OIDC_CLIENT_SECRET='...'
     export AZURE_RESOURCE_GROUP=dos-cloud-demo
     export AZURE_LOCATION=eastus2
+    export MANAGE_OIDC_SECRET=true
     ./infra/azure/deploy.sh
+
+`MANAGE_OIDC_SECRET=true` writes the application OIDC secret into Key Vault. Normal CI/CD deployments leave this false, so the secret never has to be stored in GitHub.
 
 Defaults are already set for the current Entra tenant and application/client ID.
 
 The deploy script performs two deployments. The first creates ACR and the platform resources. It then runs `az acr build` against Phase 5 and performs a second deployment that creates the Container App using that image.
 
-By default it also adds the generated Container Apps HTTPS callback to the existing Entra app registration without removing existing redirect URIs.
+The bootstrap can also add the generated Container Apps HTTPS callback to the existing Entra app registration without removing existing redirect URIs.
 
 Set this to skip the Graph update:
 
@@ -65,3 +68,25 @@ The application can also emit RFC5424-style syslog over UDP to an external colle
 The current application stores both metadata and user filesystem state under one mounted Azure Files share. This makes the deployment faithful to the existing application architecture, but it intentionally keeps `minReplicas=1` and `maxReplicas=1`.
 
 A future scale-out version should move metadata/session state from SQLite to a managed database while retaining Azure Files or another durable object/filesystem design for DOS user drives.
+
+
+## GitHub Actions deployment
+
+The repository workflow uses GitHub OIDC federation to Azure. No Azure client secret is stored in GitHub.
+
+Repository variables provide:
+
+- AZURE_CLIENT_ID
+- AZURE_TENANT_ID
+- AZURE_SUBSCRIPTION_ID
+- AZURE_RESOURCE_GROUP
+- AZURE_LOCATION
+- AZURE_PREFIX
+- DOS_CLOUD_OIDC_TENANT_ID
+- DOS_CLOUD_OIDC_CLIENT_ID
+
+The Azure deployment identity has Owner only on the `dos-cloud-demo` resource group. Its federated credential trusts only the `main` branch of `theonemule/dos-cloud-ai-lifecycle`.
+
+After tests pass on a push to `main`, the workflow signs into Azure with `azure/login`, runs the same Bicep deployment, builds the commit into ACR, and updates the Container App revision.
+
+The DOS Cloud application's own Entra client secret remains in Azure Key Vault and is referenced by the Container App through its managed identity.

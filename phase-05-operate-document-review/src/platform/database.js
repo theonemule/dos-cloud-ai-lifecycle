@@ -2,11 +2,29 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { DatabaseSync } = require("node:sqlite");
 
-function openDatabase(filename) {
+const JOURNAL_MODES = new Set(["WAL", "DELETE", "TRUNCATE", "PERSIST", "MEMORY", "OFF"]);
+
+function resolveJournalMode(value) {
+  const mode = String(value || process.env.DOS_CLOUD_SQLITE_JOURNAL_MODE || "WAL").trim().toUpperCase();
+  if (!JOURNAL_MODES.has(mode)) {
+    throw new Error("unsupported SQLite journal mode: " + mode);
+  }
+  return mode;
+}
+
+function openDatabase(filename, options = {}) {
   fs.mkdirSync(path.dirname(filename), { recursive: true });
   const db = new DatabaseSync(filename);
+  const journalMode = resolveJournalMode(options.journalMode);
+  const busyTimeoutMs = Number(options.busyTimeoutMs ?? process.env.DOS_CLOUD_SQLITE_BUSY_TIMEOUT_MS ?? 10000);
+  if (!Number.isFinite(busyTimeoutMs) || busyTimeoutMs < 0 || busyTimeoutMs > 60000) {
+    throw new Error("invalid SQLite busy timeout");
+  }
+  const synchronous = journalMode === "WAL" ? "NORMAL" : "FULL";
   db.exec(`
-    PRAGMA journal_mode = WAL;
+    PRAGMA busy_timeout = ${Math.floor(busyTimeoutMs)};
+    PRAGMA journal_mode = ${journalMode};
+    PRAGMA synchronous = ${synchronous};
     PRAGMA foreign_keys = ON;
 
     CREATE TABLE IF NOT EXISTS users (
@@ -90,4 +108,4 @@ function nowIso() {
   return new Date().toISOString();
 }
 
-module.exports = { openDatabase, nowIso };
+module.exports = { openDatabase, nowIso, resolveJournalMode };

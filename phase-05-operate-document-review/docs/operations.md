@@ -112,6 +112,20 @@ Under that path:
 
 The Azure template mounts its persistent Azure Files share at /data.
 
+
+## SQLite on Azure Files
+
+Local filesystems and Docker named volumes use SQLite WAL mode by default.
+
+Azure Files is an SMB network filesystem. SQLite WAL mode is not appropriate there because WAL depends on shared-memory coordination that assumes processes are on the same host. The Azure Container Apps deployment therefore sets:
+
+    DOS_CLOUD_SQLITE_JOURNAL_MODE=DELETE
+    DOS_CLOUD_SQLITE_BUSY_TIMEOUT_MS=10000
+
+This uses the traditional rollback journal with a ten-second busy timeout. The Azure deployment is also fixed to exactly one replica.
+
+This is an intentionally constrained Phase 5 deployment architecture. A horizontally scaled service should move relational/session metadata to Azure SQL or PostgreSQL rather than trying to scale SQLite over Azure Files.
+
 ## Backup
 
 A consistent backup should contain both:

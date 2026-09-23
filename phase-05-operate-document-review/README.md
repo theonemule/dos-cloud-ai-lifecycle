@@ -77,6 +77,13 @@ For Microsoft Entra ID, configure:
 
 The Azure deployment puts the client secret in Key Vault and exposes it to Container Apps through a Key Vault-backed Container Apps secret.
 
+
+## GitHub Actions
+
+Pushes to `main` run the Phase 5 Node regression suite and Docker build. After those pass, GitHub Actions authenticates to Azure using workload identity federation and deploys the commit to Azure Container Apps.
+
+The GitHub deployment identity has no client secret. The DOS Cloud application's Entra client secret is stored in Azure Key Vault after the one-time bootstrap and is not stored in GitHub.
+
 ## Azure
 
 See infra/azure/README.md.

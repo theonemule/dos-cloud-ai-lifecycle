@@ -18,9 +18,12 @@ param oidcTenantId string
 @description('Application (client) ID of the Microsoft Entra app registration.')
 param oidcClientId string
 
+@description('Create or update the OIDC client secret in Key Vault during this deployment.')
+param manageOidcSecret bool = false
+
 @secure()
-@description('Client secret value for the Microsoft Entra app registration. Stored in Key Vault.')
-param oidcClientSecret string
+@description('Client secret value for the Microsoft Entra app registration. Required only when manageOidcSecret is true.')
+param oidcClientSecret string = ''
 
 @description('Display name shown on the login button.')
 param oidcProviderName string = 'Microsoft Entra ID'
@@ -174,7 +177,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2025-05-01' = {
   }
 }
 
-resource oidcSecret 'Microsoft.KeyVault/vaults/secrets@2025-05-01' = {
+resource oidcSecret 'Microsoft.KeyVault/vaults/secrets@2025-05-01' = if (manageOidcSecret) {
   parent: keyVault
   name: oidcSecretName
   properties: {
@@ -223,7 +226,7 @@ resource containerApp 'Microsoft.App/containerApps@2026-01-01' = if (deployApp) 
       secrets: [
         {
           name: 'oidc-client-secret'
-          keyVaultUrl: '${keyVault.properties.vaultUri}secrets/${oidcSecret.name}'
+          keyVaultUrl: '${keyVault.properties.vaultUri}secrets/${oidcSecretName}'
           identity: identity.id
         }
       ]
@@ -265,6 +268,14 @@ resource containerApp 'Microsoft.App/containerApps@2026-01-01' = if (deployApp) 
             {
               name: 'DOS_CLOUD_LOG_LEVEL'
               value: 'info'
+            }
+            {
+              name: 'DOS_CLOUD_SQLITE_JOURNAL_MODE'
+              value: 'DELETE'
+            }
+            {
+              name: 'DOS_CLOUD_SQLITE_BUSY_TIMEOUT_MS'
+              value: '10000'
             }
             {
               name: 'DOS_CLOUD_OIDC_ISSUER'
@@ -358,6 +369,7 @@ resource containerApp 'Microsoft.App/containerApps@2026-01-01' = if (deployApp) 
     acrPull
     keyVaultSecretsUser
     environmentStorage
+    oidcSecret
   ]
 }
 

@@ -1,9 +1,14 @@
-name: Phase 5 CI
+name: Phase 5 CI/CD
 
 on:
   push:
     branches: [ main ]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   test:
@@ -21,3 +26,31 @@ jobs:
       - run: npm ci
       - run: DOS_CLOUD_LOG_TARGET=none npm test
       - run: docker build -t dos-cloud:ci .
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sign in to Azure with GitHub OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy Phase 5 to Azure Container Apps
+        working-directory: phase-05-operate-document-review
+        env:
+          CREATE_RESOURCE_GROUP: 'false'
+          UPDATE_ENTRA_REDIRECT: 'false'
+          AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
+          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+          AZURE_PREFIX: ${{ vars.AZURE_PREFIX }}
+          IMAGE_TAG: ${{ github.sha }}
+          DOS_CLOUD_OIDC_TENANT_ID: ${{ vars.DOS_CLOUD_OIDC_TENANT_ID }}
+          DOS_CLOUD_OIDC_CLIENT_ID: ${{ vars.DOS_CLOUD_OIDC_CLIENT_ID }}
+          MANAGE_OIDC_SECRET: 'false'
+        run: ./infra/azure/deploy.sh

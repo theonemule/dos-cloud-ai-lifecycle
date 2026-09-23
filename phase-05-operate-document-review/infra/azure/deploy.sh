@@ -10,29 +10,43 @@ PREFIX="${AZURE_PREFIX:-doscloud}"
 IMAGE_TAG="${IMAGE_TAG:-phase5}"
 OIDC_TENANT_ID="${DOS_CLOUD_OIDC_TENANT_ID:-370b5daf-d057-40e2-b543-e92ab092f30e}"
 OIDC_CLIENT_ID="${DOS_CLOUD_OIDC_CLIENT_ID:-03f0affa-44d2-4209-b78e-97504b201e2b}"
-OIDC_CLIENT_SECRET="${DOS_CLOUD_OIDC_CLIENT_SECRET:?Set DOS_CLOUD_OIDC_CLIENT_SECRET in the environment.}"
+MANAGE_OIDC_SECRET="${MANAGE_OIDC_SECRET:-false}"
+OIDC_CLIENT_SECRET="${DOS_CLOUD_OIDC_CLIENT_SECRET:-}"
+CREATE_RESOURCE_GROUP="${CREATE_RESOURCE_GROUP:-true}"
 UPDATE_ENTRA_REDIRECT="${UPDATE_ENTRA_REDIRECT:-true}"
 
 PARAMS="$(mktemp)"
 trap 'rm -f "$PARAMS"' EXIT
 chmod 600 "$PARAMS"
 
-PARAMS="$PARAMS" OIDC_TENANT_ID="$OIDC_TENANT_ID" OIDC_CLIENT_ID="$OIDC_CLIENT_ID" OIDC_CLIENT_SECRET="$OIDC_CLIENT_SECRET" python3 - <<'PY'
+if [[ "$MANAGE_OIDC_SECRET" == "true" && -z "$OIDC_CLIENT_SECRET" ]]; then
+  echo "DOS_CLOUD_OIDC_CLIENT_SECRET is required when MANAGE_OIDC_SECRET=true" >&2
+  exit 1
+fi
+
+PARAMS="$PARAMS" OIDC_TENANT_ID="$OIDC_TENANT_ID" OIDC_CLIENT_ID="$OIDC_CLIENT_ID" OIDC_CLIENT_SECRET="$OIDC_CLIENT_SECRET" MANAGE_OIDC_SECRET="$MANAGE_OIDC_SECRET" python3 - <<'PY'
 import json, os
+manage = os.environ["MANAGE_OIDC_SECRET"].lower() == "true"
 params={
   "$schema":"https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion":"1.0.0.0",
   "parameters":{
     "oidcTenantId":{"value":os.environ["OIDC_TENANT_ID"]},
     "oidcClientId":{"value":os.environ["OIDC_CLIENT_ID"]},
-    "oidcClientSecret":{"value":os.environ["OIDC_CLIENT_SECRET"]},
+    "manageOidcSecret":{"value":manage},
   }
 }
+if manage:
+    params["parameters"]["oidcClientSecret"]={"value":os.environ["OIDC_CLIENT_SECRET"]}
 with open(os.environ["PARAMS"],"w") as f:
     json.dump(params,f)
 PY
 
-az group create --name "$RESOURCE_GROUP" --location "$LOCATION" --only-show-errors --output none
+if [[ "$CREATE_RESOURCE_GROUP" == "true" ]]; then
+  az group create --name "$RESOURCE_GROUP" --location "$LOCATION" --only-show-errors --output none
+else
+  az group show --name "$RESOURCE_GROUP" --only-show-errors --output none
+fi
 
 echo "Creating Azure foundation resources..."
 FOUNDATION="$(az deployment group create --resource-group "$RESOURCE_GROUP" --template-file "$SCRIPT_DIR/main.bicep" --parameters "@$PARAMS" --parameters prefix="$PREFIX" imageTag="$IMAGE_TAG" deployApp=false --query properties.outputs --output json)"
