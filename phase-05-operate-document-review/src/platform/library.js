@@ -34,6 +34,23 @@ function validateArchive(zip) {
   }
 }
 
+function extractArchivePortable(zip, destination) {
+  fs.mkdirSync(destination, { recursive: true });
+
+  for (const entry of zip.getEntries()) {
+    const normalized = entry.entryName.replaceAll("\\", "/");
+    const target = path.join(destination, ...normalized.split("/").filter(Boolean));
+
+    if (entry.isDirectory) {
+      fs.mkdirSync(target, { recursive: true });
+      continue;
+    }
+
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, entry.getData());
+  }
+}
+
 function createLibraryService({ db, catalog, packagesRoot, auth }) {
   async function getInstalled(userId, gameId) {
     return db.get("SELECT * FROM user_games WHERE user_id = ? AND game_id = ?", userId, gameId);
@@ -81,7 +98,7 @@ function createLibraryService({ db, catalog, packagesRoot, auth }) {
     try {
       const zip = new AdmZip(packageFile);
       validateArchive(zip);
-      zip.extractAllTo(staging, true);
+      extractArchivePortable(zip, staging);
       if (fs.existsSync(destination)) fs.rmSync(destination, { recursive: true, force: true });
       fs.renameSync(staging, destination);
     } catch (err) {
@@ -126,4 +143,4 @@ function createLibraryService({ db, catalog, packagesRoot, auth }) {
   return { getInstalled, list, install, uninstall, markPlayed };
 }
 
-module.exports = { createLibraryService, fileSha256 };
+module.exports = { createLibraryService, fileSha256, validateArchive, extractArchivePortable };
