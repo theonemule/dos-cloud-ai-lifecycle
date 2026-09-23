@@ -1,0 +1,42 @@
+flowchart TB
+    subgraph Browser
+        UI[Catalog / Library UI]
+        RT[Game Runtime Page]
+        CON[Console Runtime Page]
+        DOS[DOSBox / js-dos]
+        RFS[REMOTEFS Adapter]
+        UI --> RT
+        UI --> CON
+        RT --> DOS
+        CON --> DOS
+        DOS --> RFS
+    end
+
+    subgraph Server
+        AUTH[Auth]
+        CATALOG[Catalog]
+        LIB[Library / Install]
+        LAUNCH[Launch Sessions]
+        FSAPI[Remote Filesystem]
+        TELEMETRY[Telemetry]
+    end
+
+    subgraph Persistence
+        META[(SQLite)]
+        PACKAGES[(Catalog Packages)]
+        USERS[(User Drives)]
+    end
+
+    UI --> AUTH
+    UI --> CATALOG
+    UI --> LIB
+    UI --> LAUNCH
+    RFS --> FSAPI
+    AUTH --> META
+    CATALOG --> META
+    CATALOG --> PACKAGES
+    LIB --> PACKAGES
+    LIB --> USERS
+    LIB --> META
+    LAUNCH --> META
+    FSAPI --> USERS

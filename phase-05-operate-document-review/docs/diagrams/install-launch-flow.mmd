@@ -1,0 +1,25 @@
+sequenceDiagram
+    actor User
+    participant UI as Web UI
+    participant API as DOS Cloud API
+    participant Catalog as Catalog Packages
+    participant Drive as User C: Drive
+    participant DB as Metadata DB
+    participant DOS as DOSBox Runtime
+
+    User->>UI: Install game
+    UI->>API: POST install
+    API->>Catalog: Read verified package
+    API->>Drive: Extract into C:\GAMES\...
+    API->>DB: Record installation
+    API-->>UI: Installed
+
+    User->>UI: Play
+    UI->>API: POST launch
+    API->>DB: Verify user + install
+    API->>DB: Create launch session
+    API-->>UI: Session ID
+    UI->>DOS: Open new runtime tab
+    DOS->>API: Load launch config
+    DOS->>API: Filesystem RPC
+    API->>Drive: Read/write user files

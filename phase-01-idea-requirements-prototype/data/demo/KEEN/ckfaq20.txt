@@ -1,0 +1,685 @@
+Summary: An faq dealing with the Apogee Commander Keen games
+Keywords: Apogee, Commander Keen, Billy Blaze
+X-Last-Updated: 1997/9/18
+
+Archive-name: msdos/games/keen-faq
+Version: 2.0
+Last-modified:  19 February 1995
+
+Changes:
+2/9/94 - added topic 0
+       - updated episode descriptions
+6/8/94 - repost
+8/21/94- post to alt.games.apogee
+2/19/95- minor changes
+9/18/97- major revision 2.0
+
+Topics:
+
+0. Why still have a Keen faq?
+1. Who is Commander Keen?
+2. What Commander Keen games have been issued?
+3. Is Apogee on the World Wide Web?
+4. Where can I get shareware copies of Commander Keen games?
+5. What is anonymous ftp?
+6. How do I download a game?
+7. What does .zip mean and how do I install the game?
+8. How do I get enough memory to run Apogee games?
+9. Who are the creatures in the games?
+10. Give me some hints, please.
+11. How do I register the shareware version?
+12. How do I obtain non-shareware episodes?
+13. Where do I go for help?
+14. How do I run Keen games under Windows 95?
+15. Other Keen WWW sites
+16. Will there be any more Keen episodes?
+17. What is the Dopefish?
+18. Has Keen appeared in any other games?
+19. SPOILER Section
+20. How do I enter the cheat mode?
+21. KEEN4 Tricks
+22. KEEN4 Walk-Throughs
+23. KEEN5 Questions/Answers
+
+=====================================================================
+0. Why still have a Keen faq?
+
+Yes I admit that I have not been faithfully posting this faq over the
+past few years.  I have been receiving E-mails from several folks,
+though, and have responded as best I could.  Like many of you, I have
+added a Pentium with Windows 95 and have enjoyed several of the new
+generation, video intensive games.  Nevertheless, I still hold a fond 
+affection for that first fantastic, EGA platform game - Commander
+Keen.  I still see postings to this newsgroup on Keen.  If my work 
+environment is any indication, I suspect there are still several 386 
+PCs out there - I know I gave mine to one of my sons.  I still go 
+back and play Keen now and then.  So here is a major re-work of my 
+original faq.  I have added some walk-throughs I generated when 
+answering pleas for help.  Plus, I added my experiences in trying to 
+get the Keen games to run under Windows 95.  I would like to thank
+Joe Siegler, Apogee's on-line support guru, who has been a great help 
+and inspiration.  Yes Joe, I still don’t forgive you for giving up 
+your Dopefish signature.  I have re-published it in this faq for 
+those who never saw it years ago.  Finally, I know I have not always 
+responded to those many E-mails.  I have fallen victim to majordomo-
+itis - sometimes I have over 1000 unread E-mails.  So I apologize to 
+those folks I have not replied to.  Please post your comments, 
+requests, and recommended additions to the alt.games.apogee 
+newsgroup. I do read this group and scan for "keen" in the subject 
+line.
+
+=====================================================================
+1. Who is Commander Keen?
+
+The following description is extracted from the Apogee catalog and
+other documentation that comes with the Commander Keen games.
+
+"Commander Keen is the alter ego of Billy Blaze, eight year-old kid
+genius who builds an interstellar ship when not working at home on
+his college fast-track degree. Among other household objects, Billy
+uses his Nintendo joystick for flight control and his mom's vacuum
+cleaner (heavily modified) for his ship's ion propulsion system (with
+pile height adjustment).
+
+At the hint of galactic trouble, Billy dons his brother's football
+helmet and becomes "Commander Keen" defender of Earth!  Ever on the
+side of justice, fairness, and high calorie junk food, Keen dispenses
+justice with an iron hand."
+
+=====================================================================
+2. What Commander Keen games have been issued?
+
+There have been four series of Keen games issued, with seven (7)
+missions or episodes. They are:
+
+First Series:  Invasion of the Vorticons (12/90)
+  Keen #1 - Marooned on Mars
+  Keen #2 - The Earth Explodes
+  Keen #3 - Keen Must Die
+
+Second Series:  Goodbye Galaxy (6/91)
+  Keen #4 - Secret of the Oracle
+  Keen #5 - The Armageddon Machine
+
+Special Edition Series:
+  Keen #6 - Aliens ate my Babysitter! (11/91)
+
+"Lost Game Collection of Id Software" Series from Gamer's Edge:
+  Keen Dreams (9/92) aka Keen 3.5
+
+A very comprehensive explanation of the history of the Keen series
+is found in "The Official Apogee FAQ."  This was provided by Joe
+Siegler, the Apogee "netspokesman."  Joe provided the following 
+details [updated 15 Aug 1997]:
+
+"Episodes 1-3 are collectively called "Invasion of the Vorticons," 
+and are published by Apogee Software. This series of Commander Keen 
+was released on December 14th, 1990 according to Tom Hall (Ion 
+Storm), and at the time, Creative Director of id Software.
+
+Episodes 4 & 5 are collectively called "Goodbye Galaxy," and are also 
+published by Apogee Software.  This series of Commander Keen was 
+released somewhere around June of 1991.  There was also a special CGA 
+edition of Keens 4-5 made.  The game is functionally exactly the same 
+as the standard EGA version of the game, but the graphics are in CGA. 
+
+Episode 6 is a "stand alone" game, and is entitled "Aliens Ate my 
+Babysitter."  From its inception in 1991 until 1996, it was 
+distributed by FormGen.  In 1996, FormGen was bought out by GT 
+Software, and as such, Apogee was left with only what stock we had at 
+the time of the game. It was never actually an APOGEE game, it was a 
+FormGen game that Apogee distributed. In August of 1997, Apogee’s 
+stock of the game finally ran out, and as such, Keen 6 is no longer 
+available from Apogee. As of now, the only way to get Keen 6 now is 
+as part of the package "The id Anthology" (more info later) from GT 
+Software.  Two side notes to this: first, for some reason, only the 
+CGA version of Keen 6 is on the CD, and second, for awhile, FormGen 
+distributed a playable 3 level commercial demo of Keen 6.
+
+Keen Dreams has kind of an interesting story.  This is referred to as 
+the "Lost Episode" of Commander Keen. I like to think of it as "Keen 
+Episode 3.5." The reason for that is that Keen Dreams falls in 
+between Vorticons and Galaxy, both in terms of technology and 
+storyline. Before the id guys actually formed id, the majority of 
+them worked at Softdisk, a computer software publisher in Shreveport, 
+LA.  The founding members of id Software left Softdisk to do the 
+Vorticons series of Keen for Apogee Software.  However, they were 
+contractually obligated to deliver another game to Softdisk, and 
+since development had started on the Galaxy series, they threw 
+together a Keen game for Softdisk, and Keen Dreams was born.  This 
+game is not sold by Apogee Software, nor does Apogee have anything at 
+all to do with it.  You'd need to contact Softdisk for any further 
+information regarding Keen Dreams.
+
+In December 1996, id Software published a package called The id 
+Anthology. This is a product that contained every single game that 
+id Software ever made, as well as some others that were made by id 
+people for other companies like Softdisk. In this package are all 7 
+Commander Keen games mentioned above. As a side note, for some 
+reason, the person at id Software who put the package together put in 
+only the CGA version of Keen6. Why they did this, we don’t know. For 
+more info on the id Anthology, contact id Software (Apogee has 
+nothing to do with the id Anthology)."
+
+=====================================================================
+3. Is Apogee on the World Wide Web?
+
+Yes!  Thanks to Joe Siegler, Apogee has a home page at:
+
+    http://www.apogee1.com/
+
+=====================================================================
+4. Where can I get shareware copies of Commander Keen games?
+
+Only three of the seven episodes of Commander Keen plus a three level 
+demo of Keen #6 are available as shareware (you can legally upload 
+and download these anywhere):
+  Keen #1 ("Marooned on Mars")
+  Keen #4 ("Secret of the Oracle")
+  Keen Dreams (Keen #3.5)
+  Keen #6 (3 level demo)
+
+Note that all other episodes (2, 3, 5, and the full version of 6) are 
+commercial software and should not appear on any BBS, online service, 
+or sold by other than authorized sellers of these games.
+
+There are many anonymous ftp servers on the Internet that mirror
+the Commander Keen games (as well as several other excellent games
+such as Halloween Harry, Duke Nukum, Cosmo's Cosmic Adventures, and
+Doom). An Altavista search reveals 39 sites hosting "4keen.zip." 
+Apogee’s Official FTP site is at Washington University in St. 
+Louis, MO at URL:
+
+  ftp://wuarchive.wustl.edu/systems/msdos/games/apogee/share/
+  At this site, you will find the following Keen games:
+    1keen.zip  (Keen #1)
+    4keen.zip  (Keen #4 EGA version)
+    4keenc.zip (Keen #4 CGA version)
+
+Apogee maintains a web page pointing to their games on wuarchive at:   
+  http://www.apogee1.com/files.html
+
+Another good server for freeware, shareware, demos and cheats is Lord 
+Soth’s site at: 
+  http://happypuppy.com/lordsoth/
+
+=====================================================================
+5. What is anonymous ftp?
+
+The file transfer protocol (ftp), a part of the application layer
+of the Transmission Control Protocol/Internet Protocol (TCP/IP), is
+the most common method of moving files around on the Internet. As a
+courtesy to all users, many server sites allow access to controlled
+portions of their hosts without prior arrangement to establish an
+account and a password. This general access, when used to transfer
+files, is termed "anonymous ftp." Typically, you issue the ftp
+command on your Internet host (e.g., ftp ftp.uml.edu) and, when
+prompted to login, you enter "anonymous." Internet convention
+("netiquette") usually calls for you to enter your e-mail name as the
+password to provide statistics for usage tracking by the server site
+administrator. Upon completion of login, you should read whatever
+"readme's" are indicated in the welcome message. You may then
+navigate through the authorized directories using the change
+directory command (cd). Use the directory listing command (dir) to
+view accessible files. Use the get and put commands to receive or
+submit files. Ftp will then transfer the specified file to or from
+your own host system.
+
+With the advent of the World Wide Web, I wonder how many of you still 
+use UNIX Internet hosts?  You can easily access anonymous ftp servers 
+from your web browser by entering a URL like 
+ftp://wuarchive.wustl.edu - all the logon handshaking is done 
+automatically by your browser.  Likewise, as long as your browser has 
+mime type association for saving .zip or .exe files to disk, when you 
+click on the desired download file, transfer to your hard drive will 
+occur. For Netscape, select Options/General/Helpers and look for mime 
+type application/octet-stream.  Note the file extensions of exe and 
+bin. If “save to disk” is not selected, do so.  Likewise, look for 
+mime type application/x-zip-compressed.  You should see file 
+extension of zip and the “save to disk” option selected.
+
+=====================================================================
+6. How do I download a game?
+
+This section may be OBE if you are using a Web browser.  See the 
+previous section.  Otherwise, if you must use a UNIX Internet server 
+first and your Internet Service Provider restricts you to shell 
+accounts, read the next paragraph.
+
+Following transfer of a game to your Internet host, the next step is 
+to download it to your home computer. Several protocols can be used 
+to accomplish this. Your communications software most likely supports
+the more common protocols such as xmodem, ymodem, zmodem, and Kermit. 
+Use the protocol supported by both your communications software and 
+your Internet host. Here is an example using xmodem to transfer a 
+game from a UNIX host to a PC running Procomm Plus:
+
+on UNIX host
+  % xmodem -sbk 4keen.zip  [this instructs the host to send a binary
+                            file using xmodem protocol and 1K 
+                            packets]
+
+on PC
+  <page down>              [this brings up the file transfer menu]
+  o                        [this selects xmodem 1K packets]
+  c:\keen\4keen.zip        [this points to the directory into which
+                            the file, 4KEEN.ZIP, will be transferred]
+
+The next step, after logging off your Internet host, is to
+uncompress the game. Note that the .zip file extension indicates that
+the game is compressed using a utility available from PKWARE. To
+expand the game into its full distribution, you must use the
+shareware program, PKUNZIP, as follows:
+
+  >pkunzip 4keen
+
+You will see several files displayed as they are "inflated." If no
+errors are displayed, copy the .zip file to a floppy diskette and
+delete it from the hard disk to conserve disk space. Read the
+documentation files and information on registering the shareware
+version. 
+
+=====================================================================
+7. What does .zip mean and how do I install the game?
+
+The shareware versions of the Keen games are archived in compressed
+form. The file extension .zip indicates that the compression format
+used is from the PK company. To uncompress the game, you must run
+the PKUNZIP utility (or Winzip). The entire distribution is archived 
+in the self-expanding archive program PKZ204G.EXE. Obtain this 
+shareware package from http://www.pkware.com. PKZ204G.EXE is also a 
+compressed form; however, the .EXE extension indicates that you 
+merely execute this archive and it automatically uncompresses. 
+Following that, you will see several files, including the PKUNZIP.EXE 
+utility as well as information for registering (and paying for) this 
+program.
+
+A great Windows GUI application for performing file compression and 
+uncompression is the WinZip utility (see http://www.winzip.com).  
+This program greatly simplifies archival operations, particularly 
+when you must span multiple floppy disks!
+
+=====================================================================
+8. How do I get enough memory to run Apogee games?
+
+If you are running Windows 95 - no problem!  See section 17 below for 
+configuration settings.  If you are still suffering under the DOS 
+memory management nightmare, here is a condensed version of the 
+CONFIG.SYS file I used for practically all my DOS games on my old PC. 
+Note that I ran DOS 6.22 on a 386/33 system with the SoundBlaster 16 
+sound card and 8MB RAM. Use MEMMAKER.EXE to fine tune your CONFIG.SYS 
+(particularly to determine the memory exclusions for your specific 
+configuration). I get 613K of conventional memory free to run my 
+Apogee games with this configuration. In my AUTOEXEC.BAT I include a 
+line that displays all the game choices - type c:\games.txt|more. 
+Each game is launched by a simple code such as k4 which executes a 
+k4.bat batch file containing the following lines:
+
+  cd \apogee\keen\k4
+  keen4e /comp/nomouse
+  cd \
+
+##CONFIG.SYS Format (note-remove the X= field in the DEVICE line and 
+the L: field in the DEVICEHIGH line - memmaker will set these fields 
+for your system):
+
+DEVICE=C:\DOS\himem.sys
+stacks=8,256
+lastdrive=I
+fcbs=20,0
+
+[menu]
+menuitem=full, Load all drivers for Windows and CD-ROM
+menuitem=apogee
+menucolor=15,1
+menudefault=full,15
+numlock=off
+
+[full]
+rem lines eliminated for clarity
+
+[apogee]
+DEVICE=c:\dos\EMM386.EXE NOEMS HIGHSCAN X=C900-C9FF
+BUFFERS=15,0
+FILES=8
+DOS=high,UMB
+DEVICE=C:\DOS\ANSI.SYS /X
+DEVICEHIGH /L:1,26928 =C:\SB16\DRV\CTSB16.SYS /UNIT=0 /BLASTER=A:220
+  I:5 D:1 H:5
+
+[common]
+break=on
+
+=====================================================================
+9. Who are the creatures in the games?
+
+KEEN4:
+  DOPEFISH
+  MAD MUSHROOM
+  MIMROCK
+  SCHOOLFISH
+  SKYPEST
+  SLUG
+
+KEEN5:
+  QED
+  ROBO RED
+  SLICESTAR
+  VOLTE-FACE
+
+KEEN6:
+  BABOBBA
+  BIP
+  BLOOG
+  BLOOGLET
+  BLOOGUARD
+  BLORB
+  BOBBA
+  CEILICK
+  FLECT
+  FLEEX
+  GIK
+  MOLLY
+  NOSPIKE
+  ORBATRIX
+  VIVA
+
+=====================================================================
+10. Give me some hints, please.
+
+KEEN #4:
+- Level 1 has 7 free Keens
+- At the Pyramid of the Moons, you can get to the top on the outside
+- At the top of the Cave of the Descendants, there is a hidden area
+- Princess Lindsey appears twice
+- A slug in the Chasm of Chills holds a secret
+- In Hillville, there is "stuff" hidden
+- In Miragia is a free Keen
+- In the Pyramid of the Ancients is a free Keen
+- On the Isle of Fire is a free Keen
+- In the Pyramid of Shadows are 7 free Keens
+- You can get to the secret pyramid with something in the Pyramid of
+  the Moons (see the spoiler section)
+- Dopefish will eat the small schoolfish that follow you
+- Push the <CTRL> key to swim faster
+- Jump on skypests with your pogo stick to squash them
+- Only shoot mimrocks when they are jumping at you
+- Mad Mushrooms leap higher on the third bounce
+- Stand on the little moon on the floor in the Pyramid of the Moons
+  for an interesting display
+- In the tunnel under the houses of the first village by the lava
+  pool there is a hidden gap (revealed by the F10 J cheat) you can
+  jump through (with the F10 J cheat) to get 9 free Keens. Note you
+  can also enter the gap without cheating. Pogo into the gap using an
+  extended jump (pogo then jump quickly to get the maximum height).
+  When just below the gap, pogo again and push left to enter the
+  special area.
+
+KEEN #5
+- Level 1 has 9 free Keens
+- Level designers Tom Hall and John Romero have hidden their names in
+  two of the levels
+- Near the start of Defense Tunnel Sorra are 30,000 hidden points
+- Pogo on the fuses to break them
+- The Gravitational Damping Hub contains the way to the secret level.
+  Look down and translate the message.
+- Find someone or something to destroy the QED.
+- Duck under Slicestars and Volte-faces but not Robo Red.
+- You can stand right next to Robo Red and not get shot.
+
+=====================================================================
+11. How do I obtain non-shareware episodes?
+
+The simplest way is to call Apogee at 1-800-APOGEE1 (1.800.276.4331) 
+or 1-800-3DREALMS (1.800.337.3256) to order any of their games. Check 
+out http://www.apogee1.com/misc/order.html for ordering information 
+or any changes (e.g., Keen 6 is no longer available). Current pricing 
+is as follows:
+
+  Invasion of the Vorticons (Keen 1-3) $29.95
+  Goodbye Galaxy series (Keen 4-5)     $34.95
+
+Aliens Ate My Baby Sitter (Keen 6) is no longer available from Apogee 
+(see paragraph 2).
+
+=====================================================================
+12. Where do I go for help?
+
+Your best resource for help is this newsgroup (alt.games.apogee).
+The Apogee WWW page has a help link for customer support, including 
+instructions for a Windows 95 boot environment, E-mail support, and a 
+one-way mailist. See http://www.apogee1.com/tech/index.html.
+
+=====================================================================
+13. How do I run Keen games under Windows 95?
+
+Check out the section of the Windows 95 FAQ dealing with DOS games. 
+Bottom line - never re-boot your Windows 95 system in DOS mode. 
+Rather, use a PIF file to configure the system environment. Here is a 
+short summary from the FAQ (please read the full FAQ):
+- Right click on the KEEN executable, select Properties, select the 
+Program tab, add additional command line fields as needed
+- Select the advanced button and select "Prevent MS-DOS programs from 
+detecting Windows"
+- Select the memory tab and configure the type of memory (I’m still 
+optimizing this section - for now, I just use the auto mode)
+- Select the Screen tab and disable "Dynamic memory allocation" and 
+"Fast ROM emulation." (I’m also playing with these settings too - I 
+can’t stop a jittery display with my Matrox Millennium video board - 
+HELP anyone?)
+- After you exit, note the MS-DOS icon shortcut - this is your PIF 
+file.  Start the game by double clicking on the PIF file, not the 
+actual executable.
+
+I am still refining this section. Any contributions would be greatly 
+appreciated.
+
+=====================================================================
+14. Other Keen WWW sites
+
+Our game playing mates in Australia have a great web site containing 
+lots of graphics, "The Intergalactic Alphabet" to help translate 
+those secret messages, a Commander Keen FAQ with additional 
+information not in this FAQ, and links to Dopefish sites.  Thanks to 
+Geoff Sims - Check out: 
+  http://www.users.fl.net.au/~simsy/keen/keen.htm
+  http://www.users.fl.net.au/~simsy/keen/inter.htm [for IG Alphabet 
+information]
+
+Also, for hints and cheats in German, check out:
+  http://home.t-online.de/home/meyer.karl/ckindex.htm
+
+Joe Siegler hosts "The Official Dopefish Homepage" at:
+  http://www.dopefish.com
+
+Samual Stoddard maintains an Apogee FAQ that includes information on 
+Keen as well at:
+  http://www.apogee1.com/faq/apfaq61.txt
+
+=====================================================================
+15. Will there be any more Keen episodes?
+
+Joe Siegler passed on the following information:
+
+"If you played Keen 5, there was a screen that said something to the 
+effect of "Join us in December 1992 for the greatest Keen adventure 
+yet."  There was a picture of Keen smiling, with a Santa Claus hat 
+on.
+
+At the time, id Software was intending to do a third series of 
+Commander Keen, tentatively entitled "Commander Keen: The Universe is 
+Toast".  However, other projects came up (Wolfenstein 3D, Spear of 
+Destiny, and later, Doom).  There are no serious plans now to do more 
+Keen.  The main reason is that id Software owns the rights to 
+Commander Keen, and any new project would have to be either done by 
+them directly (EXTREMELY unlikely), or at least approved by them.  At 
+this time, there are no Keen games under development by either 
+Apogee, id, or Ion Storm (where Tom Hall & John Romero now work as of 
+1997).  If and when there ever is more Keen, it will be state of the 
+art of whatever technology is current at the time."
+
+I sure hope Keen returns. I’ll even be happy with a SVGA version! 
+These new generation games with hours of Quicktime movies and high 
+resolution graphics still don’t give the same playing satisfaction of 
+those early Keen games.
+
+=====================================================================
+16. What is the Dopefish?
+
+Years ago, this was Joe Siegler’s signature block:
+ -------------------------------------------------------------------
+| Joe Siegler - Apogee Software    |       _|\_                     |
+|                                  |   \  /    \   Pisces Swimeatus |
+| joe.siegler@swcbbs.com           |   |>< |>  OO    The Dopefish   |
+| apogee@delphi.com                |   /  \___/UU                   |
+ -------------------------------------------------------------------
+
+He now uses a different signature; however, many of us still love 
+that Dopefish character. See the following URLs to learn more about 
+him:
+  http://www.apogee1.com/faq/apfaq61.txt [go to section 2.4 of this 
+Apogee and 3D Realms FAQ]
+  http://www.apogee1.com/dopefish.html [The Well of Wishes, The 
+Official Dopefish Homepage]
+  http://www.apogee1.com/catalog/keen4/dopelinks.html [Dopefish 
+links]
+
+=====================================================================
+17. Has Keen appeared in any other games?
+
+Commander Keen has made guest appearances in the following games:
+
+- In Paganitzu, Keen’s helmet makes an apprearance in a hidden area.
+- In Bio Menace episode 2, Keen appears as one of the hostages you 
+need to rescue.
+- Four Keens made an appearance in a secret level of id’s Doom II.
+- Keen’s helmet appeared in a level of Crystal Caves.
+
+[thanks to Joe S. for this info]
+
+=====================================================================
+18. SPOILER Section
+
+WARNING - Don't read this section yet. You should really keep
+trying to solve the puzzles in the game first for the maximum
+enjoyment. Likewise, I reluctantly include the instructions on how
+to enter the CHEAT mode - this really ruins the thrill of
+discovering those hidden passages and other tricks. Don't worry,
+there is nothing past this point except spoiler items. The walk-
+throughs and questions/answers are not complete. These are responses 
+I have made to various gamers who have E-mailed me asking for help.
+
+^L
+=====================================================================
+19. How do I enter the cheat mode?
+
+The cheat mode is also known as the debugging mode. It is typically
+used by software designers to assist during a game's final testing
+phase. The code is often left in when the program goes to full scale
+production (e.g., Microsoft programmers have left some personal
+touches in Windows to display the programming team and show a
+cartoon destroying IBM).
+
+In the Invasion of the Vorticon series (Keen #1 - #3), press C, T
+and SPACE simultaneously. You will receive the pogo stick, all key
+cards, and lots of ray gun charges. While at the map level, pressing
+SHIFT and TAB will allow you to bypass a city. Press G, O, and D
+simultaneously to get the jump cheat. This is an early implementation
+of the more complete debug mode found in the next Keen series.
+
+In the Goodbye Galaxy series (Keen #4 and #5), press B, A, and T
+simultaneously to enter the cheat mode. This gives you additional
+shots, gems, and an extra life.
+
+Also in Goodbye Galaxy, push A 2 ENTER at the same time to enter the
+debugging mode (used during beta testing). Then the following codes
+can be used to cheat or gather information (hold down F10 and push
+the letter key):
+  B - Set border color (1-15)
+  C - Number of active/inactive objects in the level
+  D - Record a demo
+  E - End or finish the current level
+  G - God mode (you can't die)
+  I - Free items (add 3000 points and 99 shots)
+  J - Jump mode (you can fly anywhere)
+  M - Memory usage display
+  N - No clipping (fall through ground)
+  S - Slow motion
+  T - Sprite test display
+  V - Add 0-8 VBLs
+  W - Warp to any level
+  Y - Reveal hidden areas (shown in normal color)
+
+Note that several of the above codes also work in Keen Dreams and
+Aliens Ate My Baby-sitter (particularly the God and jump modes).
+
+=====================================================================
+20. KEEN4 Tricks
+
+POGO/CLIMB TRICK:  Hit ALT (pogo), hold down CTRL (jump) until you
+jump up as high as possible, quickly push ALT (to stop pogoing) and
+left/right arrow to climb left/right.
+
+To get to the secret pyramid (the one with the hand on it), go in
+the Pyramid of the Moons. Take the yellow diamond and go down. Use
+the diamond on the second yellow keyhole. Assemble 12 of the little
+yellow worms in one place. They will turn into a giant foot. Jump
+on the foot to go to the secret pyramid.
+
+You can not get to the raindrops and lifewater flasks floating over
+the underground river in Lifewater Oasis (it's just a tease).
+
+In the Pyramid of the Moons, stand on the moon drawing on the floor
+in the upper right portion of the game level. Wait for a while -
+Keen will "moon" you.
+
+=====================================================================
+21. KEEN4 Walk-Throughs
+
+NOTE:  In all these walk-throughs, it is assumed you will avoid/shoot
+dangerous creatures-I won't give you warnings here. Also, it is
+assumed you will gather all objects you find and explore rooms not
+mentioned below.
+
+Level 15 (Isle of Tar)
+
+Go right - get guns in house - continue right - drop down pit - go
+left -  jump up on platform - jump up and left - climb up -
+pogo/climb up to right (see pogo/climb trick above) - go right
+avoiding tar pits - fall down, hugging the right wall - turn on
+switch then continue falling down - jump up to level just below and
+to left of platform - go left - notice platform going up and down -
+stand on edge and jump up and left onto platform [if you miss, hug
+the right wall going down and try again: go right, enter door, enter
+door again, go left back to edge] - jump up to right at highest point
+platform rises - get red diamond and go back down on platform -
+TRICK: jump on left edge of platform to fall under it - fall down,
+hugging right wall [NOTE: you can skip the first right exit and enter
+the next - do not fall all the way down or you will hit a spike!] -
+go right - enter door - enter door again - go right - pass trap door
+and continue right - climb down pole - go left and drop down - turn
+on switch - jump onto platform - go all the way up - get yellow
+diamond - go back down and get off at middle level - climb up 2nd
+pole (same one you came down) - go back left - keep going, down ramp
+- go through door using yellow diamond - go down and turn on switch -
+go right through secret passage in wall - go right and through door -
+go left and fall down - go right - jump to get blue diamond - BE
+CAREFUL, jump from platform to platform to the right quickly before
+falling into tar pit - climb up pole - go left - go up on platform
+one level - go right and climb up 2nd pole again - go right through
+door using blue diamond - go up on platform - climb up to left - pogo
+up to right and EXIT
+
+=====================================================================
+22. KEEN5 Questions/Answers
+
+- Where are the 9 free Keens in level 1? They are at the bottom 
+right, outside the OmegaMatic. You get to this location through a 
+secret tunnel at the top left, immediately to the left of the laser 
+gun. Pogo jump up then go all the way to the right and down.
+- What does the secret message say in level 11, the Gravitational 
+Dumping Hub? It tells you how to get to the secret level: "Jump down 
+at arch." This is the arch just before the exit door.
+-- 
+Bill Amon
+The MITRE Corporation

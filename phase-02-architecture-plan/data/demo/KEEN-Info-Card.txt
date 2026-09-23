@@ -1,0 +1,124 @@
+==============================================================================
+DOS Games Archive Game Info Card                                     Version 3
+==============================================================================
+* General Information *
+
+Game title              : Commander Keen: Invasion of the Vorticons
+Alternate title(s)      : Commander Keen in "Invasion of the Vorticons"
+                          Commander Keen 1: Marooned on Mars
+                          (shareware episode title)
+Developer               : id Software
+Publisher               : Apogee Software
+Country of origin       : USA
+Distribution model      : Shareware
+
+* Release Information *
+
+Release type            : Shareware (episode)
+Exclusive level(s)      : No
+Version                 : 1.31
+Release date            : 1990/01/23
+Language                : English
+License file(s)         : VENDOR.DOC
+License/Permissions     :
+
+"Everyone can -- and is encouraged! -- to copy, upload and generally pass
+"around this Program without charging for it."
+
+"If you want to distribute it as provided in this Vendor.doc by catalog,
+"advertisement, BBS, on-line service, or direct mail, no written permission
+"is needed."
+
+* Distribution Information *
+
+Distribution type       : Digital download
+File name               : 1keen.zip
+File size               : 244 484 bytes
+Installer provided      : Yes
+Original location       : ftp://ftp.3drealms.com/share/
+Retrieved from          : http://legacy.3drealms.com/downloads.html
+
+Additional files        : 
+                          Windows desktop icons (3 files)
+Retrieved from          : http://legacy.3drealms.com/stuff/apogicon.exe
+
+                          Commander Keen FAQ by Bill Amon v2.0
+File name               : ckfaq20.txt
+File size               : 30 284 bytes
+Retrieved from          : http://legacy.3drealms.com/faq/index.html
+
+                          Commander Keen FAQ by Dave Allen v1.99
+File name               : keenfaq199.txt
+File size               : 87 111 bytes
+Retrieved from          : http://legacy.3drealms.com/faq/index.html
+
+Maintainer              : MrFlibble <mrflibble86@gmail.com>
+==============================================================================
+* Note for DOSBox users *
+
+This software is fully installed and configured to run in the DOSBox emulator.
+You can simply drag and drop the file KEEN.BAT over the DOSBox icon to start
+playing. Experienced DOSBox users may choose other methods of startup.
+
+The software was configured and tested to work with the official DOSBox build
+v0.74-3 available from www.dosbox.com. It may or may not work with any other
+third-party DOSBox distributions that are available.
+
+For playing instructions and other information, please refer to the in-game
+manual/help section (press F1 at any time during the game to access it).
+==============================================================================
+* Engine recreations *
+
+This game can also be played natively (no DOSBox required) on Windows, MacOS,
+Linux and other modern platforms using one of the engine recreations.
+
+> Commander Genius (supports almost all Keen games):
+  http://clonekeenplus.sourceforge.net/
+
+> Chocolate Keen (accurate recreation of the first trilogy):
+  http://www.shikadi.net/keenwiki/Chocolate_Keen
+
+NOTE: An engine recreation is not based directly on the original source code
+of a game, and may contain gameplay and other differences.
+==============================================================================
+* Game related websites *
+
+Publisher website (current):
+https://3drealms.com/catalog/commander-keen-invasion-vorticons_12/
+
+Publisher website (legacy):
+http://legacy.3drealms.com/keen1/index.html
+
+Commander Keen Wiki (comprehensive fan site):
+http://www.shikadi.net/keenwiki/Main_Page
+
+NOTE: Some sites are only available as copies made by the Wayback Machine:
+http://web.archive.org/
+==============================================================================
+* Disclaimer *
+
+THE GAME DATA IN THIS ARCHIVE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING AND NOT LIMITED TO ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+All game content is copyright to their respective owners.
+
+No files from the original software package provided by the developer and/or
+publisher were modified except for the configuration files needed to set up
+sound devices and input methods.
+
+This software was tested to work with the current official DOSBox build
+(v0.74-3) and was scanned by an antivirus/anti-malware tool.
+
+You use this software at your own risk. DOS Games Archive is not liable for
+any unwanted consequences that may arise from your using this software.
+==============================================================================
+* Download and online play *
+
+This game is available from DOS Games Archive at:
+https://www.dosgamesarchive.com/download/commander-keen-invasion-of-the-vorticons/
+
+It can be played online at:
+https://www.dosgamesarchive.com/play/commander-keen-invasion-of-the-vorticons/
+
+--- END OF FILE (2020/07/09) ---

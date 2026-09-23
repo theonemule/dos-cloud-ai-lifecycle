@@ -1,0 +1,22 @@
+services:
+  dos-cloud:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      DOS_CLOUD_STATE_ROOT: /data
+      DOS_CLOUD_HTTPS: "false"
+      DOS_CLOUD_SECURE_COOKIES: "false"
+      DOS_CLOUD_LOG_TARGET: console
+      DOS_CLOUD_LOG_FORMAT: json
+      DOS_CLOUD_LOG_LEVEL: info
+      DOS_CLOUD_SEED_DEMO_USERS: "true"
+    volumes:
+      - dos-cloud-state:/data
+    init: true
+    restart: unless-stopped
+
+volumes:
+  dos-cloud-state:

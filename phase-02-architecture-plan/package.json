@@ -1,0 +1,18 @@
+{
+  "name": "dos-cloud-phase-02",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Phase 2 working copy: architecture and implementation planning for DOS Cloud",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js",
+    "test:browser": "node test/browser-smoke.mjs"
+  },
+  "dependencies": {
+    "js-dos": "8.4.1",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "playwright-core": "1.63.0"
+  }
+}

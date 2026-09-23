@@ -1,0 +1,9 @@
+node_modules/
+server.log
+server.pid
+data/test-*/
+data/numeric-*/
+data/traversal-*/
+data/case-*/
+data/http-*/
+docs/keen-demo.png

@@ -1,0 +1,23 @@
+{
+  "name": "dos-cloud-phase-03",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Phase 3 build and test: multi-user DOS game catalog and personal DOS drives",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js",
+    "test:browser": "node test/browser-smoke.mjs",
+    "seed": "node scripts/seed.js",
+    "test:platform": "node --test test/platform.test.js",
+    "test:browser:games": "node test/multi-game-browser.mjs",
+    "test:e2e": "bash scripts/test-e2e.sh",
+    "test:all": "npm test && npm run test:e2e"
+  },
+  "dependencies": {
+    "js-dos": "8.4.1",
+    "adm-zip": "^0.5.16"
+  },
+  "devDependencies": {
+    "playwright-core": "1.63.0"
+  }
+}

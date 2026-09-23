@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DOS Cloud</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <div id="login-view" class="login-shell hidden">
+    <section class="login-panel">
+      <div class="brand large">DOS<span>Cloud</span></div>
+      <h1>Your DOS library, in the browser.</h1>
+      <p>Install shareware classics into your own persistent DOS C: drive, then launch them directly or drop to a DOS prompt.</p>
+
+      <form id="login-form" class="form-stack">
+        <label>Username<input id="username" autocomplete="username"></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password"></label>
+        <button class="primary" type="submit">Sign in</button>
+      </form>
+
+
+      <details>
+        <summary>Create another account</summary>
+        <form id="register-form" class="form-stack compact">
+          <input id="register-username" placeholder="username">
+          <input id="register-name" placeholder="display name">
+          <input id="register-password" type="password" placeholder="password (6+ characters)">
+          <button type="submit">Create account</button>
+        </form>
+      </details>
+      <div id="auth-error" class="error"></div>
+    </section>
+  </div>
+
+  <div id="app-view" class="hidden">
+    <header class="topbar">
+      <div class="brand">DOS<span>Cloud</span></div>
+      <nav>
+        <button id="home-button" class="link-button">Home</button>
+        <button id="console-button" class="link-button">Open DOS</button>
+      </nav>
+      <div class="account">
+        <span id="user-name"></span>
+        <button id="logout-button">Sign out</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero" class="hero"></section>
+      <div id="rows"></div>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

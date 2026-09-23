@@ -1,0 +1,2150 @@
+-------------------------------
+Commander Keen
+The Really Big
+"Unofficial" Commander Keen FAQ
+by Dave Allen
+flaose@classicgaming.com
+Version 1.99
+06/02/03
+-------------------------------	
+
+------------
+Introduction
+------------
+
+Hello, and welcome to my Commander Keen FAQ.  I hope that by the time you 
+finish reading this, you will have a vast knowledge of Commander Keen, his 
+universe, and a few cold, hard facts, without starting to foam at the mouth and 
+babble senseless phrases (except, perhaps, Shikadi).  If you are prepared, read 
+on brave soldier.
+
+Table of Contents
+*[1] General Information
+	 [1.1] General Disclaimer and Legal Stuff
+	 [1.2] Who am I?
+	 [1.3] Why am I writing this?
+	 [1.4] Who made the Commander Keen games?
+	 [1.5] Wasn't there another Commander Keen FAQ?
+	 [1.6] Will there be more Commander Keen games?
+	 [1.7] Why play Commander Keen?
+	 [1.8] Where can I get Commander Keen?
+	 [1.9] What is Shareware?
+	 [1.10] What's up with id, 3D Realms and Monkeystone?
+	 [1.11] Can I contact Apogee/3D Realms for hints?
+	 [1.12] A note on Pirating
+	 	 [1.12.1] What is Pirating?
+		 [1.12.2] What I've accidentally pirated a game?
+		 [1.12.3] Is there anywhere I can report pirating?
+	*[1.13] Who can distribute this FAQ?
+	*[1.14] Revision History
+ [2] Commander Keen's Universe (Also Known as The Meat)
+	 [2.1] Who or what is Commander Keen?
+	 [2.2] What games has Commander Keen starred in?
+	 [2.3] Who are Commander Keen's friends?
+		 [2.3.1] Marooned on Mars
+		 [2.3.2] The Earth Explodes
+		 [2.3.3] Keen must Die!
+		 [2.3.4] Keen Dreams
+		 [2.3.5] Secret of the Oracle
+		 [2.3.6] Aliens ate my Babysitter!
+	 [2.4] Who are Commander Keen's enemies?
+		 [2.4.1] Marooned on Mars
+		 [2.4.2] The Earth Explodes
+		 [2.4.3] Keen must Die!
+		 [2.4.4] Keen Dreams
+		 [2.4.5] Secret of the Oracle
+		 [2.4.6] The Armageddon Machine
+		 [2.4.7] Aliens ate my Babysitter!
+	 [2.5] What are the worlds Commander Keen visits?
+	 [2.6] How does Commander Keen get around?
+	 [2.7] What goodies can I pick up on my journeys?
+		 [2.7.1] Marooned on Mars
+		 [2.7.2] The Earth Explodes
+		 [2.7.3] Keen must Die!
+		 [2.7.4] Keen Dreams
+		 [2.7.5] Secret of the Oracle
+		 [2.7.6] The Armageddon Machine
+		 [2.7.7] Aliens ate my Babysitter!
+	*[2.8] What's the name of Keen's pet yorp?
+	*[2.9] What's this I hear about Billy Blaze's extended family? 
+	*[2.10] What is this 'dopefish'?
+ [3] The Official Commander Keen Games and Story's
+	 [3.1] What's the Story Behind Invasion of the Vorticons?
+		 [3.1.1] Marooned on Mars
+		 [3.1.2] The Earth Explodes
+		 [3.1.3] Keen must Die!
+	 [3.2] What's the Story Behind Keen Dreams?
+	 [3.3] What's the Story Behind Goodbye, Galaxy!?
+		 [3.3.1] Secret of the Oracle
+		 [3.3.1] The Armageddon Machine
+	 [3.4] What's the Story Behind Aliens ate my Babysitter!?
+ [4] Lyrics
+	 [4.1] What are the Lyrics to Eat Your Veggies?
+	 [4.2] What are the Lyrics to Aliens ate my Babysitter!?
+ [5] The Standard Galactic Alphabet
+	 [5.1] What is the Standard Galactic Alphabet?
+	#[5.2] What do all the Signs Say?
+		#[5.2.1] Marooned on Mars
+		#[5.2.2] The Earth Explodes
+		#[5.2.3] Keen must Die!
+		#[5.2.4] Keen Dreams
+		#[5.2.5] Secret of the Oracle
+		#[5.2.6] The Armageddon Machine
+		#[5.2.7] Aliens ate my Babysitter!
+*[6] The Hints, Tips, and Other Funny Things
+	 [6.1] What are some Hints for Invasion of the Vorticons?
+		 [6.1.1] Marooned on Mars
+		 [6.1.2] The Earth Explodes
+		 [6.1.3] Keen must Die!
+	 [6.2] What are some Hints for Keen Dreams?
+	 [6.3] What are some Hints for Goodbye, Galaxy!?
+		 [6.3.1] Secret of the Oracle
+		 [6.3.2] The Armageddon Machine
+	*[6.4] What are some Hints for Aliens ate my Babysitter!?
+*[7] The Codes
+ 	 [7.1] What are the Codes for Invasion of the Vorticons?
+ 	 [7.2] What are the Codes for Keen Dreams?
+	*[7.3] What are the Codes for Goodbye, Galaxy!?
+	 [7.4] What are the Codes for Aliens ate my Babysitter!?
+ [8] The Maps
+ 	#[8.1] What's the Layout of Marooned on Mars?
+	#[8.2] What's the Layout of The Earth Explodes?
+	#[8.3] What's the Layout of Keen must Die!?
+	 [8.4] What's the Layout of Keen Dreams?
+	#[8.5] What's the Layout of Secret of the Oracle?
+	#[8.6] What's the Layout of The Armageddon Machine?
+	#[8.7] What's the Layout of Aliens ate my Babysitter!
+ [9] The Endings
+	 [9.1] What's the Ending to Marooned on Mars?
+	 [9.2] What's the Ending to The Earth Explodes?
+	 [9.3] What's the Ending to Keen must Die!?
+	 [9.4] What's the Ending to Keen Dreams?
+	 [9.5] What's the Ending to Secret of the Oracle?
+	 [9.6] What's the Ending to The Armageddon Machine?
+	 [9.7] What's the Ending to Aliens ate my Babysitter!?
+*[10] The End of it All
+ [11] Acknowledgments
+
+* = New or changed in this version
+# = Forthcoming
+				
+------------------------
+*[1] General Information
+------------------------
+	
+And in the beginning, God created Heaven and Earth, and Lawyers.  Therefore, 
+thou shalt have legal stuff in order. Dig in, while it's warm.
+
+[1.1] General Disclaimer and Legal Stuff
+	I AM NOT AN EMPLOYEE OF 3D Realms ENTERTAINMENT COMPANY, APOGEE 
+SOFTWARE COMPANY, ID SOFTWARE COMPANY, OR MONKEYSTONE GAMES.  THIS FAQ IS DONE 
+IN MY RECREATIONAL TIME, OBEYING ALL LAWS THAT PERTAIN TO MY PLACE OF 
+RESIDENCE.  I AM IN NO WAY RESPONSIBLE FOR ANY ERRORS I, OR ANYONE ELSE HAS 
+MADE.  COMMANDER KEEN IS A REGISTERED TRADE MARK, AND COPYRIGHT OF ID SOFTWARE.  
+ALL OTHER COPYRIGHTS AND TRADEMARKS ARE PROPERTIES OF THEIR RESPECTIVE OWNERS.  
+USED WITHOUT PERMISSION.  I AM IN NO WAY LIABLE FOR ANY HEALTH EFFECTS CAUSED 
+BY THE READING OF THIS DOCUMENT, INCLUDING, BUT NOT LIMITED TO: CONGESTIVE 
+HEART FAILURE, BLINDNESS, VOMITING, NAUSEA, DIARRHEA, INDIGESTION, HEARTBURN, 
+BLOATING, CONSTIPATION, STARVATION, AND MALNUTRITION.  THIS FAQ MAY BE 
+DISTRIBUTED IN ANY FORM AS LONG AS: A) IT IS BY NO COMMERCIAL WEBSITE OTHER 
+THAN THOSE EXPRESSLY LISTED IN SECTION [1.14] B) IT IS IN ORIGINAL AND UNEDITED 
+GLORY, C) CREDIT IS GIVEN TO ME, THE AUTHOR, D) IT IS THE MOST CURRENT VERSION 
+PERTAINING TO THE DISTRIBUTOR'S KNOWLEDGE, E) NOTHING IS CHARGED FOR IT (BUT 
+I'M PRETTY SURE NO ONE WOULD PAY MONEY FOR THIS).  FOLLOW THE SHAVED BLUE 
+GONADS. BY THE WAY, IF YOU'RE ACTUALLY STILL READING, YOU'VE GOT WAY TOO MUCH 
+TIME ON YOUR HANDS, AND THERE'S WAY MORE INTERESTING STUFF TO READ.  GET GOING!
+
+[1.2] Who am I?
+	My name is Dave Allen, known to most of the Internet community as 
+Flaose (flay-oase).  I'm Canadian, that's all you need to know.  But enough 
+about me, how are you?
+
+[1.3] Why am I writing this?
+	I am writing this for two reasons: 1) The official Commander Keen FAQ 
+by Bill Amon was okay, but it wasn't very comprehensive, I think a FAQ should 
+be the only thing you need to find out about a certain subject (e.g. Commander 
+Keen).  2) I don't think I've made a great enough contribution to the Commander 
+Keen society, but this is it, The 
+Big One.
+
+[1.4] Who made the Commander Keen games?
+	As far as I know, the people who worked on the Commander Keen games are 
+the Programmers, John Carmack, John Romero, and Jason Blochowiak, Adrian 
+Carmack (he's not related to John, really!), doing the Artwork. Creative 
+Director Tom Hall, whom all other Creative Directors fear because of all his 
+great ideas, Jay Wilbur, the CEO dude, and Bobby Prince, the guy who composed 
+the music for Commander Keens 4 - 6.
+
+[1.5] Wasn't there another Commander Keen FAQ?
+	Yes, the Official Commander Keen FAQ was from a guy named Bill Amon.  
+Refer to section [1.3] Why am I writing this for more details.
+
+[1.6] Will there be more Commander Keen games?
+	I'll quote 3D Realms' Web Dude, Joe Siegler on this one, `If you played 
+Keen 5, there was a screen that said something to the effect of "Join us in 
+December 1992 for the greatest Keen adventure yet".  There was a picture of 
+Keen smiling, with a Santa Claus hat on. At the time, id Software was intending 
+to do a third series of Commander Keen, tentatively entitled "Commander Keen: 
+The Universe is Toast".  However, other projects came up (Wolfenstein 3D, Spear 
+of Destiny, and later, Doom).  There are no plans now to do more Keen. The main 
+reason for this is that id Software owns the rights to Commander Keen, and any 
+new project would have to be either done by them directly (EXTREMELY 
+unlikely), or at least approved by them. At this time, there are no Keen games 
+under development by Apogee, id, or Monkeystone (where Tom Hall & John Romero 
+now work as of 2001).  If and when there ever is more Keen, it will be state of 
+the art of whatever technology is current at the time.  In December of 1998, 
+Tom Hall has stated his interest in making future games based on his character 
+Keen and his universe, but only if he owned the rights to Keen, which is also 
+unlikely.'  Also, don't bug id Software about giving the license away, it'll 
+just make them more possessive, and they won't give it up, and we'll never have 
+any more Commander Keen Games, and it'll be All Your Fault!  So don't do it, 
+okay? Since the last version of this FAQ, a new Keen game was released, simply 
+called 'Commander Keen', this mediocre game was released for the Gameboy Color.  
+Tom Hall, the creator of Keen, had nothing to do with it.  It was developed by 
+David A. Palmer 
+Productions.
+
+[1.7] Why play Commander Keen?
+	Commander Keen is an in depth and complex side-scrolling game (well, 
+that first part might be stretching the truth), in which you control a cute 
+little eight year old through dozens of levels, to finally complete your goal.  
+After every game, the plot thickens a little more.  It's also a very fast game; 
+literally, it runs at around 40 frames per second, compare that to the original 
+Quake.  It is also a tense experience, one hit to keen, and he's dead.  
+Hilarity is everywhere, usually encoded, but still there.  What are you waiting 
+for?  Head over to Cerebral Cortex 314 page at 
+http://www.classicgaming.com/cc314/, and download shareware!
+
+[1.8] Where can I get Commander Keen?
+	You can order Episodes 1, 2, 3, 4, and 5 directly from 3D Realms at 
+their website, http://www.3drealms.com/, by phoning 1-800-GAME123, or by 
+mailing to Apogee Software Productions P.O. Box 476389 Garland, TX  75047-6389.  
+You can get Keen Dreams from Softdisk Publishing.  Episode 6 is only available 
+from id Software, when you buy the id Anthology (Discontinued), which includes 
+all the works of id Software, up to Quake.  Please only download Commander Keen 
+episodes 1, and 4, and the Demos of episode 6 and Keen Dreams (available at 
+Cerebral Cortex 314, http://www.classicgaming.com/cc314/), since only they are 
+part of the Shareware concept.  Speaking of which...
+
+[1.9] What is Shareware?
+	Originally, the term shareware described a full-blown software product 
+that relied on user's honesty (and pocketbooks) to support the author.  
+Understandably, most shareware was a commercial failure; why register when you 
+have the full product already.  Knowing this, Scott Miller came up with a new 
+shareware strategy to market his game 'Kingdom of Kroz' ('I have this cunning 
+plan' he said / as he lay upon his bed): He would release an 'episode' of the 
+game to the unsuspecting gaming public.  If the consumer liked the game, they 
+could pay a fee to register it, and receive the remaining 'episodes' and 
+therefore more excellent gameplay.  It was a 'try before you buy' system, if 
+you will.  Needless to say, Kroz was a commercial success, and it 
+revolutionized the shareware industry.  This became known as the 'Apogee 
+Model', and was the precursor to the playable demos that are regularly released 
+by gaming companies these days to entice players to purchase their games.
+
+[1.10] What's up with id, 3D Realms and Monkeystone?
+	id Software was the company who developed Commander Keen, Apogee 
+Software, now known as 3D Realms, published it.  However, they had a falling 
+out around the time of DOOM, id Software said Apogee wasn't serious enough 
+about their business.  Monkeystone is the company that Tom Hall, the creator of 
+Commander Keen, and John Romero, a programmer of the Commander Keen series, 
+work for.  id, Apogee, and Monkeystone are related in no other business way.
+
+[1.11] Can I contact Apogee/3D Realms for hints?
+	You can ask for hints, if you have registered the games!  Hints can be 
+received by phoning (972) 278-5655, Monday through Friday, between 8:00am and 
+6:00pm CST, or by writing to Apogee Software at P.O. Box 496389, Garland, TX 
+75049-6389.
+
+[1.12] A note on Pirating
+	Arr me maties.  With pirating ye are squandering it all.  
+
+[1.12.1] What is Pirating?
+	Pirating is the unlawful breaking of the copyright of a game, by giving 
+away, or selling it without removing the original copy from your computer.  So 
+say I just got Commander Keen 3, and I give it to my friend, than my friend 
+gives it to three of his friends, who each give it to three of their friends, 
+and so on and so on.  In the end, 3D Realms will have lost perhaps thousands of 
+dollars.  Now imagine if everyone does it.  Companies will have to start laying 
+off workers, which means crap games that take years to complete.  Eventually, 
+the industry will be no more, and we wouldn't want that, would we?
+
+[1.12.2] What I've accidentally pirated a game?
+	Hey, it happens.  However, make sure you buy the game promptly from the 
+store or company.  Your conscience will be clear, and your favorite game 
+company will still be able make more great games.  Hey, everybody wins!
+
+[1.12.3] Is there anywhere I can report pirating? 
+	Of course!  You can phone the Software Pirating Association (SPA) at 1-
+800-338-PIR8, or 3D Realms at 1-800-3D Realms.
+
+*[1.13] Who can distribute this FAQ?
+	Permission is granted to any non-commercial website to distribute this 
+FAQ, provided they follow the rules set out in section [1.1].  Only the 
+following commercial websites may distribute this FAQ:
+	
+	http://www.3drealms.com/
+	http://www.classicgaming.com/
+	http://www.gamefaqs.com/
+	http://www.cheats.de
+
+*[1.14] Revision History
+	v.0.98b (??/??/??):	Original version, edited by me. 
+	v.0.99b (??/??/??):	Controlled Release
+	v.1.00  (12/10/99):	First Public Release!  It's actually a FAQ!  A 
+				few minor changes.
+	v.1.01  (12/18/99): 	A very minor change.  Unreleased
+	v.1.10  (01/25/00): 	Removed some material, updated section [1.6] 
+				Will there be more Commander Keen games?
+	v.1.99  (06/02/03): 	(This Version, and probably the last) Less is 
+				More!  Entire Text Updated and converted to 
+				.txt file for universal accessibility.  Removed 
+				some superfluous sections. 
+	
+------------------------------------------------------
+[2] Commander Keen's Universe (Also Known as The Meat)
+------------------------------------------------------
+
+Commander Keen's universe is also our universe, everything that is in his 
+universe is in our universe, and everything that happens in his universe 
+happens in our universe.  Watch the skies.
+
+[2.1] Who or what is Commander Keen?
+	Commander Keen is the alter-ego of eight year old Billy Blaze.  When 
+Billy dons his brothers' football helmet, he becomes COMMANDER KEEN!  Defender 
+of Earth with an iron fist.
+ 
+[2.2] What games has Commander Keen starred in?
+	In addition to the seven Commander Keen games, Commander Keen has made 
+cameo appearances in:  The super-secret level of Doom II (level 32), in a 
+message in Pickle Wars (it originally was planned to be an Apogee game).  He is 
+also found as a hostage in Bio-menace, in a puzzle in Paganitzu, and Commander 
+Keen's helmet is found in a level of Crystal Caves.  Someone named only as B. 
+Blaze is mentioned in the Epic Games classic side-scroller game Jill of the 
+Jungle.
+
+[2.3] Who are Commander Keen's friends?
+	Unfortunately, Commander Keen has very few friends in his universe 
+(that would suck, wouldn't it?), but here they are:
+
+[2.3.1] Marooned on Mars
+	The Yorps: These lovable, one-eyed green Martians are friendly.  Very 
+friendly.  Too friendly.
+	
+	Butler "Tin Can" Robots: A nice little Martian robot that has trouble 
+keeping his hat on.  He is nice except for the fact that he usually pushes you 
+off a platform to your death.
+
+[2.3.2] The Earth Explodes
+	Youths: These young Vorticons were sent into space by the Grand 
+Intellect to grow into fierce warriors.  They like to tear around and don't 
+much care what gets in their way.  These youngsters will most likely grow up to 
+be Vorticon Elite.
+	
+	Vorticon Elders:  Wise Elders are kept in stasis in the living quarters 
+of the ship.  They are from what is known as the Before Time, before the Grand 
+Intellect.
+	
+	Scrubs: These little red robots perform various menial duties around 
+the ship and can walk on almost any surface.
+
+[2.3.3] Keen must Die!
+	Youths: The same spoiled brats that knocked you out in the second 
+episode.  Now they play a deadly game of jacks.
+	
+	Foobs: These little yellow creatures like to go out for strolls, 
+whistling, and enjoy the day.  Unfortunately, they are completely afraid of 
+almost everything.  If you touch them, they will grow so tense that they will 
+pop.
+	
+	Messie: The great sea serpent of the legendary Loch Mess.  Who knows if 
+she even exists?
+
+[2.3.4] Keen Dreams
+	Carrot Couriers: These couriers are in a hurry!  Get out of the way or 
+you might be pushed between a rock and a hard place!
+
+	Pea Pods: They may look scary, but these guys are harmless.  Just watch 
+out for their offspring, the Pea Brains!
+
+	Mosquitoes: Though annoying to most people, these mosquitoes don't seem 
+to bother Commander Keen.  The blue ones might even be helpful somehow.
+
+	Children: Other children captured by Boobus Tubers' Dream Machine.  
+They just sit and wave to our hero as he passes by.
+
+[2.3.5] Secret of the Oracle
+	Bounder: These red, friendly, bouncing guys can be annoying, but they 
+can be helpful, too!
+
+	Council Member: These are the Gnosticenes you are trying to rescue.  
+There are eight of them hidden in the depths of the Shadowlands.  
+
+	Inchworm: These placid yellow creatures are all over.  Watch out where 
+you step or they'll be afoot!
+
+	Princess Lindsey: The Princess is here to help you out.  If you can 
+find her, she will give you valuable information that will help you complete 
+your quest. 
+
+	Schoolfish: These fish are the real follow-the-leader types.
+
+[2.3.6] The Armageddon Machine
+	Korath III Inhabitant: The denizens of the planet below the Omegamatic, 
+these guys are just trying to go on with their day.  Unfortunately, the Shikadi 
+are making it very difficult. 
+ 
+[2.3.7] Aliens ate my Babysitter!
+	Flect: These fellows have big teeth, but their bite isn't the problem!  
+Watch where you shoot when these guys are around.
+	
+	Blooglet: Baby Bloogs come in four colors: red, yellow, green, and 
+blue.  They aren't very dangerous, and they might even prove helpful sometimes.
+
+	Molly: The object of your quest.  The Bloogs are holding Molly for 
+dinner.
+
+	Viva: These are probably the most common form of life on Fribbulus Xax.  
+Vivas have a wonderful quality-touching them improves your health.  In fact, 
+for every 100 you come into contact with, you'll gain another life.  Watch 
+carefully for Queen Vivas-touching one will give you another life all by 
+itself. 
+
+[2.4] Who are Commander Keen's enemies?
+	Most of the aliens Commander Keen meets are mean, and hate him, and 
+want him dead.  Here's the lowdown.
+
+[2.4.1] Marooned on Mars
+	Gargs: These wild-eyed, teeth-gritting Martian monsters are angry at 
+you, angry at themselves, angry at dirt, angry at clouds, just plain angry.  If 
+Freud were to see them, he would call them the "Id".
+	
+	Vorticons: The Vorticons on Mars are members of a Mars outpost and are 
+really on the bottom rung of the Vorticon social ladder.  Being on an outpost 
+has made them kind of tough.  In the second two episodes, they are known as 
+"Grunts".
+	
+	Tank Robots: These robots exist to kill any intruders.  Even friendly 
+ones.
+
+	Pat-Pat: These enormous shelled enemies open and shut their mouths so 
+quickly, if Commander Keen gets too close, he'll be bit right in half! 
+
+[2.4.2] The Earth Explodes
+	Grunts: These are the Vorticons from Episode One, but they have led a 
+more posh lifestyle, so they are weaker.
+	
+	Vorticon Elite: These are Elite warriors.  To show their loyalty to the 
+Grand Intellect, they had their ears clipped.  They are mean and like to shoot 
+a lot.  They wear blue and purple suits.
+	
+	Guard Robots: These awful purple robots are basically hovering machine 
+guns.
+
+[2.4.3] Keen must Die!
+	Grunts: here they are again, with red suits.
+	
+	Vorticon Women: They are very dangerous.  They have big claws and 
+breathe fire.  You've come a long way, baby.
+	
+	Meeps: A race of green, egg-shaped, horrendously bad singers with 
+sorely misplaced operatic intentions.  They think they are the greatest singers 
+in the world.  They are wrong.
+
+	VortiNinja: These are the most deadly enemy in this episode. Not only 
+do they move and jump around very fast, they can also kick you! And to top it 
+all off, they take 4 shots to kill.
+	
+	The Grand Intellect: His scary picture is framed on the wall of various 
+Vorticon homes and schools.  Who is he?  Finish the game and find out!
+
+[2.4.4] Keen Dreams
+	Frenchy: The french-fry tossing Frenchy is very dangerous.  Watch out!
+
+	Tater Trooper: The most common inhabitants of Tuberia, these bayonet 
+carrying spuds almost always seem to be around. 
+	
+	Pea Brain: The offspring of the Pea Pods look cute enough, but don't be 
+fooled by that sweet face!  They're pure evil! 
+
+	Squash: The squash (appropriately) try to squish Commander Keen when he 
+walks nearby.
+
+	Sour Grapes: These poor grapes are so sour at life, they'll fall off 
+the vine whenever Commander Keen steps beneath them! 
+
+	Rotten Apple: These apples are rotten to the core!  Be warned that they 
+can climb poles too!
+
+	Boobus Tuber:  The King of Tuberia, this guy is huge.  Seriously huge.  
+He can jump as good, or better than you, so watch out!
+
+	Killer Tomatoes: The mad tomatoes of Tuberia will try to eat you whole!
+
+	Broccolash: Packing 125 lbs. of hair, Commander Keen better watch out 
+where he steps to avoid being crushed!
+
+	Spearing Asparagus: These dangerous vegetables run towards Commander 
+Keen with their large, spiky forehead!
+
+	Seeded Watermelon: Watch out for the black seeds shot from these fed up 
+watermelons!  They always seem to be in the most inconvenient places.   
+
+[2.4.5] Secret of the Oracle
+	Arachnut: Insane, green, crab-like walking creatures with two dangerous 
+mouths!
+
+	Berkeloid: This fiery fella is not to be toyed with.  He throws big 
+fireballs!
+
+	Dopefish: The second dumbest creatures in the universe, this creatures 
+thought patterns go "swim swim hungry, swim swim hungry."  They'll eat anything 
+alive and moving near them, though they prefer heroes.
+
+	Gnosticene Ancient: These guys like to take your items and disappear.
+
+	Lick: These blue beanbag-like monsters breathe a deadly lick of fire.
+
+	Mad Mushroom: Dangerous plants that hop and are deadly to the touch.
+
+	Mimrocks: Little creatures that look exactly like rocks, until your 
+back is turned!
+
+	Poison Slug: The most common inhabitants of the Shadowlands, poison 
+slugs mean trouble twice - once if you touch them, twice if you should land in 
+the puddles of poison they leave behind.
+
+	Skypest: Virtually immune to your shots, these guys really are pests.  
+There must be someway to get them, though.
+
+	Sprite: Dopefish won't mess with these problematic underwater 
+creatures: they shoot energy blasts at you!
+
+	Wormouth: Watch out for these green menaces.  They're a lot bigger than 
+they look.
+
+	Blue Eagle: These invulnerable eagles are only temporarily stunned by 
+Commander Keen's Neural Stunner, not completely knocked out.  In a few seconds 
+they will get up and chase after Commander Keen. Don't break their eggs!  A new 
+blue eagle will be born! 
+
+[2.4.6] The Armageddon Machine
+	Sparky: This guy has a magnetic personality.  His presence is 
+electrifying.  You'll be shocked when you see him!  Watch out when he 
+"charges!"
+
+	Little Ampton: This purple fellow slides up and down poles and works on 
+his computer terminals.  Don't be on the pole he's on, `cause he slides up and 
+down quickly!
+
+	Slicestar: The slicestar is a crystalline being with razor-sharp 
+points.  Don't get near `em!
+
+	Volte-face: Volte-faces are crazy, insane floating creatures that have 
+electronic arcs for hair!
+	
+	Robo Red: Robo Red is a nasty guard.  If he hears a sound, he shoots 
+first and asks questions later.  Avoid, avoid, avoid!
+
+	Shelley: This tiny darling seams pleasant enough until you least expect 
+it, then she goes all to pieces!
+
+	Spirogrip: The spirogrip spins and launches toward walls.  If you're in 
+the way, you'll be toast!
+
+	Shikadi Mine: Woe be the hero that wanders near one of these.  They 
+will follow you until you are close enough, then they explode!
+
+	Spindred: Spindred slam angrily at the floor and ceiling.  They'll 
+crush you quicker...than something quick.
+
+	Shikadi: These energy beings built the Omegamatic and plan to destroy 
+the galaxy.  Watch out for them near poles.
+
+	Sphereful: Frightful plasma orbs with orbiting diamond sensors, tread 
+carefully by these dangerous denizens. 
+
+	Shockshund: Three-legged energy dogs of the Shikadi, their spark is 
+worse than their bite!
+
+	Shikadi Master: The most frightful foe aboard the Omegamatic, they cast 
+Electrospheres at you and teleport around.  Very dangerous.
+
+[2.4.7] Aliens ate my Babysitter!
+	Bloog: The Bloogs stole your babysitter.  These one-eyed green 
+carnivores are driven by their hunger across the galaxy.
+
+	Bip: Bips are the cogs in the Bloog's machine.  They run platforms, 
+they patrol areas in their Bipships, and generally cause havoc.  They will 
+fight for anyone, but they happened to hook up with the Bloogs.
+
+	Babobba: This little red fellow is a baby Bobba.  Babobbas are not 
+quite as tough as full-grown Bobbas.
+
+	Blorb: These red gelatin-like beings are deadly but slow.  They bounce 
+around and make you nervous.
+
+	Gik: This hard-shelled customer's worst points are its points!  Its 
+legs are spikes, so it will flip and try to poke you.
+
+	Ceilick: These purple beings hid in holes in the ceiling and will try 
+to get you with their forked tongues.
+
+	Blooguard: These burly Bloogs have big clubs to bonk their enemies.  
+Even if they miss, their clubs shake the ground so violently you might get 
+knocked out!
+
+	Bobba: Bobbas are nasty indestructible beings that hop and fire deadly 
+energy bolts from their eyes.
+
+	Nospike: These blue fellows walk around until they find something to 
+charge at.  But even charging, their favorite pastime, will bore them after a 
+bit.  Watch out for their fearsome horn!
+
+	Orbatrix: These big blue eyeballs will bounce and spin at you!  Be 
+careful, they float and follow you.
+ 
+	Fleex: The Fleex are amongst the finest engineers in the universe, 
+having designed all of the buildings and devices on Fribbulus Xax.  
+Unfortunately, the Bloogs built them, devastating the sleek and elegant 
+designs.  The Fleex have very sensitive eyes (a natural 
+consequence of spending a lifetime in a basement lab), so sensitive that they 
+have to wear dark shades when they're out in the light (making them nearly 
+blind).  To compensate, they've developed an oversized ear which allows them to 
+hear other creatures as they move around.
+
+[2.5] What are the worlds Commander Keen visits?
+	Keen visits quite a few planets on his journeys, here are the planets 
+he's visited lately.  
+
+	Mars: Probably the planet everyone of Earth is most familiar with, this 
+is where Commander Keen starts his legacy.  He visits both the polar ice caps 
+and the dark side of Mars.  Commander Keen gets marooned when the Vorticons 
+steal necessary parts of the bean-with-bacon Megarocket.
+
+	Vorticon VI: A strange heavenly body, it is the home planet of the 
+Vorticons.  It is very similar to Earth, with the exception of the great 
+fortresses created by their ruler, the mysterious Grand Intellect and the 
+Vorticons.  Commander Keen must find the Grand Intellect and stop his plans to 
+destroy Earth!
+
+	Tuberia: Kingdom of Boobus Tuber, the evil Dream Machine sends children 
+into captivity when they say something negative about vegetables.  Keen must 
+destroy it or he'll be sleeping forever!
+
+	Gnosticus IV: Home planet of the Poison Slugs, Ancients and Council 
+Members.  The evil Shikadi have imprisoned the invulnerable Council members in 
+deep warrens of this forbidden place.  Keen must rescue them or he'll have to 
+say Goodbye Galaxy!
+
+	Fribbulus Xax: Home of the evil Bloogs, Commander Keen must face 
+incredible horrors and impossible odds to save his babysitter Molly.  If he 
+doesn't save her before his parents get home, Billy will have to tell them, 
+"Aliens ate my babysitter."
+
+[2.6] How does Commander Keen get around?
+	Commander Keen travels from planet to planet and from ship to ship 
+using his interstellar starship made from old soup cans, rubber cement, and 
+plastic tubing.  The Bean-with-Bacon Megarocket!  While exploring other worlds 
+and ships, Commander Keen can use the Holy Pogo Stick he found on his excursion 
+on Mars.  Unfortunately, Commander Keen leaves his pogo stick behind when he is 
+sent to Tuberia with the Dream Machine.
+
+[2.7] What goodies can I pick up on my journeys?
+	The only thing better than accomplishing your main goal in Commander 
+Keen is picking up the candy and items!  Here's the complete list.
+
+[2.7.1] Marooned on Mars
+	Lollipop:		      	100   Points
+	
+	Soda:				200   Points
+
+	Pizza:				500   Points
+	
+	Book:				1000  Points
+
+	Teddy Bear:			5000  Points
+
+	Joystick: 			Manual Flight Control
+
+	Car Battery: 			Electrical Systems Power
+
+	Vacuum Cleaner:			Ion Propulsion Unit (with carpet height 
+					adjustment)
+
+	Everclear:			Fuel
+
+	Raygun:				5 Charges
+
+	Holy Pogo Stick: 		Used for bouncing higher
+
+	Keycards:			Used to open 4 different doors
+
+[2.7.2] The Earth Explodes
+	Candy Bar:			100   Points
+
+	Vorta-Cola:			200   Points
+
+	Hamburger:			500   Points
+
+	Cake (Chocolate):		1000  Points
+
+	Stuffed Toy Vorticon:		5000  Points
+
+	Vorticon Hyperpistol: 		5 Charges
+
+	Keycards:			Used to open 4 different doors
+
+[2.7.3] Keen must Die!
+	Zitto Candy Bar: 		100   Points
+
+	Diet Vorta-Cola: 		200   Points
+
+	Big-N-Beefy Burger:		500   Points
+
+	Cake (Double Chocolate): 	1000  Points
+
+	Stuffed Toy VortiNinja:		5000  Points
+
+	Ankh:				A mysterious super powerup.  Use them 
+					wisely. 	 
+
+	Vorticon Hyperpistol:		5 Charges
+
+	Hyperpistol Reloads:		1 Charge
+
+	Keycards:			Used to open 4 different doors
+
+[2.7.4] Keen Dreams
+	Spearmint:	       		100   Points
+
+	Chocolate Chip Cookie:		200   Points
+
+	Candy Cane:			500   Points
+
+	Chocolate Bar:			1000  Points
+
+	Lollipop:			2000  Points
+
+	Cotton Candy:			5000  Points
+
+	Flower Power:			1 Shot
+
+	Flower Pot:			5 Shots
+
+	Magic Eyeball:			3 Lives and 8 Shots
+
+	Boobus Bomb:			1 Shot, 12 destroy Boobus Tuber
+
+	Key:				Used to open doors
+
+[2.7.5] Secret of the Oracle
+	Shikadi Soda:			100   Points
+
+	Three-Tooth Gum: 		200   Points
+
+	Shikkers Candy Bar:		500   Points
+
+	Jawbreaker:			1000  Points
+
+	Doughnut:			2000  Points
+
+	Ice Cream Cone:			5000  Points
+
+	Neural Stunner:			8 Ammo in Easy, 5 Ammo in Normal or 
+					Hard
+
+	Raindrops:			Collect 100 for extra life
+
+	Lifewater Flask			Extra Keen
+
+	Wetsuit: 			Allows you to swim in water
+
+	Gems:				Used to open 4 different doors
+
+[2.7.6] The Armageddon Machine
+	Shikadi Gum:			100   Points
+
+	Marshmallow:			200   Points
+
+	Chocolate Milk:			500   Points
+
+	Tart Stix:			1000  Points
+
+	Sugar Stoopies Cereal:		2000  Points
+
+	Bag O' Sugar:			5000  Points
+
+	Neural Stunner:			8 Ammo in Easy, 5 Ammo in Normal or 
+					Hard
+
+	Vitalin: 			Collect 100 for extra life
+
+	Keg O' Vitalin:			Extra Keen
+
+	Keycard: 			Opens security doors
+
+	Gems:				Used to open 4 different doors
+
+[2.7.7] Aliens ate my Babysitter!
+	Bloog Soda:			100   Points
+
+	Ice Cream Bar:			200   Points
+
+	Pudding: 			500   Points
+
+	Root Beer Float: 		1000  Points
+
+	Banana Split			2000  Points
+
+	Pizza Slice:			5000  Points
+
+	Neural Stunner:			8 Ammo in Easy, 5 Ammo in Normal or 
+					Hard
+
+	Grappling hook and rope: 	Lets you climb something.
+
+	Bloogstar Rocket Passcard:	Lets you get through force field
+
+	Really Big Sandwich:		It's second biggest sandwich Commander 
+					Keen has ever seen.
+
+*[2.8] What's the name of Keen's pet yorp?
+	At the end of Marooned on Mars, Commander Keen brings home a yorp to 
+keep as a pet (see section [9.1]).  There has, however, been some confusion 
+about his name.  Some feel that his name is Norp the Yorp.  Others feel that 
+his name is Spot (as his food bowl suggests).  Tom Hall was asked to set the 
+record straight:
+
+'It's Spot, really. Billy was probably trying to give his parents something 
+normal to hold onto since they let him keep a one-eyed alien as a pet. :)'
+
+And the matter is laid to rest.
+
+
+*[2.9] What's this I hear about Billy Blaze's extended family?
+	You may have heard that Billy Blaze, a.k.a. Commander Keen, is related 
+to B. J. Blazkowicz, hero of the Wolfenstein games.  The following is an 
+excerpt from the Wolfenstein 3D Official Hint Manual:
+
+	William Joseph Blazkowicz was born August 15, 1911, to Polish
+	immigrants.  Blazkowicz was a top spy for the Allied Forces,
+	receiving the Congressional Medal of Honor and other accolades
+	for heroism.  "B.J.," (as he was called by his friends) married
+	after World War II, at age 40, to Julia Marie Peterson.  Their
+	son, Arthur Kenneth Blazkowicz, became a television talk show
+	personality in Milwaukee.  For show biz purposes, Arthur changed
+	his last name to Blaze.  Arthur later married Susan Elizabeth
+	McMichaels.  They had one son (which they named after Arthur's
+	father), William Joseph Blazkowicz II, or as he signs his grade
+	school homework, B. Blaze....
+	
+*[2.10] What is this 'dopefish'?
+	The following is an excerpt from Joe Sigler's awesome Dopefish website 
+http://www.dopefish.com:
+
+	What is Dopefish? Dopefish was one of the characters that appeared in 
+	Commander Keen, Episode IV back in 1991. That's it. All the rest of 
+	this "Dopefish mania" came later. You can read about it...at 
+	dopefish.com, the definitive source of info on everyone's favourite 
+	fish! 
+
+	Dopefish is the product of the fertile mind of Tom Hall. It was one of 
+	24 drawings he did of ideas for characters for Commander Keen: Goodbye, 
+	Galaxy! while part of id Software. Dopefish was one of the characters 
+	from these drawings that made the cut. According to Tom, "I just drew 
+	this stupid little fish," and the rest is history.
+
+	It was pointed out to me recently that the Dopefish can predict the 
+	future.  How?   Well, the original Dopefish sketch referenced above was 
+	drawn back in 1990.  Dopefish theologists point out that when the 
+	Dopefish was called into being by Tom, it made Tom have a foreshadowing 
+	of a future id release, Quake.  You want proof?  [On that original 
+	sketch, there was a Quake symbol.]  Makes you think, doesn't it?  
+	Especially when Tom was no longer with id Software when they began work 
+	on Quake.
+	
+	Dopefish is described in the cast of characters for Secret of the 
+	Oracle as the second dumbest creature in the universe. His thought 
+	patterns go, "swim swim hungry, swim swim hungry." Dopefish "will eat 
+	anything alive and moving near them, though they prefer heroes."  
+	(What's the most dumbest creature in the universe? Why, of course, the 
+	Ravenous Bugblatter Beast of Traal. It's so stupid that it thinks if 
+	you can't see it, it can't see you. One way to avoid the BugBlatter 
+	Beast is to throw a towel over your head.) Dopefish was adopted" by the 
+	Tech Support staff at Apogee soon after I came on board. Then Steve 
+	Quarrella came onboard and it balooned from there. Dopefish was my 
+	favorite character, and Steve was the resident Keen expert -- Lee 
+	provided a few vocal effects and some art. We got hold of some screen 
+	capture software and went to town...
+
+So why is Dopefish so popular?  Could it be his simple thought patterns (people 
+always feel sorry for stupid animals)?  His bucked-teeth?  His tendency to 
+burp?  It beats me.  But it really doesn't matter; everyone loves him.
+
+------------------------------------------------
+[3]The Official Commander Keen Games and Story's
+------------------------------------------------
+	
+Every Saga has a story, every story has a beginning.  This is Commander Keen's.
+
+[3.1] What's the Story Behind Invasion of the Vorticons?
+Billy Blaze, eight year-old genius, working diligently in his backyard 
+clubhouse has created an interstellar starship from old soup cans, plastic 
+cement and rubber tubing.  While his folks are out on the town and the 
+babysitter has fallen asleep, Billy travels into his backyard workshop, dons 
+his brother's football helmet, and transforms into.
+
+COMMANDER KEEN - Defender of Earth!
+
+	In his ship, the Bean-with-Bacon Megarocket, Keen dispenses galactic 
+justice with an Iron Hand!
+
+[3.1.1] What's the Story Behind Marooned on Mars?
+	In this episode, aliens from the planet Vorticon VI find out about the 
+eight year-old genius and plan his destruction.  While Keen is out exploring 
+the Mountains of Mars, the Vorticons steal vital parts of his ship and take 
+them to distant Martian cities!  Can Keen recover all the pieces of his ship 
+and repel the Vorticon invasion?  Will he make it back before his parents get 
+home?  Stay tuned!
+
+[3.1.2] What's the Story Behind The Earth Explodes?
+	His parents think he's asleep, but there's no time for napping - a 
+Vorticon mothership is poised above Earth, preparing to destroy every major 
+city with their deadly Tantalus ray!  Keen must sneak aboard the ship and stop 
+each Tantalus team from their terrible task.  If he fails, the Earth Explodes!  
+Of course, this means he won't have to get home in time for school... The Earth 
+or no school.  Hmm...
+
+	After much deliberation, Keen decides to save the Earth anyway.  Don't 
+miss an action-packed second of this exiting episode in the Commander Keen 
+trilogy!  
+
+[3.1.3] What's the Story Behind Keen must Die!?
+	Keen blasts through a hyperspace gate and arrives on Vorticon VI, 
+landing on the island of Vortiville.  Here he faces mind numbing horrors of 
+suburban life.  Then he will travel to New Vorticon, where life is a dark, 
+dangerous enterprise.  He will also have to face the violent forces massed in 
+the Vorticon military installation.  After this, he will face the impossible 
+maze of the Caves of Oblivion.  If he passes this barrier, he will finally 
+reach the castle of the Grand Intellect, where all his beliefs and fears come 
+together in a titanic, shocking finale!  Don't miss the incredible shattering 
+conclusion to the Commander Keen trilogy!
+
+[3.2] What's the Story Behind Keen Dreams?
+	We find young Billy discussing matters of paramount importance with his 
+mother.
+
+	"I just saved the Earth mom," said Billy.  "I don't have to eat 
+vegetables."
+
+	"Sure, dear," said Billy's mom.  "I bet Neil Armstrong never complained 
+about HIS mashed potatoes."
+
+	"I bet Neil Armstrong never traveled to Vorticon VI and defeated the 
+Grand Intellect, either," Billy mumbled at his plate.  He sat there, legs 
+dangling, staring at his offensive, starch-laden foe.
+
+	After a pointed remark about the quality of the mashed potatoes, Billy 
+was sent to his room.
+
+	"Stupid Vegetables," he grumbled, his eyelids growing heavy.
+
+	Soon Billy was fast asleep.
+
+	Suddenly he woke up, and his bed was atop a hill.  On either side of 
+the bed were giant potatoes wearing metal helmets and holding bayonets.
+
+	"Come with us Captain Keen," said the first.
+
+	"You've been brought here by the dream machine," said the second.
+
+	"Boobus Tuber our king and boss-"
+
+	"-is now your master, come with us!"
+
+	Billy frowned, grabbed his football helmet of his bedpost, and started 
+to put it on.
+
+	"First of all, spuds," Billy said pushing down on the helmet.  "That's 
+COMMANDER Keen.  Second of all, who do you think you are?"
+
+	"We're Tater Troopers it's plain to see," said the first.
+
+	"So get-"
+
+	Keen reached under his pillow and retrieved his Vorticon Hyperpistol.  
+He moved it from "Stun," passed "Disrupt," all the way up to "Fry to delicate 
+brown."
+
+	"How about a walk on the fried side boys?" Keen said.
+
+	Two BZZAPs later, Keen pouted.
+
+	"Aw nuts.  My Hyperpistol's empty," he said.
+
+	Just then, a child in chains ran up to him.
+
+	"Keen, oh, Keen, oh, Captain Keen!  Save us from the Dream Machine!" he 
+said.
+
+	"That's COMMANDER Keen," the young genius corrected.
+
+	"Whatever.  Save us!" said the child.
+
+	So Billy hopped out of his bed and started on his quest to defeat King 
+Boobus Tuber and destroy the Dream Machine!    	
+
+[3.3] What's the Story Behind Goodbye, Galaxy!?
+
+[3.3.1] What's the Story Behind Secret of the Oracle?
+	Billy Blaze toils in his backyard workshop, busily constructing his 
+latest invention: the Photachyon Transceiver.  Put in simple words, it is an 
+instantaneous radio - point to anywhere in the galaxy, and you can pick up a 
+signal as if you were right there.  After picking up a lot of bad alien 
+sitcoms, Billy hears a strange message, spoken in the language of Omnispeak 
+that the Vorticons taught him.
+	
+	Brrzzz.giggg.oment of great triumph.frzzt.ast the Milky Way will 
+be.huzzzzz.terly destroyed.pyuneeeeeeg.can stop us now.  We will remake the 
+galaxy in the name of the Gannalech.  Power to our race!  Power to the Shikadi!
+
+	Then the radio is silent.
+
+	"So the Shikadi are planning on destroying the galaxy, huh?" thinks 
+Billy to himself.  "Sounds like a job for...COMMANDER KEEN!
+
+	Billy once again dons his brothers football helmet, contemplating three 
+questions:
+
+	Who the heck ARE the Shikadi?
+	Where are they?
+	How are they planning to destroy the galaxy?
+	
+	Climbing into the Bean-with-Bacon Megarocket's cockpit, Billy sets up 
+the launch sequence for Gnosticus IV, the home of the Gnosticenes, guardians of 
+the Oracle.  They owe him a favor, and he needs to get some questions answered.  
+The launch sequence begins.
+
+	"Suppertime Billy!" announces his mom as she walks out to the workshop.
+
+	"Ah, nuts!" spouts Billy.  He realizes that there's not enough time to 
+stop the sequence and cover the ship!  Thinking quickly, he pulls out his 
+Neural Stunner, points it at the door, and waits.  One "Zzzzap!" later and his 
+mom is frozen in the doorway.
+
+	"Whew," says Keen
+
+	"Honey? What's the matter?" says Billy's dad, coming out the back door.
+
+	"Double Nuts!" mutters Billy.  He peeks past his mom, takes aim and.
+
+	Zap!
+
+	Once at Gnosticus IV, a Council Page runs up to him.
+
+	"Oh Captain Keen!" he begins.
+
+	"That's Commander Keen," corrects Billy.
+
+	"The Shikadi were here, and they kidnapped the Council members and sent 
+them to the Shadowlands far to the west."
+
+	"They didn't kill them?" Keen asks.
+	
+	"Impossible.  They are immortal," says the Page.  "So they just made 
+sure they weren't available to activate the Oracle."
+
+	"Well I'll just go get them," Keen says, turning with heroic 
+determination.
+
+	"Um, but Captain Keen, they also left a bunch of horrible creatures and 
+traps to guard them," says the Council Page.
+
+	"Well, I'll just go get them CAREFULLY, then," Keen says over his 
+shoulder.
+
+	Keen turns to walk out the door, stops, turns and addresses the page.
+
+	"And if you call me Captain Keen again, I'm taking you with me."
+
+	Keen boldly heads out the door as the page mutters, "Sorry."
+
+	Commander Keen hops in his Bean-with-Bacon Megarocket and heads for the 
+Shadowlands.
+
+[3.3.2] What's the Story Behind The Armageddon Machine?
+	Last episode, our hero Billy blasted off in search of the mysterious 
+Shikadi, who serve "the Gannalech" and plan to destroy the galaxy!  After a 
+short delay, Keen rocketed to Gnosticus IV, only to find the Council Members 
+missing!  The Shikadi kidnapped `em!
+
+	Keen flew to the Shadowlands, faced horrible foes, and rescued the 
+kidnapped ancients.
+
+	After Keen freed them from their imprisonment, the Immortal Council 
+Members activating their source of galactic wisdom, the Oracle.  The Oracle 
+informed Keen that the Shikadi had nearly completed a machine to obliterate the 
+galaxy!
+
+	This episode finds Keen in stealth mode, sneaking his Bean-with-Bacon 
+Megarocket up to the Omegamatic.  Securing his Attach-O-Ray to an exhaust port, 
+Keen enters the Omegamatic and begins his most dangerous adventure yet! 
+
+[3.4] What's the Story Behind Aliens ate my Babysitter!?
+	In this episode, Billy is out in his clubhouse, busily working on his 
+handy new CompuWrist wrist computer.  He hears Molly, his babysitter, calling 
+him to supper but he keeps on working.  He hears a strange noise in the 
+backyard and decides to investigate.  On a patch of scorched grass he finds a 
+note:
+
+	Keen-
+	
+	Thanks for dinner.
+	
+	-The Bloogs of Fribbulus Xax.
+ 
+	P.S. Next time get one with more meat, please.
+
+	He puzzles over this for a moment, then notices the babysitter has 
+stopped calling.  Suddenly he realizes that aliens are having her over for 
+supper-and when they say "for supper" they mean "FOR SUPPER"!  If he doesn't 
+save her, his parents will be furious.  They'll never believe that "Aliens ate 
+my Babysitter!"
+
+	"This is a job for Commander Keen!" he declares.  Once again, he dons 
+his brother's football helmet, hops into the trusty Bean-with-Bacon Megarocket, 
+and starts the launch sequence for Fribbulus Xax.  He's got to save Molly from 
+becoming a snack for creatures from another planet! 
+
+	It's great arcade action and hilarious fun in the latest episode in the 
+Commander Keen saga!
+
+----------
+[4] Lyrics
+----------
+
+	Like all good songs, the songs in Commander Keen, composed by Bobby 
+Prince, have lyrics.  Only the lyrics for two of the songs have ever been 
+released, here they are.
+
+[4.1] Eat Your Veggies
+	Here's some background.  This song was originally intended for Keen 
+Dreams, however Softdisk Publishing (who were publishing this "Special Edition" 
+Keen), decided to get rid of music so the program would fit on one floppy disk.  
+Anyway, Billy is sitting at the table with his family, refusing to eat dinner.  
+It starts with his mom pleading with Billy, here goes.
+
+	"You've got eat your vegetables, eat them right up!  You've got to eat 
+your vegetables, tell him Daddy."
+
+	So his Dad tries to convince his son to eat.
+
+	"You've got to eat your vegetables, NOWWWW!"
+
+	Billy's sister, seeing an opportunity to make fun of him start's 
+speaking.
+
+	"You've got to eat your vegetables, na-na, na-na, na, na!"
+
+[4.2] Aliens ate my Babysitter!   
+	This song starts off right when Billy realizes the Bloogs have stolen 
+his babysitter, and he's going to have to save her.
+
+	"Aliens ate my babysitter, ate her right down to her toes, worse, they 
+still look hungry, and are trying now to bite off my nose.  My babysitter might 
+have deserved it, of that, a Judge I'll not be, but I am a different story, the 
+Universe dies without me!"
+
+	Now Keen does some rap and here it is:
+
+	"My name is Keen, a fighting machine, helmet on head (except when in 
+bed), a pogo for height, a ray gun for might, the Bacon-'n-Bean's my flying 
+machine.
+
+	I never fear whenever I'm near, some critter from space, who's not in 
+his place, I'll leave them to feed on whatever they need, I'll fill them with 
+lead after they're fed.
+
+	My Mom and my Dad don't know I'm this BAD!  But when my story's told, 
+all kids will be bold."
+
+-----------------------------------
+[5] The Standard Galactic Alphabet?
+-----------------------------------
+
+Unknown to most Earthlings, there is an alphabet standard throughout the 
+galaxy: The Standard Galactic Alphabet!  I'm proud to say that I figured out 
+the Standard Galactic Alphabet (with the exception of Z), without any hints, 
+when I was 8 years old. Using only Commander Keen episodes 1, 4, and 5.  
+ 	
+[5.1] What is the Standard Galactic Alphabet?
+	The Standard Galactic Alphabet (SGA) is fairly easy to master.  There 
+is no upper and lower case, and the sign ·-· is used to signify the end of a 
+sentence (like a period).
+
+*-----------------------------------------------------------------------*
+|   A   |  B    |  C    | DDDD  | E  E  | FFFFF |    G  | HHHHH |   I   |
+|  A A  |  B    |       |       | E     |       |    G  |       |   I   |
+|  A    |   B   |  C    | DD    | E     | F F F |  GGG  | HHHHH |       |
+|  A    |    B  |   C   |   DD  | E     |       |    G  |   H   |   I   |
+| AA    | BBBB  |   C   |       | EEEE  |       |    G  |   H   |   I   |
+*-----------------------------------------------------------------------*
+|   J   |   K   |  L    |  M  M |  N  N |  OOO  | P  P  |   Q   |       |
+|       |   K   |  L L  |     M |  N  N |     O |    P  |       |  R R  |
+|   J   | K K K |  L    |     M |     N |     O | P  P  |  QQQ  |       |
+|       |   K   |  L L  |     M |    N  |    O  | P     |    Q  |  R R  |
+|   J   |   K   |  L    |  MMMM |  NN   |  OO   | P  P  |  QQQ  |       |
+*-----------------------------------------------------------------------*
+|  S    | TTTT  |       |   V   |       | X   X | Y  Y  |   Z   |       |
+|  S    |    T  |  U U  | VVVVV |   W   |    X  | Y  Y  | Z   Z |       |
+|   S   |    T  |       |       |       |   X   | Y  Y  | Z   Z |. ... .|
+|   S   |       | UUUUU | VVVVV | W   W |  X    | Y  Y  | Z   Z |       |
+|   S   |    T  |       |       |       |       | Y  Y  | Z   Z |       |
+*-----------------------------------------------------------------------*
+ 
+	The SGA is used in all the Commander Keen game, with the exception of 
+Keen Dreams (it's the kid in the middle, the one who never really fits in).
+
+-------------------------------------------
+[6] The Hints, Tips, and Other Funny Things
+-------------------------------------------
+
+	Sometimes, we need a little helping hand to get on our way.  Or maybe 
+we just want a few pointers, or just want to exploit some bugs and/or see 
+things we wouldn't normally see. If you're strange, and not like everyone else, 
+skip this.  Thanks goes out to Snortimer for the Commander Keen 3 flying trick, 
+Cho'gall for the Maragia disappearing block trick, KeenCommander for the 
+hovering Robo Red info, Kong33 for the info on the red flashing hand sign in 
+Commander Keen 6, and Dark Hood for the translation of the Morse code message 
+in the Bloog Control Center in Commander Keen 6.
+
+[6.1] What are some Hints for Invasion of the Vorticons?
+	General Hints: Some places are only reachable by the pogo stick.  It is 
+wise to practice your pogo skills.  "The Impossible Pogo Trick" is a trick that 
+makes the game easier.  How it works: walk or run in a direction, then press 
+the pogo key, release it QUICKLY and press jump.  You will pogo up and over at 
+an angle that's not possible using any other method.  In Episodes Two and 
+Three, this technique is very valuable.
+
+	All good Commanders know when to save their progress.  On the World 
+Map, press F5, and select a save position from 1-9.  You can continue your game 
+from the title screen, just select Continue Game, and press the number of your 
+previously saved game.
+	
+	Conserve your ammo!  If you can get past an enemy without firing, do 
+it!  You'll find this technique especially helpful in Episode Three, where 
+you'll more than likely run out of weapon power if shoot everything that moves.  
+Another useful technique is getting your enemies in between you and either a 
+Tank Robot, a Guard Robot, or a Vorticon Women.  More often than not, they'll 
+get fried in the crossfire.
+
+	You can use your pogo stick to avoid going into the Exit door.  Before 
+you start leaving, activate your pogo, and you won't get sucked in.  Use this 
+to get goodies behind the exit.
+
+	Read the Signs, they give you invaluable hints (and a whole bunch of 
+information you don't need).
+	
+	Use your common sense!  If it looks sharp, pokey, or otherwise harmful 
+to you, it probably is!
+
+	Specific Hints:
+[6.1.1] Marooned on Mars
+	Hidden Bricks: Look for little white dots, these are the upper-left 
+corners of hidden bricks, look out for, and use them!  They lead to many 
+secrets.
+
+	The Pogo Stick: After completing the first city, you should go to the 
+Pogo Shrine (it's the little grey shrine).  There you'll find, surprise, 
+surprise, 'The Holy Pogo Stick'!  Also look for hidden bricks above the Exit 
+Door.
+	
+	The Hidden City: They Hidden City is accessible through the Red Maze 
+City (the eastern most city, on the dark side of mars).  At the bottom of the 
+maze city (near the yellow key card) is a dark area.  Fall past two fire pits, 
+and hold down right.  Next, hop from the hidden brick to the ice cannon area.  
+Then get into the ice cannon's line of fire, and finally get launched over and 
+go into the teleporter (it'll probably take a few tries).
+
+	DIE!: If there's a sign that says DIE, something nearby will try to 
+kill you (no kidding).
+
+	The Tank: Get enemies between you and a Tank Robot, they'll be toast.
+
+	Beating the Vorticons: You can get past all of the Vorticons without 
+firing a shot, all it takes is a little practice:
+	
+	Joystick Guard: Go to the farthest right edge of the ledge below the 
+exit (the one with a raygun on it).  The Vorticon will go off the right edge, 
+and plummet to his death.
+	
+	Car Battery Guard: Get him to follow you, and make him jump off the 
+platform.  Getting the Car Battery should now be easy as pie.
+	
+	Vacuum Cleaner Guard: Get the Vorticon to jump on the blue cylinders, 
+and run underneath him, through the door.
+	
+	The Vorticon Commander (Guarding the Everclear): This is REALLY HARD to 
+do without cheating, but possible (I've done it before, once).  When he's over 
+on the left side of the platform, climb up, and PRAY that he jumps high.  If 
+so, run quickly under him and over to the Teddy Bear.  I only recommend you to 
+do this if you feel the need to boost your ego.  Otherwise, use a hidden brick 
+to jump up on the huge block, and shoot the chain.
+
+	Marooned on Mars: If you can somehow get past the Vorticon Commander 
+using the before mentioned method, run into the exit without getting the 
+Everclear.  You'll truly be Marooned on Mars (you can't re-enter levels you 
+have beaten)!    
+
+[6.1.2] The Earth Explodes
+	Pulling Switches: It's undocumented, but important.  To pull switches 
+or push buttons, press the pogo button when you are near.
+	
+	Tantalus Rays: Tantalus Rays are destroyed by using the pogo to hop up, 
+and shooting the purple sparking cell in the glass bubble.  WARNING: Don't 
+stand to close to the switch when activating your pogo, you could pull it, and 
+that ends the game (in a bad way)!
+
+	Scrubs: The little red robots, Scrubs, can be jumped on for a ride up 
+the wall.  You'll find this technique VERY useful.
+	
+	Guards: The Guard Robots are deadly adversaries: Get an enemy between 
+you and him.
+ 
+	Vorta-Cola: You can stand on top of Vorta-Cola cans to get to higher 
+places, and taking them may change the way the Scrubs walk.
+
+	The Dark: The wise Vorticon will not jump in the dark.  In fact, even 
+unwise Vorticons will not jump in darkness.
+
+	The Impossible Pogo Trick: Using "The Impossible Pogo Trick" jump on 
+one of the Tantalus levels allows you to get to the top, avoiding all the nasty 
+things below.
+
+	Anti-Hero?: Keen can leave Rome's Tantalus Ray still active if he goes 
+as far right as possible at the beginning, and hopping up the little hole. 
+	
+	Someone Failed English: On the world map, the SGA labels Rome and 
+Moscow are in the wrong places!  In addition, on the far right side of the 
+Paris Tantalus level, FUCL is spelt with the small colored platforms (though 
+word is that in some versions the 'L' is a 'K').
+
+[6.1.3] Keen Must Die!
+	Simplicity: You need only to complete three levels to finish the game, 
+but what's the fun in that?
+
+	Go Up: On the Volcano level, follow the directions on the sign.
+
+	Killer Opera: When Meeps sing, the sound kills, and can travel through 
+anything.  Even solid walls!
+
+	VortiNinja: You can usually run under the VortiNinjas when they jump 
+high into the air.
+
+	In the Line of Fire: Line up a foe with a Sentry Gun, or a Vorticon 
+Woman.  They'll die in a jiffy.
+
+	Up and Down: Remember, some falls are necessary, and some things are 
+hidden in the heavens (think big clouds).
+
+	Jacks: Jacks are almost always deadly, don't enter an area with them 
+unless you have an Ankh, speaking of which...
+
+	Ankhs: All Ankhs can be obtained.
+
+	Oops!: If you look at the Blue Key in the Status Screen, it has a sky 
+blue aura around it.  Weird!
+
+	Fly Without Cheating: It's possible to fly in the air without using a 
+cheat.  Just press jump and then fire at almost the same time.  You'll waste a 
+few bullets, but it's good for getting to tough places when you don't want to 
+cheat.
+
+	The Boss: On the final level, you can stand on the shoulders. (I don't 
+want to give away too much, now do I?)
+
+[6.2] What are some Hints for Keen Dreams?
+	The Down Jump: You can jump through logs by holding Down, and pressing 
+the Jump button.
+
+	Flower Power!: If you miss an enemy you are trying to shoot, you can 
+recollect your Flower Power shots for a short period of time (the same is true 
+for Boobus Bombs).
+
+	Mosquitoes: You can stand on the Blue Mosquitoes, but not the black 
+ones.
+	
+	Boobus Bombs: If you see the message `Boobus Bombs Near!' when the 
+level is loading, find and collect them.  You need at least 12 to defeat King 
+Boobus Tuber.
+
+	Quick Ending: If there isn't a cement wall in your way, go against the 
+right wall, AND DIE!  If Commander Keen's head goes through the right edge of 
+the screen, you'll complete the level (and if you miss, it's your problem).
+
+[6.3] What are some Hints for Goodbye Galaxy!?
+	General Hints: Don't use two button firing, it makes it even more 
+impossible to do the "Impossible Pogo Trick" (which is done by running, and 
+hitting the pogo and jump keys in rapid succession).
+
+	To jump through a hole in the ground, look down and hit the jump key 
+(this is known as the "Down Jump").
+	
+	If you just don't make a jump, you can usually grab the edge and hang 
+on (as long as it's not on a diagonal slope).
+
+	You don't have to pull up right away if you grab an edge, take a long 
+breather if you want.
+
+	To erase the high scores in Commander Keens 4 and 5, delete the 
+CONFIG.CK4 and CONFIG.CK5 files respectively.  You'll also have to reselect any 
+changes to joystick or game settings, as this information is also stored in the 
+CONFIG files.
+
+	Save the game often, you'll be glad you did.
+
+	If you're having jerky motion problems, or having "snow" fly across 
+your screen, select the Fix Jerky Motion and SVGA Compatibility options on the 
+Configure - Options screen.
+ 
+	Read the Signs!
+
+Specific Hints:
+[6.3.1] Secret of the Oracle
+	Hidden Platforms: There are many hidden platforms in Commander Keen 4.  
+You can see them flash in the sunlight every few seconds (NOTE: These are 
+usually VERY hard to see, but if a flash catches your eye, be sure to look).
+
+	I want to live!: There are seven free keens available on the first 
+level.
+
+	Outside the Pyramid: You can get to the top of the Pyramid of the 
+Moons.  I'm talking the outside!  And on the subject of Moons...
+
+	Don't Moon Me!: If you stand on a shaded moon in the Pyramid of the 
+Moons for a few seconds, Commander Keen will moon you!
+
+	Suck it up Princess: Princess Lindsey appears twice.
+
+	Flashy!: There's stuff hidden very well in Hillville, all you need is a 
+flash of insight.
+
+	More Moons!: The way to the Pyramid of the Forbidden is at the bottom 
+of the Pyramid of the Moons.  (Remember, the Inchworms will be afoot, but how 
+many?)
+
+	Mmm...: The Dopefish likes to eat the small Schoolfish that follow you.
+
+	Faster!  Faster!: The jump button makes you swim faster underwater.
+
+	Splat!: The Skypests can be squashed by jumping on them with your pogo 
+stick.
+
+	Mr. Mime!: You can only shoot Mimrocks when they are jumping at you.
+
+	The Bean-with-Bacon Megarocket: If you're running really low on ammo, a 
+trip to The Bean-with-Bacon Megarocket may be beneficial.
+
+	Hee Hee!: Mad Mushrooms leap higher on the third bounce.
+
+	Not So Invisible: When you hang on the ledge of the disappearing ice 
+blocks in Miragia, you won't fall down...even if it disappears!  So if the 
+blocks start disappearing, quickly grab the ledge of one of them and climb onto 
+it again when it reappears.
+
+[6.3.2] The Armageddon Machine  
+	Let there be Life: There are NINE lives available in the first level 
+(but don't expect them to be easy to find).
+
+	Egotism: The names of the two level designers, John Romero the Software 
+Engineer, and Creative Director Tom Hall, are hidden in two of the levels.
+
+	Naughty Tom!: The enemy name 'Little Hampton' is actually far dirtier 
+than it would first seem.  Tom Hall says this:
+
+'Some British TV show referred to a guy with a... um, small... you know... as 
+having a "Little Hampton". That stuck in my head when I was naming stuff, I 
+guess.'
+
+	The Swastika: In Version 1.0 of The Armageddon Machine, in the Energy 
+Flow Systems, there is a Swastika above John Romero's name.  However (probably 
+due to public outcry), it was removed by Version 1.4.  This must be set 
+straight!  Here's what Romero himself had to say about the incident:
+
+'Obviously, it was a reference to Wolfenstein... ? Sure, Keen 5 was created 
+before Wolfy, but we knew that was our next project.'
+
+Tom Hall, creator of Commander Keen, further expanded on that point:
+
+'I think John put that in as a reference to Wolfenstein, not to imply anything 
+about any character's ideology.  Same as when he originally had the swastika 
+shape in DOOM, that folks go so upset about that took it out.  As if that meant 
+anything remotely like condoning the atrocities of Hitler.  (Remember kids, 
+Hitler bad.  Hating groups of people for no reason, very bad.  Killing people 
+for the same no reason, very very very insanely bad.)
+
+If Wolfenstein had had a logo, like a big "W" or something, then John would've 
+made that shape, I'm sure.'
+
+	Points!: There are 30 000 hidden points near the start of Defense 
+Tunnel Sorra.
+
+	The QED: You can't destroy the Quantum Explosion Dynamo directly, 
+you'll have to find something (or someone) to destroy it for you.
+
+	I'm Flying!: It's possible to make Robo Red hover off the end of a 
+platform.  I'll leave it up to you to figure out though...
+
+	Korath III: The way to the secret level is through the Gravitational 
+Damping Hub, look down and translate.
+
+	The REAL Ending: To see the real ending of Commander Keen 5, you have 
+to do something on the Korath III Base.
+
+	It's just that Easy: There are problems on Korath III if you're playing 
+in the "Easy" difficulty level.  In earlier versions of Commander Keen 5, after 
+a few seconds of play in the secret level, the game would quit and you would 
+get the error message `Goplat moved to a bad spot: 2114,1600'.  In Version 1.4, 
+it isn't possible to see the "Real Ending" because, well, you'll have to find 
+out for yourself.  
+
+	Fuses: You probably figured this out, but you break the fuses by using 
+your pogo stick.
+
+	Duck!: You can duck the nearly invincible Slicestars and the rather 
+vincible Volte-Faces, but not Robo Red.  He's too big and evil!!! 
+
+	More on Robo Red: You can stand next to Robo Red and not get shot (you 
+can sometimes duck them too), but then you're next to him and that can't be 
+good.
+
+	Sentries: You can stand on the horizontal Sentry Guns to get to higher 
+places.
+
+	Slicestar: The Slicestars can be destroyed!  The ones moving on a set 
+path take 20 shots to be destroyed, but the Slicestars that just bounce around 
+take 45 shots to destroy, and are hardly worth the time, energy, and ammo since 
+they're easier to avoid then their slow moving counterparts.
+
+	Even More on Robo Red: Robo Red's hearing is very good, and if he hears 
+a noise, he'll shoot first, and ask questions later.
+
+*[6.4] What are some Hints for Aliens ate my Babysitter!?
+	Many Secrets: There's more to do at The Bean-with-Bacon Megarocket than 
+it seems (notice that you can't exit the level on the right side).
+
+	Important Items: There are three very important items that Commander 
+Keen needs to get to complete his quest.  They are located in The First Dome of 
+Darkness, Bloogfoods, Inc., and Bloogton Tower.
+
+	The Secret Level: The way to the Blooglab Space Station is through the 
+Bloog Control Center (and I mean THROUGH it).
+
+	The SGA: The entire Standard Galactic Alphabet is hidden in the 
+Blooglab Space Station.
+
+	Blooglets: You should feel no remorse for wasting a Blooglet.  They 
+like to hang on to their corresponding Gem Key Color.
+
+	Sentries: Like in Commander Keen 5, you can stand on top of the Sentry 
+Guns (just watch out for their shots).
+
+	I'm Falling For You!: If you can get Nospike to charge off a cliff, 
+he'll fall to his death.  It's almost too easy!
+
+	Ceilicks: Watch out for a little tip of a tongue, it's a Ceilick hidden 
+up in the rafters!  If you find yourself underneath one, shoot up immediately 
+(any later, and you'll be dead already).
+
+	Blooguards: Jump up as a Blooguard swings his club in the air, you 
+won't be stunned by the shock wave.
+
+	The Hand: Some levels have areas with a red flashing hand sign.  This 
+indicates a dangerous area that isn't necessary to enter to complete the level.
+
+	Code Cracker: In the Bloog Control Center you can hear this Morse code 
+playing in the background: SOS SOS DE KEEN SOS SOS K.
+
+	High Score: If you use the Warp Cheat and go to the High Score screen, 
+you get the message: Keen is in the High Score screen.  Call Id!  What could 
+this mean?  Who knows?
+
+	Patience: This game is quite hard!  Patience and ingenuity is the key.
+
+	The Other Key: The KEY to success in the Blooglab Space Station is to 
+FALL in love with Molly because she's DROP-dead gorgeous.  Rescue her quickly, 
+before she DECENDS to the stomach of a Bloog (it seems I'm beating around the 
+bush here).
+
+	Read the signs!
+ 
+-------------
+[7] The Codes
+-------------
+
+	Sometimes we need a few codes to help us out, and that's okay.  KEY+KEY 
+means hold down both keys at the same time (e.g. F10+G means press and hold 
+F10, and then press G. If it worked, you'll usually see a confirmation 
+message).
+
+[7.1] What are the Codes for Invasion of the Vorticons?
+	
+	Code           		Description
+	C+T+[Space Bar]		Gives you a Pogo Stick, all 4 keycards, and 100 
+				Raygun Charges
+
+	Shift+Tab   		Allows Commander Keen to pass through one City 
+				on the World Map
+
+	G+O+D       		Activates God Mode (Invulnerability) and 
+				unlimited jumping height with the Pogo Stick  
+
+[7.2] What are the Codes for Keen Dreams?
+
+	Code			Description
+	F10+I  			Gives you 99 Keys and 99 Boobus Bombs
+
+	F10+S  			Slow Motion Toggle
+
+	F10+J  			Gives Commander Keen unlimited jump height 
+				until you hit your head or let go of the jump 
+				key
+
+	F10+G  			Toggles God Mode
+
+	F10+W  			Warp to Specified Level.  See below for list
+
+	Level List
+	Number  Level
+	0       The Land of Tuberia
+	1	Horseradish Hill
+	2       The Melon Mines
+	3       Bridge Bottoms
+	4       Rhubarb Rapids
+	5       Parsnip Pass
+	6       Level 6
+	7       Spud City
+	8       Level 8
+	9       Apple Acres
+	10      Grape Grove
+	11      Level 11
+	12      Brussels Sprout Bay
+	13      Level 13
+	14      Squash Swamp
+	15      Boobus' Chamber
+	16      Castle Tuberia
+
+*[7.3] What are the Codes for Goodbye Galaxy!?
+
+	Code                   	Description
+	KEEN4 /TEDLEVEL ??	This is a level practice
+	or KEEN5 /TEDLEVEL ?? 	mode that gives you infinite lives, type it at 
+				the DOS prompt.  Where "??" is, insert the 
+				level number (see below).  Completing the level 
+				or choosing an option on the Control Panel 
+				other than Paddle War! or Return to Game will 
+				lock up the system.
+     
+      	T+A+B                  	Cheat Option!  You get all 4 Keys, 99 Shots, 
+				and an Extra Life
+      
+	E+N+D                  	Finishes the game for you!
+      
+      	F9                     	Boss Key (causes the screen to look like the 
+				DOS prompt, just in case the boss comes by 
+				while you're playing). 
+
+      	A+2+[Enter]            	Master cheat.  TYPE THIS FIRST to use the 
+				following cheats.
+     
+      	F10+E                  	Returns to the World Map, finishing the 
+level
+
+      	F10+T                  	Sprite Test
+      
+      	F10+Y                  	Debug Mode, this allows you to see all 
+secret 
+				areas (the normal looking walls)
+    
+      	F10+I                  	3000 Points, all the Keys, 99 Shots and the 
+				Wetsuit (in Commander Keen 4)
+
+      	F10+P                  	Pause
+
+      	F10+S                  	Slow Motion Toggle
+ 
+      	F10+G                  	Toggles God Mode
+   
+      	F10+J                  	Toggles Jump Cheat (gives Commander Keen 
+				unlimited jump height)
+
+      	F10+N                  	No Clipping Mode Toggle (allows Commander 
+Keen 
+				to go through anything)
+
+      	F10+B                  	Change Border Color
+
+      	F10+V                  	Add VBLs
+
+      	F10+C                  	Object Count
+
+      	F10+Z                  	Game Over!
+
+      	F10+M                  	Check Memory Usage
+
+      	F10+D                  	Create a Demo
+ 
+      	F10+W                  	Warp to specified level (check list below)
+
+	Level List
+
+	Secret of the Oracle
+	Number  Level
+	1       Border Village
+	2       Slug Village
+	3       The Perilous Pit
+	4       Cave of the Descendents
+	5       Chasm of Chills
+	6       Crystalus
+	7       Hillville
+	8       Sand Yego
+	9       Miragia
+	10      Lifewater Oasis
+	11      Pyramid of the Moons
+	12      Pyramid of the Shadows
+	13      Pyramid of the Gnosticene Ancients 
+	14      Pyramid of the Forbidden
+	15      Isle of Tar
+	16      Isle of Fire
+	17      Well of Wishes
+	18      Bean-with-Bacon Megarocket
+
+	The Armageddon Machine
+	Number  Level
+	1       Ion Ventilation System
+	2       Security Center
+	3       Defense Tunnel Vlook
+	4       Energy Flow Systems
+	5       Defense Tunnel Furrh
+	6       Regulation Control Center
+	7       Defense Tunnel Sorra
+	8       Neutrino Burst Injector
+	9       Defense Tunnel Teln
+	10      Brownian Motion Inducer
+	11      Gravitational Damping Hub
+	12      Quantum Explosion Dynamo
+	13      Korath III Base
+	14      N/A (Causes game crash)
+	15      High Scores
+	16      N/A (Causes game crash)
+	17      N/A (Causes game crash)
+	18      N/A (Causes game crash)
+
+[7.4] What are the Codes for Aliens ate my Babysitter!?
+
+	Code                	Description
+      	KEEN6 /TEDLEVEL ??  	This is a level practice mode that gives you 
+				infinite lives, type it at the DOS prompt.  
+				Where "??" is, insert the level number (see 
+				below).  Completing the level or choosing an 
+				option on the Control Panel other thanPaddle 
+				War! or Return to Game will lock up the system. 
+
+      	F9                  	Boss Key (causes the screen to look like the 
+				DOS prompt, just in case the boss comes by 
+				while you're playing).
+
+      	E+N+D               	Finishes the game for you!
+
+	F10+I               	3000 Points, all 3 Items, all 4 Keys and 99 
+				Shots
+
+	F10+E               	Return to Fribbulus Xax
+
+      	F10+T               	Sprite Test
+
+	F10+Y               	Debug Mode, this allows you to see all secret 
+				areas (the normal looking walls)
+
+      	F10+P               	Plays Extra Life music, and Freezes the 
+game.  
+				Press Esc to quit
+
+	F10+S               	Slow Motion Toggle
+
+	F10+D               	Record a Demo
+
+	F10+G               	God mode toggle
+
+	F10+C               	Object Count
+
+	F10+V               	Add VBLs
+
+	F10+B               	Change Border Color
+
+	F10+N               	No Clipping Mode Toggle (allows Commander Keen 
+				to go through anything)
+
+	F10+Z               	Game Over!
+
+	F10+M               	Check Memory Usage
+
+	F10+J               	Toggles Jump Cheat (gives Commander Keen 
+				unlimited jump height)
+
+	F10+W               	Warp to specified level (check list below)
+
+	Level List
+	Number  Level
+	1       Bloogwaters Crossing
+	2       Guard Post One
+	3       First Dome of Darkness
+	4       Second Dome of Darkness
+	5       The Bloogdome
+	6       Bloogton Manufacturing, Inc.
+	7       Bloogton Tower
+	8       Bloogfoods, Inc.
+	9       Guard Post Two
+	10      Bloogville
+	11      Bloog Aeronautics and Space Administration
+	12      Guard Post Three
+	13      Bloogbase Recreational District
+	14      Bloogbase Management District
+	15      Bloog Control Center
+	16      Blooglab Space Station
+	17      Bean-with-Bacon Megarocket
+	18      High Score
+
+--------------------
+[8] The Maps
+--------------------
+
+Woe be the Gamer who needs to consult this to complete one of the Commander 
+Keen Games.  If you are one of these Gamers who needs this section, TOO BAD!  
+Even I have a sanity level: you'll have to settle with the World Map from Keen 
+Dreams.
+
+[8.4] What's the Layout of Keen Dreams?
+                                   
+                                   Map of                              
+                             THE LAND OF TUBERIA                       
+
+   
+*********************************************************************
+*                          Boobus Chamber                           *
+*                               !                                   *
+*             -------------Castle Tuberia--------------             *
+*             !                 !                     !             *
+*             !                 !               Brussel Sprout      *
+*  Grape      !            Melon Mines               Bay            *
+*  Grove      !                 !                     !             *
+*   !         ------------------!----------------------             *
+*   !         !                 !                                   *
+*   !         !                 !                Squash Swamp       *
+*   !    Apple Acres       Horseradish                !             *
+*   !         !              Hill ------- START       !             *
+*   !         !                 !                     !             *
+*   !    Spud City              !                Parsnip Pass       *
+*   !                           !                     !             *
+*   Rhubarb Rapids-------------Bridge Bottoms----------             *
+*********************************************************************
+
+	Okay, it's not a work of art, but you get the idea.  Look forward to 
+more maps in forthcoming versions.
+
+---------------
+[9] The Endings
+---------------
+
+	The Endings!  I strongly suggest you actually experience the endings of 
+each of the Commander Keen games for yourself, just having the words isn't the 
+same.  Read on, not much more to go!
+
+[9.1] What's the Ending to Marooned on Mars?
+	Commander Keen returns to the Bean-with-Bacon Megarocket and quickly 
+replaces the missing parts.  He must get home before his parents do!
+
+	Keen makes it home and rushes to beat his parents upstairs.
+
+	Shh, honey.let's see if little Billy is asleep.
+
+	Billy.? are you A-WHAT IS THIS ONE-EYED GREEN THING IN YOUR ROOM!!!!???
+
+	Ah, Mom, can't I keep him?
+
+	We'll talk about it in the morning, son, you get some rest.
+
+	OK Mom.  Goodnight.
+
+	Goodnight, dear.
+
+	But there is no sleep for Commander Keen!  The Vorticon Mothership 
+looms above, ready to destroy Earth!
+
+	To be Continued.
+
+[9.2] What's the Ending to The Earth Explodes?
+	After disabling the weaponry of the Vorticon Mothership, Billy heads 
+for Earth.  Even great space-heroes need a nap after defeating a vicious horde 
+of violence-bent aliens!
+
+	The Vorticon ship limps back to Vorticon VI to tell of their defeat at 
+the hands of Commander Keen.  The Grand Intellect will not be pleased.
+
+	Wake up, Billy.  It snowed last night!  There's no school!
+
+	Wonderful, Mother.  That will give me time to rid the Galaxy of the 
+Vorticon menace and discover the secret of the mysterious Grand Intellect!
+
+	Ok, hun, but you'd better a nourishing vitamin fortified bowl of Sugar 
+Stoopies first.    
+
+	Ok Mom.
+
+	To be continued.
+
+[9.3] What's the Ending to Keen must Die!?
+	No.  It can't be!  Mortimer McMire!!!  
+
+	Mortimer has been a thorn in your side for as long as you can remember.  
+Your IQ test score was 314-Mortimer's was 315.  He always held that over you, 
+never letting you forget for one day.
+
+	All the practical jokes, the mental cruelty, the swirlies-each memory 
+makes your teeth grit harder.  And now he's out to destroy  Earth!  You have 
+had enough!
+
+	"Alright Mortimer, what's the problem?  Why destroy Earth?"
+
+	"You and all those mental wimps deserve to die!  I'm the smartest 
+person in the galaxy.  Aren't I Mister THREE FOURTEEN!  Ah, ha, ha!"
+
+	"I'll get you for that, Mortimer!"
+
+	"Come and try!  You'll never get past my hideous Mangling Machine!  
+Prepare to die, Commander Clown!"
+
+	<Commander Keen then promptly destroys the Mangling Machine>
+
+	With Mortimer McMire out of the picture, and his brain-wave belts no 
+longer controlling them, the Vorticons are free from their mental enslavement.
+
+	"Commander Keen, in honor of your meritorious service in freeing us 
+from the Grand Intellect's mental chains, I and the other Vorticons you haven't 
+slaughtered want to award you The Big V, our highest honor."
+
+	"Thank You!"
+
+	The End. For now!
+
+[9.4] What's the Ending to Keen Dreams?        
+	Yes!  Boobus Tuber's hash-brown-like remains rained down from the skies 
+as Commander Keen walked up to the Dream Machine.  He analyzed all the complex 
+controls and readouts on it, then pulled down a huge red lever marked "On/Off 
+Switch."  The machine clanked and rattled, then went silent.  He had freed all 
+the children from their vegetable-enforced slavery!  Everything around Keen 
+wobbled in a disconcerting manner, his eyelids grew heavy, and he fell asleep.
+
+	Billy woke up, looking around the room, the early morning sun shining 
+in his face.  Nothing.  No vegetables to be seen.  Was it all just a dream?
+
+	Billy's mom entered the room.
+
+	"Good morning, dear.  I heard some news on TV that you'd be interested 
+in," she said, sitting by him on the bed.
+
+	"What news?" Billy asked, still groggy.
+
+	"The President declared today National `I hate Broccoli' Day.  He said 
+kids are allowed to pick one vegetable today, and they don't have to eat it."
+
+	"Aw, mom, I'm not afraid of any stupid vegetables," Billy said.  "But 
+if it's okay with you, I'd rather not have any french fries for awhile."
+
+	THE END
+
+[9.5] What's the Ending to Secret of the Oracle?	
+	Wow, this is really an impressive way to activate this monolith of 
+ancient wisdom.
+
+	click
+
+	Everyone be silent.  The oracle is about to speak.  Hmmm.  Maybe it's 
+got a dead battery or something.
+
+	The Shikadi are a race of shadow beings from the far side of the 
+galaxy.  They are building an Armageddon Machine and are planning to blow up 
+the galaxy with it, then rebuild it to suit their needs.  They live on the 
+third planet of the Korath system, which is 71, 000 light-years from Gnosticus 
+IV.  The Armageddon Machine is almost complete.  And this is what they look 
+like.
+
+	<Commander Keen makes a number of horrified faces>
+
+	These Shikadi are toast!  Thanks for the scoop, Oracle.  I'm outta 
+here.  I hope it doesn't rain on my folks..
+
+	Meanwhile, back on Earth.
+
+	<Lightning Strikes>
+
+	To be continued. 
+
+[9.6] What's the Ending to The Armageddon Machine?
+	CONGRATULATIONS
+
+	You have completed "Goodbye, Galaxy!"  Commander Keen has saved the day 
+once again!
+
+	But things are still in motion..
+
+	With their Quantum Explosion Dynamo in ruins, the Shikadi rush to their 
+getaway ship and hightail it back to their own galaxy.  *Due to a freak fuse 
+malfunction, they cannot take off and are arrested by the Korath III Police for 
+double-parking.
+	
+	Keen rummages through the control room of the QED for clues as to why 
+the Shikadi wanted to blow up the galaxy.  He stumbles upon a note written in 
+the Standard Galactic Alphabet.
+
+	DEAR BILLY
+	YOU FELL FOR MY ANDROID
+	DUPLICATE PLOY IN THE MANGLING
+	MACHINE AND NOW YOUVE FALLEN
+	FOR IT AGAIN
+	IM BLOWING UP THE UNIVERSE NOT 
+	THE STUPID GALAXY
+	THIS WAS JUST A BIG DISTRACTION
+	DODO
+	TAG YOURE IT
+			MORTIMER
+	PS GANNALECH IS HOW THESE DUMB
+	SHIKADI PRONOUNCE GRAND
+	INTELLECT
+	OR DIDNT YOU NOTICE THAT MISTER
+	THREE FOURTEEN
+
+	Keen takes the note with him to decipher on the long space voyage home, 
+not seeing anything else of interest..
+
+	<The camera zooms into a football helmet with "MM" on it>
+
+	Back at home after having saved the galaxy, Billy feeds his rain-soaked 
+parents ice cream and gently shakes them back to consciousness.  Hopefully, 
+this won't affect his allowance.
+
+	See you Christmas '92 when Commander Keen returns to battle for the 
+universe!  It'll be the biggest Keen ever!  You won't believe your eyes!
+
+	Thanks for playing!
+
+	* When you do something special in the Korath III Base, this sentence 
+is added. 
+
+[9.7] What's the Ending to Aliens ate my Babysitter!?
+	"Gee, thanks Billy," said Molly.  "Boy, my brother is gonna get in 
+trouble for this."
+
+	"Your brother?" Keen asked.  Molly is the older sister of his former 
+nemesis, Mortimer McMire.  But he was caught in the explosion of his Mangling 
+Machine...wasn't he?  Could he be alive?  "But he's. he's."
+
+	"He's in trouble is what he is.  He told the Bloogs to take me hostage.  
+In exchange, he told them where to find the Stupendous Sandwich of Chungella 
+IV."
+
+	"Yeah, I've seen it," Keen said.  So, Mortimer's back eh? thought Keen.  
+"Where IS Mortimer?"
+
+	"Oh," said Molly.  "He said something about blowing up the entire 
+universe or something.  Well, let's get back before your folks get home."
+
+	"Yeah, we'd better-THE UNIVERSE?!" Keen said.  "Yikes!"
+
+	See you next time, when Commander Keen and Mortimer McMire battle for 
+the universe!
+
+	Thanks for playing!
+
+-----------------------
+*[10] The End of it All
+-----------------------
+
+	It's been a strange journey returning to, and updating, this FAQ.  The 
+original version was written over three and a half years ago.  Since then, my 
+writing style has completely changed.  Comparing original sections to updated 
+sections, you'll probably notice a huge clash in the way it's written.  I've 
+completely changed too.  I said things in this FAQ that I'd never dare write 
+these days.  Heh, I don't even remember the last time I played Commander Keen.
+
+	No matter though.  Got any questions or comments?  Send them to 
+flaose@classicgaming.com.  Thanks for reading!
+
+	When will this FAQ be updated again?
+	The next time I get bored.
+
+		-Dave
+
+---------------------
+[11] Acknowledgements
+---------------------
+
+	These are all the people that have helped me along the way and inspired 
+me.  If I missed you, I apologize in advanced, just don't attack me with a 
+trout for it!
+
+First and Foremost, Tom Hall - How could I not thank this guy?  He's the Big 
+Brain behind Commander Keen, he created him and his universe!  All I can say 
+is, thanks Tom.
+
+Everyone Else in Alphabetical Order
+
+Bill Amon - Bill created the first Commander Keen FAQ, and inspired me to make 
+a better one :).
+
+Adrian Carmack - He may not like it, but he digitized the entire Commander Keen 
+Universe on the computer screen.
+
+John Carmack - John has held onto the Commander Keen rights all these years (I 
+think he secretly loves Commander Keen).
+
+Ben Cruz - One of my partners in crime with CC314.  You know I love ya buddy!
+
+Andrew Durdin - For creating the best utilites to edit Commander Keen with!  
+Get them at http://jump.to/keen/
+
+Derek Greentree - Creator of the amazing Rise of the Triad FAQ.  He's who truly 
+inspired me to create this massive document.
+ 
+Thea Gregory - Thea's been a good friend, helped me when I was down, gave me 
+encouragement, and kept me from going crazy.
+
+John Romero - Created some really great levels for Commander Keen, he actually 
+answers questions and fan mail!
+
+Joe Siegler - Joe's put up with me over the years, answering my questions, 
+explaining to me a million times that the Universe is Toast was cancelled by 
+id, not Apogee, and not getting too crazy about it.  He's a great supporter of 
+Commander Keen and has an awesome and funny webpage on the Dopefish from 
+Commander Keen 4: Secret of the Oracle: http://www.dopefish.com/
+
+Geoff Sims - Geoff may be the sole reason Commander Keen's still around today, 
+the founder of Cerebral Cortex 314, he has inspired many a people and projects.
+
+Tore Stubhaug - My other partner in (cc314 inspired) crime :D
+
+You - For reading this enormous and comprehensive FAQ.
+
+-----------------
+*END OF DOCUMENT*
+-----------------
+
++--------------------------------+---------------------------------+
+|       _|\_                     |        |\      _,,,---,,_       |
+|   \  /    \   Pisces Swimeatus | ZZZzz  /,`.-'`'    -.  ;-;;,_   |
+|   |>< |>  OO    The Dopefish   |       |,4-  ) )-,_..;\ (  `'-'  |
+|   /  \___/UU                   |      '---''(_/--'  `-'\_)       |
++--------------------------------+---------------------------------+
+
+'I just drew this stupid little fish.' 
+	- Tom Hall

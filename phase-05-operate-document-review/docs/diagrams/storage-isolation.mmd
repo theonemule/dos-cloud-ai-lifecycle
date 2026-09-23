@@ -1,0 +1,12 @@
+flowchart LR
+    CAT[(Immutable Catalog)]
+    INSTALL[Install Service]
+    CAT --> INSTALL
+
+    INSTALL --> A[(User A C:)]
+    INSTALL --> B[(User B C:)]
+    INSTALL --> C[(User C C:)]
+
+    DA[User A DOSBox] -->|session A| A
+    DB[User B DOSBox] -->|session B| B
+    DC[User C DOSBox] -->|session C| C

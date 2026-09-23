@@ -1,0 +1,13 @@
+node_modules/
+server.log
+server.pid
+var/
+user-data/
+docs/phase3-catalog.png
+docs/phase3-runtime.png
+
+# Local development TLS material
+certs/*.pem
+
+# Local Entra OIDC credentials
+.env.entra

@@ -1,0 +1,37 @@
+{
+  "id": "keen1",
+  "title": "Commander Keen 1",
+  "subtitle": "Marooned on Mars",
+  "publisher": "Apogee / id Software",
+  "genre": ["Platformer", "Shareware Classic"],
+  "version": "1.31-shareware",
+  "coverAsset": "/catalog/keen1/cover.png",
+  "description": "Example catalog metadata for the Phase 2 architecture.",
+  "package": {
+    "path": "packages/keen1-1.31.zip",
+    "sha256": "REPLACE_WITH_PACKAGE_HASH"
+  },
+  "install": {
+    "directory": "C:\\GAMES\\KEEN1"
+  },
+  "launch": {
+    "workingDirectory": "C:\\GAMES\\KEEN1",
+    "command": "KEEN1.EXE",
+    "arguments": []
+  },
+  "dosbox": {
+    "machine": "svga_s3",
+    "memoryMb": 16,
+    "cycles": 12000
+  },
+  "capabilities": {
+    "singlePlayer": true,
+    "ipx": false,
+    "maxPlayers": 1
+  },
+  "distribution": {
+    "status": "verified-shareware",
+    "sourceUrl": "REPLACE_WITH_VERIFIED_SOURCE",
+    "notes": "Verify redistribution terms before publishing."
+  }
+}

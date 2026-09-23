@@ -1,0 +1,23 @@
+name: Phase 5 CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: phase-05-operate-document-review
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: phase-05-operate-document-review/package-lock.json
+      - run: npm ci
+      - run: DOS_CLOUD_LOG_TARGET=none npm test
+      - run: docker build -t dos-cloud:ci .

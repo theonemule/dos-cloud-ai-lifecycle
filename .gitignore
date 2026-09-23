@@ -1,0 +1,10 @@
+**/node_modules/
+**/var/
+**/user-data/
+**/.env
+**/.env.*
+**/certs/*.pem
+**/server*.log
+**/server*.pid
+**/npm-debug.log*
+.DS_Store

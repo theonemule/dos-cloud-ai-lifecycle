@@ -1,0 +1,47 @@
+{
+  "id": "raptor",
+  "title": "Raptor",
+  "subtitle": "Call of the Shadows",
+  "publisher": "Apogee Software",
+  "year": 1994,
+  "genres": [
+    "Shooter",
+    "Apogee"
+  ],
+  "description": "A polished vertical shooter with persistent upgrades and scores.",
+  "version": "1.2-shareware",
+  "package": {
+    "file": "rapt-box.zip",
+    "sha256": "a256f89803794a4ff13279e4dacca26b5cac373bde5a0fbe64ea0114570d9d72",
+    "sourceUrl": "https://image.dosgamesarchive.com/games/rapt-box.zip"
+  },
+  "install": {
+    "folder": "RAPTOR"
+  },
+  "launch": {
+    "command": "RAPTOR.BAT",
+    "arguments": []
+  },
+  "dosbox": {
+    "machine": "svga_s3",
+    "memoryMb": 16,
+    "cycles": "auto"
+  },
+  "capabilities": {
+    "singlePlayer": true,
+    "ipx": false,
+    "maxPlayers": 1
+  },
+  "distribution": {
+    "status": "verified-shareware",
+    "sourcePage": "https://www.dosgamesarchive.com/download/raptor-call-of-the-shadows",
+    "notes": "DOS Games Archive identifies this package as shareware or shareware (installed)."
+  },
+  "presentation": {
+    "accent": "#267f99",
+    "glyph": "RA",
+    "featured": true,
+    "screenshot": "/screenshots/raptor.png"
+  },
+  "controls": []
+}

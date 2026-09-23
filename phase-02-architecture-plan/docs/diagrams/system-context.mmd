@@ -1,0 +1,11 @@
+flowchart LR
+    U[User] --> WEB[Web Application]
+    WEB --> API[DOS Cloud Server]
+    API --> DB[(Metadata DB)]
+    API --> CAT[(Shared Game Catalog)]
+    API --> DRIVE[(Per-user DOS Drives)]
+    WEB --> DOS[DOSBox / js-dos Runtime]
+    DOS --> FS[REMOTEFS]
+    FS --> API
+    DOS -. future .-> IPX[IPX WebSocket Relay]
+    IPX -. future .-> DOS2[Other Browser DOSBox Sessions]

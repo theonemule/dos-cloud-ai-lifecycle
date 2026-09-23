@@ -1,0 +1,12 @@
+flowchart LR
+    P1[Player 1 Browser] --> D1[DOSBox]
+    P2[Player 2 Browser] --> D2[DOSBox]
+    P3[Player 3 Browser] --> D3[DOSBox]
+
+    D1 -->|IPX over WebSocket| R[Room-scoped IPX Relay]
+    D2 -->|IPX over WebSocket| R
+    D3 -->|IPX over WebSocket| R
+
+    D1 -->|filesystem RPC| F1[(Player 1 C:)]
+    D2 -->|filesystem RPC| F2[(Player 2 C:)]
+    D3 -->|filesystem RPC| F3[(Player 3 C:)]
