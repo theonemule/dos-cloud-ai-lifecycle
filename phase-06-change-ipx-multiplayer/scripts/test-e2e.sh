@@ -34,12 +34,13 @@ done
 curl -fsS "http://127.0.0.1:$PORT/health" >/dev/null
 run_browser_test() {
   local script="$1"
-  if TEST_URL="http://127.0.0.1:$PORT/" node "$script"; then
+  local limit="${BROWSER_TEST_TIMEOUT:-90s}"
+  if TEST_URL="http://127.0.0.1:$PORT/" timeout --signal=TERM --kill-after=5s "$limit" node "$script"; then
     return 0
   fi
-  echo "Browser test $script failed once; retrying after a short pause" >&2
+  echo "Browser test $script failed or timed out once; retrying after a short pause" >&2
   sleep 2
-  TEST_URL="http://127.0.0.1:$PORT/" node "$script"
+  TEST_URL="http://127.0.0.1:$PORT/" timeout --signal=TERM --kill-after=5s "$limit" node "$script"
 }
 
 run_browser_test test/browser-smoke.mjs
