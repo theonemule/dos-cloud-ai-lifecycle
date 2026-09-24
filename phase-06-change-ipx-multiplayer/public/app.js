@@ -4,6 +4,11 @@ const rows = document.getElementById("rows");
 const hero = document.getElementById("hero");
 const toast = document.getElementById("toast");
 const authError = document.getElementById("auth-error");
+const joinModal = document.getElementById("join-multiplayer-modal");
+const joinForm = document.getElementById("join-multiplayer-form");
+const joinCodeInput = document.getElementById("join-multiplayer-code");
+const joinError = document.getElementById("join-multiplayer-error");
+const joinSubmit = document.getElementById("join-multiplayer-submit");
 
 let currentUser = null;
 let games = [];
@@ -150,7 +155,7 @@ function gameCard(game) {
   if (game.installed && game.multiplayer?.enabled) {
     const multiplayer = document.createElement("button");
     multiplayer.className = "multiplayer";
-    multiplayer.textContent = "⌁ Multiplayer";
+    multiplayer.textContent = "⌁ Host Multiplayer";
     multiplayer.onclick = () => hostMultiplayer(game);
     actions.appendChild(multiplayer);
   }
@@ -210,7 +215,7 @@ function render() {
     if (lead.installed && lead.multiplayer?.enabled) {
       const multiplayer = document.createElement("button");
       multiplayer.className = "hero-action";
-      multiplayer.textContent = "⌁ Multiplayer";
+      multiplayer.textContent = "⌁ Host Multiplayer";
       multiplayer.onclick = () => hostMultiplayer(lead);
       actions.appendChild(multiplayer);
     }
@@ -292,21 +297,46 @@ async function hostMultiplayer(game) {
   }
 }
 
-async function joinMultiplayer() {
-  const answer = prompt("Enter the multiplayer join code");
-  if (answer == null) return;
-  const code = String(answer).trim().toUpperCase();
-  if (!code) return;
+function openJoinMultiplayer() {
+  joinError.textContent = "";
+  joinCodeInput.value = "";
+  joinSubmit.disabled = false;
+  joinModal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+  requestAnimationFrame(() => joinCodeInput.focus());
+}
+
+function closeJoinMultiplayer() {
+  joinModal.classList.add("hidden");
+  document.body.classList.remove("modal-open");
+  joinError.textContent = "";
+}
+
+async function joinMultiplayer(code) {
+  const normalized = String(code || "").trim().toUpperCase().replace(/[^A-Z2-9]/g, "");
+  if (!/^[A-Z2-9]{6}$/.test(normalized)) {
+    joinError.textContent = "Enter the six-character join code from the host.";
+    joinCodeInput.focus();
+    return;
+  }
+
+  joinError.textContent = "";
+  joinSubmit.disabled = true;
+  joinSubmit.textContent = "Joining…";
   try {
     const data = await api("/api/multiplayer/join", {
       method: "POST",
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({ code: normalized }),
     });
+    closeJoinMultiplayer();
     showToast("Joining IPX room " + data.room.code);
     window.open("/runtime.html?session=" + encodeURIComponent(data.session.id), "_blank", "noopener");
     setTimeout(loadCatalog, 500);
   } catch (err) {
-    showToast(err.message);
+    joinError.textContent = err.message;
+  } finally {
+    joinSubmit.disabled = false;
+    joinSubmit.textContent = "Join Game";
   }
 }
 
@@ -373,7 +403,23 @@ document.getElementById("logout-button").onclick = async () => {
   showLogin();
 };
 document.getElementById("console-button").onclick = openConsole;
-document.getElementById("join-multiplayer-button").onclick = joinMultiplayer;
+document.getElementById("join-multiplayer-button").onclick = openJoinMultiplayer;
+document.getElementById("join-multiplayer-close").onclick = closeJoinMultiplayer;
+document.getElementById("join-multiplayer-cancel").onclick = closeJoinMultiplayer;
+joinModal.addEventListener("click", event => {
+  if (event.target === joinModal) closeJoinMultiplayer();
+});
+joinCodeInput.addEventListener("input", () => {
+  joinCodeInput.value = joinCodeInput.value.toUpperCase().replace(/[^A-Z2-9]/g, "").slice(0, 6);
+  joinError.textContent = "";
+});
+joinForm.addEventListener("submit", event => {
+  event.preventDefault();
+  joinMultiplayer(joinCodeInput.value);
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !joinModal.classList.contains("hidden")) closeJoinMultiplayer();
+});
 document.getElementById("home-button").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
 boot().catch(err => {

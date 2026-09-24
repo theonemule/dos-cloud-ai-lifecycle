@@ -23,7 +23,9 @@ function showMultiplayerDetails(multiplayer) {
   players.textContent = "Players: " + multiplayer.expectedPlayers + " · IPX over WebSocket";
 
   const instructions = document.createElement("p");
-  instructions.textContent = multiplayer.instructions || "Keep this window open while the multiplayer game is active.";
+  instructions.textContent = multiplayer.role === "host"
+    ? "Share this code with the other player. They should open DOS Cloud, choose Join Game, paste the code, and select Join Game."
+    : (multiplayer.instructions || "Keep this window open while the multiplayer game is active.");
 
   const copy = document.createElement("button");
   copy.type = "button";

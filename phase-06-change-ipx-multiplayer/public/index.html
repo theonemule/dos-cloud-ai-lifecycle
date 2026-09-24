@@ -44,7 +44,7 @@
       <nav>
         <button id="home-button" class="link-button">Home</button>
         <button id="console-button" class="link-button">Open DOS</button>
-        <button id="join-multiplayer-button" class="link-button">Join Multiplayer</button>
+        <button id="join-multiplayer-button" class="link-button">Join Game</button>
       </nav>
       <div class="account">
         <span id="user-name"></span>
@@ -57,6 +57,35 @@
       <section id="hero" class="hero"></section>
       <div id="rows"></div>
     </main>
+
+    <div id="join-multiplayer-modal" class="modal-backdrop hidden" role="presentation">
+      <section class="modal-card multiplayer-join-card" role="dialog" aria-modal="true" aria-labelledby="join-multiplayer-title">
+        <button id="join-multiplayer-close" class="modal-close" type="button" aria-label="Close">×</button>
+        <div class="kicker">IPX MULTIPLAYER</div>
+        <h2 id="join-multiplayer-title">Join a multiplayer game</h2>
+        <p class="modal-copy">Ask the host for the six-character join code shown in their game window, then enter it here.</p>
+        <form id="join-multiplayer-form" class="join-code-form">
+          <label for="join-multiplayer-code">Join code</label>
+          <input
+            id="join-multiplayer-code"
+            name="joinCode"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            maxlength="6"
+            placeholder="ABC123"
+            aria-describedby="join-multiplayer-help join-multiplayer-error">
+          <div id="join-multiplayer-help" class="field-help">The game must already be installed in your library.</div>
+          <div id="join-multiplayer-error" class="error" aria-live="polite"></div>
+          <div class="modal-actions">
+            <button id="join-multiplayer-cancel" type="button">Cancel</button>
+            <button id="join-multiplayer-submit" class="primary" type="submit">Join Game</button>
+          </div>
+        </form>
+      </section>
+    </div>
 
     <div id="toast" class="toast hidden"></div>
   </div>
