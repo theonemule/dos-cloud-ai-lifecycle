@@ -63,6 +63,7 @@ class DriveStore {
       case "close": return this.close(args.handle);
       case "read": return this.read(args.handle, args.length, args.position);
       case "write": return this.write(args.handle, payload, args.position);
+      case "flush": return this.flush(args.handle);
       case "seek": return this.seek(args.handle, args.offset, args.whence);
       case "stat": return this.stat(args.path);
       case "list": return this.list(args.path);
@@ -138,6 +139,12 @@ class DriveStore {
     return { bytesWritten: result.bytesWritten, position: h.position };
   }
 
+  async flush(id) {
+    const h = this.getHandle(id);
+    await h.file.sync();
+    return {};
+  }
+
   async seek(id, offset, whence = 0) {
     const h = this.getHandle(id);
     const off = Number(offset) || 0;
@@ -164,16 +171,15 @@ class DriveStore {
   async list(dosPath = "") {
     const full = this.resolve(dosPath);
     const entries = await fsp.readdir(full, { withFileTypes: true });
-    const out = [];
-    for (const entry of entries) {
+    const out = await Promise.all(entries.map(async (entry) => {
       const s = await fsp.stat(path.join(full, entry.name));
-      out.push({
+      return {
         name: entry.name,
         directory: entry.isDirectory(),
         size: s.size,
         mtimeMs: s.mtimeMs,
-      });
-    }
+      };
+    }));
     return { entries: out };
   }
 

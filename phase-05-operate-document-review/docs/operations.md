@@ -159,3 +159,18 @@ Watch:
 - Log Analytics ingestion
 
 The application does not yet enforce per-user storage quotas. That remains an operational risk for an internet-facing deployment.
+
+## Remote filesystem performance
+
+The browser-side DOS filesystem is not a synchronized copy. Azure Files remains authoritative.
+
+For deployed HTTPS sessions, REMOTEFS uses one authenticated WebSocket connection per emulator runtime. The server keeps open file handles against the mounted Azure Files share. The client uses a bounded page/metadata cache, adaptive read-ahead, directory-entry caching, negative lookup caching, and short write-back coalescing.
+
+Important operational signals are available through `/api/stats` for the signed-in user:
+
+- `transports.websocket`
+- `transports.http`
+- per-operation counters
+- bytes read and written
+
+A healthy deployed runtime should report filesystem traffic primarily or exclusively through `websocket`. The HTTP transport is retained as a fallback for non-cross-origin-isolated development environments.

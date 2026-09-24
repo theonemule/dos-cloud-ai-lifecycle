@@ -68,3 +68,11 @@ At that point the Container App can safely scale beyond one replica.
 The useful artifact is not only the working DOS game service. The repository preserves the decisions, failed assumptions, tests, hardening, deployment model, and operational constraints that accumulated around it.
 
 That is the point of the lifecycle demo: AI-assisted coding is not only code generation. It can participate in requirements, architecture, implementation, test design, security review, deployment engineering, operational instrumentation, documentation, and change review, with each stage producing evidence for the next.
+
+## Filesystem performance review
+
+The initial remote filesystem preserved correct server-authoritative semantics but mapped every synchronous DOS filesystem call to a synchronous HTTP request. That made WAN round-trip latency part of each `stat`, `open`, `read`, and directory operation.
+
+Phase 5 keeps the same mounted Azure Files authority boundary while replacing the transport behavior with a FUSE-like cached client. A persistent WebSocket carries handle-based operations. Metadata and directory entries are cached briefly, sequential reads use adaptive read-ahead, read-only handles are reused, and writes are coalesced before durable flush.
+
+This is caching, not file synchronization. Azure Files remains the source of truth.

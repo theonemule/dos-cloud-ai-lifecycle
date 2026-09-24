@@ -3,6 +3,7 @@ const https = require("node:https");
 const crypto = require("node:crypto");
 const fs = require("node:fs");
 const path = require("node:path");
+const { WebSocketServer } = require("ws");
 
 const { DriveStore } = require("./src/drive-store");
 const { encodePacket, decodePacket } = require("./src/protocol");
@@ -121,16 +122,18 @@ async function createAppServer(options = {}) {
         bytesRead: 0,
         bytesWritten: 0,
         ops: {},
+        transports: { http: 0, websocket: 0 },
         recent: [],
       });
     }
     return metricsByUser.get(userId);
   }
 
-  function recordFs(userId, op, args, requestBytes, result) {
+  function recordFs(userId, op, args, requestBytes, result, transport = "http") {
     const metrics = metricsFor(userId);
     metrics.requests++;
     metrics.ops[op] = (metrics.ops[op] || 0) + 1;
+    metrics.transports[transport] = (metrics.transports[transport] || 0) + 1;
     if (op === "write") metrics.bytesWritten += requestBytes;
     if (op === "read" && result?.payload) metrics.bytesRead += result.payload.length;
     metrics.recent.unshift({
@@ -148,6 +151,7 @@ async function createAppServer(options = {}) {
     let session = fsSessions.get(key);
     if (!session) {
       session = {
+        key,
         userId: user.id,
         drive: new DriveStore(auth.userDriveRoot(user.id)),
         handlePaths: new Map(),
@@ -157,6 +161,48 @@ async function createAppServer(options = {}) {
     }
     session.lastSeen = Date.now();
     return session;
+  }
+
+  async function executeFsRequest(user, launchId, transportSession, request, transport) {
+    const { id, op, ...args } = request.header;
+    const session = getFsSession(user, launchId, transportSession);
+    const result = await session.drive.dispatch(op, args, request.payload);
+
+    if (op === "open" && result?.handle != null) {
+      session.handlePaths.set(Number(result.handle), args.path || "");
+    }
+
+    const recordArgs = (!args.path && args.handle != null && session.handlePaths.has(Number(args.handle)))
+      ? { ...args, path: session.handlePaths.get(Number(args.handle)) }
+      : args;
+
+    recordFs(
+      user.id,
+      op,
+      recordArgs,
+      request.payload?.length || 0,
+      result,
+      transport
+    );
+
+    if (op === "close" && args.handle != null) {
+      session.handlePaths.delete(Number(args.handle));
+    }
+
+    const header = result && result.header ? result.header : result || {};
+    const payload = result && result.payload ? result.payload : new Uint8Array(0);
+    return encodePacket({ id, ok: true, ...header }, payload);
+  }
+
+  function fsErrorPacket(request, err) {
+    return encodePacket({
+      id: request?.header?.id ?? null,
+      ok: false,
+      code: err.code || (err.statusCode === 401 || err.statusCode === 403 ? "EACCES" : "EIO"),
+      error: err.statusCode === 401 || err.statusCode === 403
+        ? "authentication required"
+        : "filesystem operation failed",
+    });
   }
 
   const cleanup = setInterval(async () => {
@@ -349,38 +395,23 @@ async function createAppServer(options = {}) {
         await launch.getOwned(user, launchId);
         const raw = await readBody(req, 4 * 1024 * 1024);
         request = decodePacket(raw);
-        const { id, op, ...args } = request.header;
-        const session = getFsSession(user, launchId, url.searchParams.get("session"));
-        const result = await session.drive.dispatch(op, args, request.payload);
-
-        if (op === "open" && result?.handle != null) {
-          session.handlePaths.set(Number(result.handle), args.path || "");
-        }
-        const recordArgs = (!args.path && args.handle != null && session.handlePaths.has(Number(args.handle)))
-          ? { ...args, path: session.handlePaths.get(Number(args.handle)) }
-          : args;
-        recordFs(user.id, op, recordArgs, request.payload?.length || 0, result);
-        if (op === "close" && args.handle != null) session.handlePaths.delete(Number(args.handle));
-
-        const header = result && result.header ? result.header : result || {};
-        const payload = result && result.payload ? result.payload : new Uint8Array(0);
-        const response = encodePacket({ id, ok: true, ...header }, payload);
+        const response = await executeFsRequest(
+          user,
+          launchId,
+          url.searchParams.get("session"),
+          request,
+          "http"
+        );
         res.writeHead(200, { ...cors, "content-type": "application/octet-stream", "cache-control": "no-store" });
         return res.end(response);
       } catch (err) {
-        const id = request?.header?.id ?? null;
         logger.warn("filesystem_rpc_failed", {
           requestId: req.requestId,
           operation: request?.header?.op || null,
           code: err.code || null,
           statusCode: err.statusCode || null,
         });
-        const response = encodePacket({
-          id,
-          ok: false,
-          code: err.code || (err.statusCode === 401 ? "EACCES" : "EIO"),
-          error: err.statusCode === 401 ? "authentication required" : "filesystem operation failed",
-        });
+        const response = fsErrorPacket(request, err);
         res.writeHead(err.statusCode === 401 ? 401 : 200, {
           ...cors,
           "content-type": "application/octet-stream",
@@ -494,6 +525,137 @@ async function createAppServer(options = {}) {
     server = http.createServer(requestHandler);
   }
 
+  const fsWebSocketServer = new WebSocketServer({
+    noServer: true,
+    maxPayload: 4 * 1024 * 1024 + 64 * 1024,
+    perMessageDeflate: false,
+  });
+
+  function rejectUpgrade(socket, statusCode, message) {
+    const body = message || "WebSocket upgrade rejected";
+    try {
+      socket.write(
+        "HTTP/1.1 " + statusCode + " " + (statusCode === 401 ? "Unauthorized" : "Forbidden") + "\r\n" +
+        "Connection: close\r\n" +
+        "Content-Type: text/plain\r\n" +
+        "Content-Length: " + Buffer.byteLength(body) + "\r\n\r\n" +
+        body
+      );
+    } catch {}
+    socket.destroy();
+  }
+
+  server.on("upgrade", (req, socket, head) => {
+    (async () => {
+      const url = new URL(req.url, (req.socket.encrypted ? "https" : "http") + "://localhost");
+      if (url.pathname !== "/ws/fs") {
+        socket.destroy();
+        return;
+      }
+
+      if (!requestOriginAllowed(req, allowedOrigins)) {
+        rejectUpgrade(socket, 403, "request origin is not allowed");
+        return;
+      }
+
+      const user = await auth.requireUser(req);
+      const launchId = String(url.searchParams.get("launch") || "");
+      if (!launchId) {
+        rejectUpgrade(socket, 403, "launch session required");
+        return;
+      }
+
+      const launchSession = await launch.getOwned(user, launchId);
+      const transportSession = url.searchParams.get("session") || "websocket";
+      const fsSession = getFsSession(user, launchId, transportSession);
+
+      fsWebSocketServer.handleUpgrade(req, socket, head, ws => {
+        const expiresAt = Date.parse(launchSession.expires_at || launchSession.expiresAt || "");
+        let expiryTimer = null;
+        if (Number.isFinite(expiresAt)) {
+          const remaining = Math.max(1, expiresAt - Date.now());
+          expiryTimer = setTimeout(() => {
+            try { ws.close(1008, "launch session expired"); } catch {}
+          }, remaining);
+          expiryTimer.unref?.();
+        }
+
+        logger.info("filesystem_ws_connected", {
+          userId: user.id,
+          launchId,
+          transportSession,
+        });
+
+        let chain = Promise.resolve();
+
+        ws.on("message", (data, isBinary) => {
+          if (!isBinary) {
+            try { ws.close(1003, "binary messages required"); } catch {}
+            return;
+          }
+
+          chain = chain.then(async () => {
+            let request;
+            try {
+              request = decodePacket(data);
+              fsSession.lastSeen = Date.now();
+              const response = await executeFsRequest(
+                user,
+                launchId,
+                transportSession,
+                request,
+                "websocket"
+              );
+              if (ws.readyState === ws.OPEN) ws.send(response, { binary: true });
+            } catch (err) {
+              const expectedFsError = ["ENOENT", "EEXIST", "ENOTDIR", "EISDIR", "ENOTEMPTY"].includes(err.code);
+              (expectedFsError ? logger.debug.bind(logger) : logger.warn.bind(logger))("filesystem_ws_rpc_failed", {
+                userId: user.id,
+                launchId,
+                operation: request?.header?.op || null,
+                code: err.code || null,
+              });
+              if (ws.readyState === ws.OPEN) {
+                ws.send(fsErrorPacket(request, err), { binary: true });
+              }
+            }
+          }).catch(err => {
+            logger.error("filesystem_ws_chain_failed", {
+              userId: user.id,
+              launchId,
+              error: err,
+            });
+            try { ws.close(1011, "filesystem transport failure"); } catch {}
+          });
+        });
+
+        ws.on("close", (code) => {
+          if (expiryTimer) clearTimeout(expiryTimer);
+          fsSessions.delete(fsSession.key);
+          fsSession.drive.closeAll().catch(err => {
+            logger.warn("filesystem_ws_close_handles_failed", {
+              userId: user.id,
+              launchId,
+              error: err,
+            });
+          });
+          logger.info("filesystem_ws_closed", {
+            userId: user.id,
+            launchId,
+            transportSession,
+            code,
+          });
+        });
+      });
+    })().catch(err => {
+      logger.warn("filesystem_ws_upgrade_failed", {
+        code: err.code || null,
+        statusCode: err.statusCode || null,
+      });
+      rejectUpgrade(socket, err.statusCode === 401 ? 401 : 403, "filesystem WebSocket rejected");
+    });
+  });
+
   return {
     server,
     platform: {
@@ -525,7 +687,13 @@ async function createAppServer(options = {}) {
     },
     async close() {
       clearInterval(cleanup);
-      for (const session of fsSessions.values()) session.drive.closeAll();
+
+      for (const client of fsWebSocketServer.clients) {
+        try { client.terminate(); } catch {}
+      }
+      await new Promise(resolve => fsWebSocketServer.close(() => resolve()));
+
+      for (const session of fsSessions.values()) await session.drive.closeAll();
       fsSessions.clear();
 
       await new Promise(resolve => {

@@ -101,6 +101,22 @@ The supplied Bicep creates:
 
 Azure Files is mounted at `/data` for the DOS user drives. Application metadata, sessions, library records, launch sessions, and OIDC state are stored in Azure Database for PostgreSQL Flexible Server using Microsoft Entra managed-identity authentication. No database password is stored in GitHub or the container configuration.
 
+### Remote filesystem transport
+
+The DOS C: drive remains server-authoritative on Azure Files. The browser does not synchronize a second working tree.
+
+On cross-origin-isolated HTTPS/localhost, REMOTEFS uses a persistent `/ws/fs` WebSocket with server-side file handles and a FUSE/NFS-style client cache:
+
+- directory and metadata caching
+- negative lookup caching
+- reusable read-only handles
+- 128 KiB to 1 MiB adaptive read-ahead
+- bounded 64 MiB read cache
+- coalesced write-back up to 256 KiB
+- flush on `fsync` and close
+
+The WebSocket authenticates the user and launch session once during upgrade. PostgreSQL is therefore not queried for every filesystem operation. Plain non-isolated HTTP keeps the older synchronous HTTP RPC transport as a development fallback.
+
 The supplied deployment remains at one replica because live emulator filesystem handles are process-local, not because of the database.
 
 ## Tests

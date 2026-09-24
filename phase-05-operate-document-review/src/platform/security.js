@@ -58,7 +58,7 @@ function applySecurityHeaders(res, { allowUnsafeEval = false } = {}) {
     [
       "default-src 'self'",
       allowUnsafeEval
-        ? "script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'"
+        ? "script-src 'self' blob: 'unsafe-eval' 'wasm-unsafe-eval'"
         : "script-src 'self'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data:",
@@ -75,6 +75,7 @@ function applySecurityHeaders(res, { allowUnsafeEval = false } = {}) {
   res.setHeader("referrer-policy", "no-referrer");
   res.setHeader("permissions-policy", "camera=(), microphone=(), geolocation=()");
   res.setHeader("cross-origin-opener-policy", "same-origin");
+  res.setHeader("cross-origin-embedder-policy", "require-corp");
   res.setHeader("cross-origin-resource-policy", "same-origin");
 }
 

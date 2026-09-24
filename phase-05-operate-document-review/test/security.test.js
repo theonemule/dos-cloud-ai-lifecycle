@@ -29,7 +29,7 @@ test("security: unsafe-eval is scoped only to the emulator runtime document", as
   try {
     const runtime = await fetch(ctx.base + "/runtime.html");
     const runtimeCsp = runtime.headers.get("content-security-policy") || "";
-    assert.match(runtimeCsp, /script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'/);
+    assert.match(runtimeCsp, /script-src 'self' blob: 'unsafe-eval' 'wasm-unsafe-eval'/);
 
     const app = await fetch(ctx.base + "/");
     assert.doesNotMatch(app.headers.get("content-security-policy") || "", /'unsafe-eval'/);
