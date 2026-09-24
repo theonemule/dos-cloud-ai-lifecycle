@@ -1,0 +1,47 @@
+{
+  "id": "hocus",
+  "title": "Hocus Pocus",
+  "subtitle": "Episode One",
+  "publisher": "Apogee Software",
+  "year": 1994,
+  "genres": [
+    "Platformer",
+    "Apogee"
+  ],
+  "description": "A colorful Apogee platformer built around magical spells.",
+  "version": "1.1-shareware",
+  "package": {
+    "file": "hp-shr.zip",
+    "sha256": "2305d0fb3bb584c28b351c3ebcc0c524523c6026cf932c02051aa67b9bb5035e",
+    "sourceUrl": "https://image.dosgamesarchive.com/games/hp-shr.zip"
+  },
+  "install": {
+    "folder": "HOCUS"
+  },
+  "launch": {
+    "command": "HOCUS.BAT",
+    "arguments": []
+  },
+  "dosbox": {
+    "machine": "svga_s3",
+    "memoryMb": 16,
+    "cycles": "auto"
+  },
+  "capabilities": {
+    "singlePlayer": true,
+    "ipx": false,
+    "maxPlayers": 1
+  },
+  "distribution": {
+    "status": "verified-shareware",
+    "sourcePage": "https://www.dosgamesarchive.com/download/hocus-pocus",
+    "notes": "DOS Games Archive identifies this package as shareware or shareware (installed)."
+  },
+  "presentation": {
+    "accent": "#6f42c1",
+    "glyph": "HP",
+    "featured": false,
+    "screenshot": "/screenshots/hocus.png"
+  },
+  "controls": []
+}

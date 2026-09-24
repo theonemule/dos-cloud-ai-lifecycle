@@ -3,7 +3,13 @@ name: Phase 5 CI/CD
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'phase-05-operate-document-review/**'
+      - '.github/workflows/phase5-ci.yml'
   pull_request:
+    paths:
+      - 'phase-05-operate-document-review/**'
+      - '.github/workflows/phase5-ci.yml'
   workflow_dispatch:
 
 permissions:

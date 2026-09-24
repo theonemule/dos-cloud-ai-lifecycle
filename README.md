@@ -118,11 +118,33 @@ Adds the operational surface around Phase 4:
 - application documentation
 - end-of-lifecycle review
 
-Phase 5 is the current deployable snapshot.
+Phase 5 is the frozen operations/documentation snapshot. Phase 6 is the current deployable snapshot.
+
+## Phase 6 — Change, Refactor, and IPX Multiplayer
+
+Directory:
+
+    phase-06-change-ipx-multiplayer
+
+Revisits the deployed design with a substantial new requirement: multiplayer DOS networking.
+
+It adds:
+
+- short multiplayer join codes
+- authenticated room-scoped WebSocket relay
+- a custom js-dos `sharedNet` transport
+- DOSBox-X IPX host/client wiring
+- independent per-player C: drives
+- metadata-driven multiplayer launch profiles
+- DOOM IPX multiplayer end to end
+- Duke Nukem 3D network setup support
+- multiplayer regression and two-browser integration tests
+
+Phase 6 demonstrates the change/refactor loop after the original system is already built, secured, documented, and deployed.
 
 ## Quick start
 
-    cd phase-05-operate-document-review
+    cd phase-06-change-ipx-multiplayer
     npm ci
     DOS_CLOUD_SEED_DEMO_USERS=true npm start
 
@@ -132,18 +154,18 @@ Then open:
 
 For Docker:
 
-    cd phase-05-operate-document-review
+    cd phase-06-change-ipx-multiplayer
     docker compose up --build
 
 For Azure, see:
 
-    phase-05-operate-document-review/infra/azure/README.md
+    phase-06-change-ipx-multiplayer/infra/azure/README.md
 
 ## Validation
 
-Phase 5 Node tests:
+Phase 6 Node tests:
 
-    cd phase-05-operate-document-review
+    cd phase-06-change-ipx-multiplayer
     npm test
 
 Full local test gate:
@@ -152,7 +174,7 @@ Full local test gate:
 
 Docker image:
 
-    docker build -t dos-cloud:phase5 .
+    docker build -t dos-cloud:phase6 .
 
 The repository deliberately preserves the earlier snapshots rather than rewriting history. Each directory is presentation-ready and represents what the project looked like at that lifecycle stage.
 

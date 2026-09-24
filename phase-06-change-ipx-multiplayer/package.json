@@ -1,0 +1,39 @@
+{
+  "name": "dos-cloud-phase-06",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Phase 6 change/refactor: IPX multiplayer rooms over a WebSocket relay",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js",
+    "test:browser": "node test/browser-smoke.mjs",
+    "seed": "node scripts/seed.js",
+    "test:platform": "node --test test/platform.test.js",
+    "test:browser:games": "node test/multi-game-browser.mjs",
+    "test:e2e": "bash scripts/test-e2e.sh",
+    "test:all": "npm test && npm run test:e2e",
+    "test:regression": "node --test test/regression.test.js",
+    "test:security": "node --test test/security.test.js",
+    "test:oidc": "node --test test/oidc.test.js",
+    "cert:dev": "bash scripts/generate-dev-cert.sh",
+    "start:https": "DOS_CLOUD_HTTPS=true node server.js",
+    "test:https": "bash scripts/test-https.sh",
+    "start:entra": "bash scripts/start-entra.sh",
+    "docker:build": "docker build -t dos-cloud:phase6 .",
+    "docker:up": "docker compose up --build",
+    "test:multiplayer": "node --test test/multiplayer.test.js",
+    "test:multiplayer:browser": "node test/multiplayer-browser.mjs"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.13.3",
+    "@azure/postgresql-auth": "^1.0.0",
+    "adm-zip": "^0.6.1",
+    "jose": "^6.2.12",
+    "js-dos": "8.4.1",
+    "pg": "^8.23.0",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "playwright-core": "1.63.0"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules
+var
+user-data
+certs/*.pem
+.env*
+server*.log
+server*.pid
+docs/phase3-catalog.png
+docs/phase3-runtime.png
+.git
+.gitignore
+test

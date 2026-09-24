@@ -1,0 +1,62 @@
+name: Phase 6 CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'phase-06-change-ipx-multiplayer/**'
+      - '.github/workflows/phase6-ci.yml'
+  pull_request:
+    paths:
+      - 'phase-06-change-ipx-multiplayer/**'
+      - '.github/workflows/phase6-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: phase-06-change-ipx-multiplayer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: phase-06-change-ipx-multiplayer/package-lock.json
+      - run: npm ci
+      - run: DOS_CLOUD_LOG_TARGET=none npm run test:all
+      - run: docker build -t dos-cloud:phase6-ci .
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sign in to Azure with GitHub OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy Phase 6 to Azure Container Apps
+        working-directory: phase-06-change-ipx-multiplayer
+        env:
+          CREATE_RESOURCE_GROUP: 'false'
+          UPDATE_ENTRA_REDIRECT: 'false'
+          AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
+          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+          AZURE_PREFIX: ${{ vars.AZURE_PREFIX }}
+          IMAGE_TAG: ${{ github.sha }}
+          DOS_CLOUD_OIDC_TENANT_ID: ${{ vars.DOS_CLOUD_OIDC_TENANT_ID }}
+          DOS_CLOUD_OIDC_CLIENT_ID: ${{ vars.DOS_CLOUD_OIDC_CLIENT_ID }}
+          MANAGE_OIDC_SECRET: 'false'
+        run: ./infra/azure/deploy.sh
