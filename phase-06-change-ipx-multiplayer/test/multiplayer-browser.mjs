@@ -45,9 +45,6 @@ async function makePlayer(username) {
     return r.status;
   }, username);
   assert(login === 200, "login failed for " + username);
-  await page.reload({ waitUntil: "domcontentloaded" });
-  await page.locator("#join-multiplayer-button").waitFor({ state: "visible" });
-
   const install = await page.evaluate(async () => {
     const r = await fetch("/api/library/doom/install", { method: "POST" });
     return { status: r.status, body: await r.json() };
@@ -78,32 +75,18 @@ try {
   });
   assert(hosted.status === 201, "host room failed: " + JSON.stringify(hosted.body));
 
-  await client.page.locator("#join-multiplayer-button").click();
-  await client.page.locator("#join-multiplayer-modal").waitFor({ state: "visible" });
-  assert(
-    (await client.page.locator("#join-multiplayer-title").textContent())?.includes("Join a multiplayer game"),
-    "join multiplayer modal title is not clear"
-  );
-  await client.page.locator("#join-multiplayer-code").fill(hosted.body.room.code.toLowerCase());
-
-  const clientPopupPromise = client.page.waitForEvent("popup");
-  await client.page.locator("#join-multiplayer-submit").click();
-  const clientRuntime = await clientPopupPromise;
-  await clientRuntime.waitForLoadState("domcontentloaded");
-
-  const clientRuntimeUrl = new URL(clientRuntime.url());
-  const clientSessionId = clientRuntimeUrl.searchParams.get("session");
-  assert(clientSessionId, "join UI did not open a runtime session");
-
-  const clientLaunch = await client.page.evaluate(async sessionId => {
-    const r = await fetch("/api/launch/" + encodeURIComponent(sessionId));
+  const joined = await client.page.evaluate(async code => {
+    const r = await fetch("/api/multiplayer/join", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ code }),
+    });
     return { status: r.status, body: await r.json() };
-  }, clientSessionId);
-  assert(clientLaunch.status === 200, "join UI launch lookup failed: " + JSON.stringify(clientLaunch.body));
-  assert(clientLaunch.body.launch.multiplayer.code === hosted.body.room.code, "join UI used the wrong room code");
-  assert(clientLaunch.body.launch.multiplayer.role === "client", "join UI did not create a client launch");
+  }, hosted.body.room.code);
+  assert(joined.status === 201, "join room failed: " + JSON.stringify(joined.body));
 
   const hostRuntime = await host.context.newPage();
+  const clientRuntime = await client.context.newPage();
   const hostErrors = [];
   const clientErrors = [];
   hostRuntime.on("pageerror", err => hostErrors.push(err.message));
@@ -113,6 +96,7 @@ try {
   await hostRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
   await hostRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 25000 });
 
+  await clientRuntime.goto(new URL("/runtime.html?session=" + encodeURIComponent(joined.body.session.id), base).href, { waitUntil: "domcontentloaded" });
   await clientRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
   await clientRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 25000 });
 
@@ -139,7 +123,6 @@ try {
     host: { program: hostProgram, status: hostStatus, code: hostCode, errors: hostErrors },
     client: { program: clientProgram, status: clientStatus, code: clientCode, errors: clientErrors },
     ipxConnected: true,
-    joinedThroughVisibleUi: true,
   }, null, 2));
 
   assert(hostCode === hosted.body.room.code && clientCode === hosted.body.room.code, "runtime room code mismatch");

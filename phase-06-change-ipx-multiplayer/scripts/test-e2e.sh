@@ -45,4 +45,5 @@ run_browser_test() {
 
 run_browser_test test/browser-smoke.mjs
 run_browser_test test/multi-game-browser.mjs
+run_browser_test test/join-ui-browser.mjs
 run_browser_test test/multiplayer-browser.mjs
