@@ -210,6 +210,7 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
 
     const online = activeMembers(room).filter(next => next.ws && next.ws.readyState === next.ws.OPEN);
     const host = activeMembers(room).find(next => next.role === "host");
+    const roomReady = online.length >= room.expectedPlayers;
     sendControl(ws, {
       type: "welcome",
       peerId: member.peerId,
@@ -217,6 +218,8 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
       hostOnline: Boolean(host?.ws && host.ws.readyState === host.ws.OPEN),
       roomCode: room.code,
       role: member.role,
+      expectedPlayers: room.expectedPlayers,
+      roomReady,
       peers: online.map(next => ({ peerId: next.peerId, role: next.role })),
     });
 
@@ -224,6 +227,23 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
       if (next !== member) {
         sendControl(next.ws, { type: "peer-joined", peerId: member.peerId, role: member.role });
       }
+    }
+
+    if (roomReady) {
+      for (const next of online) {
+        sendControl(next.ws, {
+          type: "room-ready",
+          roomCode: room.code,
+          expectedPlayers: room.expectedPlayers,
+          connectedPlayers: online.length,
+        });
+      }
+      logger.info("multiplayer_room_ready", {
+        roomId: room.id,
+        roomCode: room.code,
+        expectedPlayers: room.expectedPlayers,
+        connectedPlayers: online.length,
+      });
     }
     logger.info("ipx_ws_connected", {
       roomId: room.id,

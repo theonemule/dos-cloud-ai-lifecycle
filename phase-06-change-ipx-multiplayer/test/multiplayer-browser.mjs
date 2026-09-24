@@ -36,6 +36,7 @@ async function makePlayer(username) {
   const context = await browser.newContext({ viewport: { width: 1100, height: 760 } });
   const page = await context.newPage();
   await page.goto(base, { waitUntil: "domcontentloaded" });
+
   const login = await page.evaluate(async name => {
     const r = await fetch("/api/auth/login", {
       method: "POST",
@@ -45,6 +46,7 @@ async function makePlayer(username) {
     return r.status;
   }, username);
   assert(login === 200, "login failed for " + username);
+
   await page.reload({ waitUntil: "domcontentloaded" });
   await page.locator("#join-multiplayer-button").waitFor({ state: "visible" });
 
@@ -85,6 +87,25 @@ try {
   });
   assert(hosted.status === 201, "host room failed: " + JSON.stringify(hosted.body));
 
+  // Reproduce the real user flow: host opens the runtime before anyone has joined.
+  const hostRuntime = await host.context.newPage();
+  const hostErrors = [];
+  hostRuntime.on("pageerror", err => hostErrors.push(err.message));
+  await hostRuntime.goto(
+    new URL("/runtime.html?session=" + encodeURIComponent(hosted.body.session.id), base).href,
+    { waitUntil: "domcontentloaded" }
+  );
+  await hostRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
+  await hostRuntime.waitForFunction(() => window.__dosCloudWaitingForPlayers === true, null, { timeout: 10000 });
+
+  // The regression: before the second player arrives, DOS/IPXSETUP must not start.
+  await new Promise(resolve => setTimeout(resolve, 2500));
+  const hostStartedEarly = await hostRuntime.evaluate(() => Boolean(window.__ci));
+  const waitingText = await hostRuntime.locator("#runtime-status").textContent();
+  assert(!hostStartedEarly, "host DOSBox started before the room was full");
+  assert(waitingText?.includes("Waiting for 2 players"), "host does not show an intelligible waiting state");
+
+  // Join through the real visible UI.
   await client.page.locator("#join-multiplayer-button").click();
   await client.page.locator("#join-multiplayer-modal").waitFor({ state: "visible" });
   assert(
@@ -116,20 +137,16 @@ try {
   assert(clientLaunch.body.launch.multiplayer.code === hosted.body.room.code, "join UI used the wrong room code");
   assert(clientLaunch.body.launch.multiplayer.role === "client", "join UI did not create a client launch");
 
-  const hostRuntime = await host.context.newPage();
   const clientRuntime = await client.context.newPage();
-  const hostErrors = [];
   const clientErrors = [];
-  hostRuntime.on("pageerror", err => hostErrors.push(err.message));
   clientRuntime.on("pageerror", err => clientErrors.push(err.message));
-
-  await hostRuntime.goto(new URL("/runtime.html?session=" + encodeURIComponent(hosted.body.session.id), base).href, { waitUntil: "domcontentloaded" });
-  await hostRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
-  await hostRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 25000 });
-
   await clientRuntime.goto(clientRuntimeUrl.href, { waitUntil: "domcontentloaded" });
+
+  // Room-ready releases both browsers into DOSBox startup.
+  await hostRuntime.waitForFunction(() => window.__dosCloudWaitingForPlayers === false, null, { timeout: 15000 });
+  await hostRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 30000 });
   await clientRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
-  await clientRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 25000 });
+  await clientRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 30000 });
 
   await hostRuntime.waitForFunction(() => window.__ipxNet?.connected?.has(2), null, { timeout: 15000 });
   await clientRuntime.waitForFunction(() => window.__ipxNet?.connected?.has(1), null, { timeout: 15000 });
@@ -151,6 +168,7 @@ try {
 
   console.log(JSON.stringify({
     roomCode: hosted.body.room.code,
+    hostWaitedForClient: true,
     host: { program: hostProgram, status: hostStatus, code: hostCode, errors: hostErrors },
     client: { program: clientProgram, status: clientStatus, code: clientCode, errors: clientErrors },
     ipxConnected: true,

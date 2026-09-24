@@ -71,6 +71,17 @@ async function load() {
       : "Joining IPX room " + config.multiplayer.code + "…";
     ipxNet = await window.createIpxWebSocketNet(config.multiplayer, sessionId);
     window.__ipxNet = ipxNet;
+
+    if (!ipxNet.roomReady) {
+      status.textContent = config.multiplayer.role === "host"
+        ? "Waiting for " + config.multiplayer.expectedPlayers + " players to join room " + config.multiplayer.code + "…"
+        : "Waiting for the multiplayer room to be ready…";
+      window.__dosCloudWaitingForPlayers = true;
+      await ipxNet.waitForRoomReady();
+      window.__dosCloudWaitingForPlayers = false;
+    }
+    status.textContent = "All players connected · starting IPX game…";
+    status.classList.add("ok");
   }
 
   const d = config.dosbox || {};
@@ -133,8 +144,15 @@ async function load() {
 
 window.addEventListener("doscloud-ipx-status", event => {
   const detail = event.detail || {};
-  if (detail.state === "peer-joined") {
-    status.textContent = "IPX peer connected";
+  if (detail.state === "room-ready") {
+    status.textContent = "All players connected · starting IPX game…";
+    status.classList.add("ok");
+  } else if (detail.state === "peer-joined") {
+    if (window.__dosCloudWaitingForPlayers) {
+      status.textContent = "Player connected · preparing multiplayer session…";
+    } else {
+      status.textContent = "IPX peer connected";
+    }
     status.classList.add("ok");
   } else if (detail.state === "peer-left") {
     status.textContent = "IPX peer disconnected";

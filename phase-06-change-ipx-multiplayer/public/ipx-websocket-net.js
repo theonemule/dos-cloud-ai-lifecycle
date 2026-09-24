@@ -13,6 +13,8 @@
       const inbox = [];
       const connected = new Set();
       const hostWaiters = [];
+      const roomReadyWaiters = [];
+      let roomReady = false;
       let peerId = 0;
       let hostPeerId = Number(multiplayer.hostPeerId || 1);
       let hostOnline = multiplayer.role === "host";
@@ -25,9 +27,26 @@
         }
       }
 
+      function markRoomReady(detail = {}) {
+        if (roomReady) return;
+        roomReady = true;
+        while (roomReadyWaiters.length) roomReadyWaiters.shift()();
+        dispatchStatus({
+          state: "room-ready",
+          roomCode: multiplayer.code,
+          expectedPlayers: multiplayer.expectedPlayers,
+          ...detail,
+        });
+      }
+
       const net = {
         get peerId() { return peerId; },
         connected,
+        get roomReady() { return roomReady; },
+        waitForRoomReady() {
+          if (roomReady) return Promise.resolve();
+          return new Promise(resolveReady => roomReadyWaiters.push(resolveReady));
+        },
         wait() {},
         registerAlias() { return Promise.resolve(); },
         unregisterAlias() {},
@@ -76,6 +95,7 @@
               if (peer.role === "host") hostOnline = true;
             }
             resolveHostWaiters();
+            if (message.roomReady) markRoomReady({ connectedPlayers: (message.peers || []).length });
             dispatchStatus({ state: "connected", peerId, roomCode: message.roomCode, role: message.role });
             if (!settled) {
               settled = true;
@@ -91,6 +111,10 @@
               resolveHostWaiters();
             }
             dispatchStatus({ state: "peer-joined", peerId: id, role: message.role });
+          } else if (message.type === "room-ready") {
+            markRoomReady({
+              connectedPlayers: Number(message.connectedPlayers || multiplayer.expectedPlayers),
+            });
           } else if (message.type === "peer-left") {
             const id = Number(message.peerId);
             connected.delete(id);
