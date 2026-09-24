@@ -1,10 +1,31 @@
 import { chromium } from "playwright-core";
+import { createRequire } from "node:module";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+
+const require = createRequire(import.meta.url);
+const { createAppServer } = require("../server.js");
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-const base = process.env.TEST_URL || "http://127.0.0.1:8080/";
+let ownedApp = null;
+let ownedStateRoot = null;
+let base = process.env.TEST_URL || "";
+
+if (!base) {
+  ownedStateRoot = fs.mkdtempSync(path.join(os.tmpdir(), "dos-cloud-phase6-multiplayer-browser-"));
+  ownedApp = await createAppServer({
+    port: 0,
+    stateRoot: ownedStateRoot,
+    seedDemoUsers: true,
+  });
+  const address = await ownedApp.listen();
+  base = "http://127.0.0.1:" + address.port + "/";
+}
+
 const browser = await chromium.launch({
   executablePath: "/usr/bin/google-chrome",
   headless: true,
@@ -113,4 +134,6 @@ try {
   if (host) await host.context.close();
   if (client) await client.context.close();
   await browser.close();
+  if (ownedApp) await ownedApp.close();
+  if (ownedStateRoot) fs.rmSync(ownedStateRoot, { recursive: true, force: true });
 }
