@@ -122,10 +122,6 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
     if (room.members.size >= room.expectedPlayers) {
       throw httpError("multiplayer room is full", 409, "EROOMFULL");
     }
-    if (activeMembers(room).some(member => member.userId === user.id)) {
-      throw httpError("this account is already in the multiplayer room", 409, "EALREADYJOINED");
-    }
-
     ensureIpxGame(room.gameId);
     await requireInstalled(user, room.gameId);
     const session = await launch.create(user, { mode: "game", gameId: room.gameId });

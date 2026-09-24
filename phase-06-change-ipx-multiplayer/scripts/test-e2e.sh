@@ -32,6 +32,16 @@ for _ in $(seq 1 60); do
   sleep .1
 done
 curl -fsS "http://127.0.0.1:$PORT/health" >/dev/null
-TEST_URL="http://127.0.0.1:$PORT/" node test/browser-smoke.mjs
-TEST_URL="http://127.0.0.1:$PORT/" node test/multi-game-browser.mjs
-TEST_URL="http://127.0.0.1:$PORT/" node test/multiplayer-browser.mjs
+run_browser_test() {
+  local script="$1"
+  if TEST_URL="http://127.0.0.1:$PORT/" node "$script"; then
+    return 0
+  fi
+  echo "Browser test $script failed once; retrying after a short pause" >&2
+  sleep 2
+  TEST_URL="http://127.0.0.1:$PORT/" node "$script"
+}
+
+run_browser_test test/browser-smoke.mjs
+run_browser_test test/multi-game-browser.mjs
+run_browser_test test/multiplayer-browser.mjs

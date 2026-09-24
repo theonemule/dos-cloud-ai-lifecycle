@@ -133,6 +133,28 @@ test("multiplayer: join code creates an independent client launch and enforces r
   }
 });
 
+test("multiplayer: the same account can join its own room through a second launch session", async () => {
+  const ctx = await startApp();
+  try {
+    const alice = await ctx.login("alice");
+    expectOkLogin(alice);
+    await install(ctx, alice, "doom");
+
+    const hosted = await createRoom(ctx, alice, 2);
+    const joined = await joinRoom(ctx, alice, hosted.room.code);
+    assert.equal(joined.response.status, 201, JSON.stringify(joined.body));
+    assert.notEqual(joined.body.session.id, hosted.session.id);
+
+    const config = await ctx.request("/api/launch/" + joined.body.session.id, alice.cookie);
+    assert.equal(config.response.status, 200);
+    assert.equal(config.body.launch.multiplayer.role, "client");
+    assert.equal(config.body.launch.multiplayer.peerId, 2);
+    assert.equal(config.body.launch.multiplayer.code, hosted.room.code);
+  } finally {
+    await ctx.close();
+  }
+});
+
 test("multiplayer: WebSocket relay carries targeted binary IPX frames only inside the room", async () => {
   const ctx = await startApp();
   let hostSocket;
