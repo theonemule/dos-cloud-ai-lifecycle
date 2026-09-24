@@ -45,6 +45,9 @@ async function makePlayer(username) {
     return r.status;
   }, username);
   assert(login === 200, "login failed for " + username);
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.locator("#join-multiplayer-button").waitFor({ state: "visible" });
+
   const install = await page.evaluate(async () => {
     const r = await fetch("/api/library/doom/install", { method: "POST" });
     return { status: r.status, body: await r.json() };
@@ -55,7 +58,14 @@ async function makePlayer(username) {
 
 async function runningProgram(page) {
   return String(await page.evaluate(async () => {
-    try { return await window.__ci?.getRunningProgram?.(); } catch { return ""; }
+    try {
+      return await Promise.race([
+        window.__ci?.getRunningProgram?.(),
+        new Promise(resolve => setTimeout(() => resolve(""), 1500)),
+      ]);
+    } catch {
+      return "";
+    }
   }) || "");
 }
 
@@ -75,15 +85,36 @@ try {
   });
   assert(hosted.status === 201, "host room failed: " + JSON.stringify(hosted.body));
 
-  const joined = await client.page.evaluate(async code => {
-    const r = await fetch("/api/multiplayer/join", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ code }),
-    });
+  await client.page.locator("#join-multiplayer-button").click();
+  await client.page.locator("#join-multiplayer-modal").waitFor({ state: "visible" });
+  assert(
+    (await client.page.locator("#join-multiplayer-title").textContent())?.includes("Join a multiplayer game"),
+    "join multiplayer modal title is not clear"
+  );
+  await client.page.locator("#join-multiplayer-code").fill(hosted.body.room.code.toLowerCase());
+
+  await client.page.evaluate(() => {
+    window.__dosCloudOpenedRuntime = null;
+    window.open = url => {
+      window.__dosCloudOpenedRuntime = String(url);
+      return null;
+    };
+  });
+
+  await client.page.locator("#join-multiplayer-submit").click();
+  await client.page.waitForFunction(() => Boolean(window.__dosCloudOpenedRuntime), null, { timeout: 10000 });
+  const openedRuntimeUrl = await client.page.evaluate(() => window.__dosCloudOpenedRuntime);
+  const clientRuntimeUrl = new URL(openedRuntimeUrl, base);
+  const clientSessionId = clientRuntimeUrl.searchParams.get("session");
+  assert(clientSessionId, "join UI did not create a runtime session");
+
+  const clientLaunch = await client.page.evaluate(async sessionId => {
+    const r = await fetch("/api/launch/" + encodeURIComponent(sessionId));
     return { status: r.status, body: await r.json() };
-  }, hosted.body.room.code);
-  assert(joined.status === 201, "join room failed: " + JSON.stringify(joined.body));
+  }, clientSessionId);
+  assert(clientLaunch.status === 200, "join UI launch lookup failed: " + JSON.stringify(clientLaunch.body));
+  assert(clientLaunch.body.launch.multiplayer.code === hosted.body.room.code, "join UI used the wrong room code");
+  assert(clientLaunch.body.launch.multiplayer.role === "client", "join UI did not create a client launch");
 
   const hostRuntime = await host.context.newPage();
   const clientRuntime = await client.context.newPage();
@@ -96,7 +127,7 @@ try {
   await hostRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
   await hostRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 25000 });
 
-  await clientRuntime.goto(new URL("/runtime.html?session=" + encodeURIComponent(joined.body.session.id), base).href, { waitUntil: "domcontentloaded" });
+  await clientRuntime.goto(clientRuntimeUrl.href, { waitUntil: "domcontentloaded" });
   await clientRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
   await clientRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 25000 });
 
@@ -123,6 +154,7 @@ try {
     host: { program: hostProgram, status: hostStatus, code: hostCode, errors: hostErrors },
     client: { program: clientProgram, status: clientStatus, code: clientCode, errors: clientErrors },
     ipxConnected: true,
+    joinedThroughVisibleUi: true,
   }, null, 2));
 
   assert(hostCode === hosted.body.room.code && clientCode === hosted.body.room.code, "runtime room code mismatch");
