@@ -1,0 +1,47 @@
+{
+  "id": "rott",
+  "title": "Rise of the Triad",
+  "subtitle": "The HUNT Begins",
+  "publisher": "Apogee / FormGen",
+  "year": 1994,
+  "genres": [
+    "Shooter",
+    "Apogee"
+  ],
+  "description": "Apogee\u2019s fast-paced shareware shooter The HUNT Begins.",
+  "version": "1.3-shareware",
+  "package": {
+    "file": "huntbgin-box.zip",
+    "sha256": "c9994c298151c4c9ecccf11cfe4479f2450a7392df1b3ebfc5668dc5626f966e",
+    "sourceUrl": "https://image.dosgamesarchive.com/games/huntbgin-box.zip"
+  },
+  "install": {
+    "folder": "ROTT"
+  },
+  "launch": {
+    "command": "ROTTWEB.BAT",
+    "arguments": []
+  },
+  "dosbox": {
+    "machine": "svga_s3",
+    "memoryMb": 16,
+    "cycles": "auto"
+  },
+  "capabilities": {
+    "singlePlayer": true,
+    "ipx": true,
+    "maxPlayers": 8
+  },
+  "distribution": {
+    "status": "verified-shareware",
+    "sourcePage": "https://www.dosgamesarchive.com/download/rise-of-the-triad/",
+    "notes": "DOS Games Archive identifies this package as shareware or shareware (installed)."
+  },
+  "presentation": {
+    "accent": "#8c2f39",
+    "glyph": "RT",
+    "featured": false,
+    "screenshot": "/screenshots/rott.png"
+  },
+  "controls": []
+}

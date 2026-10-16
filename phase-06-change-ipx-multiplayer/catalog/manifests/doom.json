@@ -1,0 +1,57 @@
+{
+  "id": "doom",
+  "title": "DOOM",
+  "subtitle": "Knee-Deep in the Dead",
+  "publisher": "id Software",
+  "year": 1993,
+  "genres": [
+    "Shooter",
+    "Shareware Classics"
+  ],
+  "description": "The original DOOM shareware episode, Knee-Deep in the Dead.",
+  "version": "1.9-shareware",
+  "package": {
+    "file": "doom-box.zip",
+    "sha256": "ebe09505f8b4339e51eb021ed52e02814f00f8730fafd67ec804d28397a42f96",
+    "sourceUrl": "https://image.dosgamesarchive.com/games/doom-box.zip"
+  },
+  "install": {
+    "folder": "DOOM"
+  },
+  "launch": {
+    "command": "DOOMWEB.BAT",
+    "arguments": []
+  },
+  "dosbox": {
+    "machine": "svga_s3",
+    "memoryMb": 16,
+    "cycles": "auto"
+  },
+  "capabilities": {
+    "singlePlayer": true,
+    "ipx": true,
+    "maxPlayers": 8
+  },
+  "distribution": {
+    "status": "verified-shareware",
+    "sourcePage": "https://www.dosgamesarchive.com/download/doom/",
+    "notes": "DOS Games Archive identifies this package as shareware or shareware (installed)."
+  },
+  "presentation": {
+    "accent": "#b42318",
+    "glyph": "DO",
+    "featured": true,
+    "screenshot": "/screenshots/doom.png"
+  },
+  "controls": [],
+  "multiplayer": {
+    "transport": "ipx",
+    "workingDirectory": "DOOMS",
+    "command": "IPXSETUP.EXE",
+    "arguments": [
+      "-nodes",
+      "{players}"
+    ],
+    "instructions": "DOOM IPXSETUP waits for the configured number of players and then launches the game."
+  }
+}

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DOS Cloud Runtime</title>
+  <link rel="stylesheet" href="/jsdos/js-dos.css">
+  <link rel="stylesheet" href="/runtime.css">
+  <link rel="icon" href="data:,">
+  <script src="/jsdos/js-dos.js"></script>
+</head>
+<body>
+  <header>
+    <div>
+      <a href="/" class="back">← DOS Cloud</a>
+      <h1 id="runtime-title">Starting DOS...</h1>
+      <p id="runtime-subtitle"></p>
+    </div>
+    <div id="runtime-status">Loading launch session…</div>
+  </header>
+  <main>
+    <div id="dos"></div>
+    <aside>
+      <h2 id="mode-label">Runtime</h2>
+      <p>Your DOS C: drive is private to your account. Saves, scores, configuration files, and console changes persist here.</p>
+      <div id="controls"></div>
+      <div class="tip"><strong>Keyboard focus</strong><br>Click inside the DOS window before using game controls.</div>
+      <div class="tip"><strong>DOS console</strong><br>Use DIR, CD, TYPE, and other commands supported by DOSBox.</div>
+    </aside>
+  </main>
+  <script src="/ipx-websocket-net.js"></script>
+  <script src="/runtime.js"></script>
+</body>
+</html>
