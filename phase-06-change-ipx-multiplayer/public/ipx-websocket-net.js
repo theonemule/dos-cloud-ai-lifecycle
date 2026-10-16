@@ -18,10 +18,12 @@
       let peerId = 0;
       let hostPeerId = Number(multiplayer.hostPeerId || 1);
       let hostOnline = multiplayer.role === "host";
+      let hostReady = multiplayer.role === "host";
+      let localServerReady = false;
       let settled = false;
 
       function resolveHostWaiters() {
-        if (!hostOnline || !hostPeerId) return;
+        if (!hostOnline || !hostReady || !hostPeerId) return;
         while (hostWaiters.length) {
           hostWaiters.shift()([{ alias: "host", peerId: hostPeerId }]);
         }
@@ -43,6 +45,15 @@
         get peerId() { return peerId; },
         connected,
         get roomReady() { return roomReady; },
+        get localServerReady() { return localServerReady; },
+        announceHostReady() {
+          if (multiplayer.role !== "host" || ws.readyState !== WebSocket.OPEN) return false;
+          if (!localServerReady) {
+            ws.send(JSON.stringify({ type: "ipx-server-ready" }));
+            localServerReady = true;
+          }
+          return true;
+        },
         waitForRoomReady() {
           if (roomReady) return Promise.resolve();
           return new Promise(resolveReady => roomReadyWaiters.push(resolveReady));
@@ -52,7 +63,7 @@
         unregisterAlias() {},
         queryAliases(query) {
           if (query !== "=host") return Promise.resolve([]);
-          if (hostOnline && hostPeerId) {
+          if (hostOnline && hostReady && hostPeerId) {
             return Promise.resolve([{ alias: "host", peerId: hostPeerId }]);
           }
           return new Promise(resolveAlias => hostWaiters.push(resolveAlias));
@@ -90,6 +101,7 @@
             peerId = Number(message.peerId);
             hostPeerId = Number(message.hostPeerId || 1);
             hostOnline = Boolean(message.hostOnline) || message.role === "host";
+            hostReady = Boolean(message.hostReady) || message.role === "host";
             for (const peer of message.peers || []) {
               if (Number(peer.peerId) !== peerId) connected.add(Number(peer.peerId));
               if (peer.role === "host") hostOnline = true;
@@ -108,9 +120,16 @@
             if (message.role === "host") {
               hostPeerId = id;
               hostOnline = true;
+              hostReady = false;
               resolveHostWaiters();
             }
             dispatchStatus({ state: "peer-joined", peerId: id, role: message.role });
+          } else if (message.type === "host-ready") {
+            hostPeerId = Number(message.hostPeerId || hostPeerId);
+            hostOnline = true;
+            hostReady = true;
+            resolveHostWaiters();
+            dispatchStatus({ state: "host-ready", hostPeerId });
           } else if (message.type === "room-ready") {
             markRoomReady({
               connectedPlayers: Number(message.connectedPlayers || multiplayer.expectedPlayers),
@@ -118,12 +137,18 @@
           } else if (message.type === "peer-left") {
             const id = Number(message.peerId);
             connected.delete(id);
-            if (message.role === "host" || id === hostPeerId) hostOnline = false;
+            if (message.role === "host" || id === hostPeerId) {
+              hostOnline = false;
+              hostReady = false;
+            }
             dispatchStatus({ state: "peer-left", peerId: id, role: message.role });
           }
           return;
         }
 
+        // Never let an early guest registration enter the host emulator before
+        // DOSBox-X has established its own IPX server and loopback client.
+        if (multiplayer.role === "host" && !localServerReady) return;
         const frame = new Uint8Array(event.data);
         if (frame.length < 5) return;
         const sourcePeerId = new DataView(frame.buffer, frame.byteOffset, frame.byteLength).getUint32(0, false);
@@ -135,6 +160,8 @@
       ws.addEventListener("close", event => {
         connected.clear();
         hostOnline = false;
+        hostReady = false;
+        localServerReady = false;
         dispatchStatus({ state: "disconnected", code: event.code, reason: event.reason || "" });
         if (!settled) {
           settled = true;

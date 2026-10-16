@@ -18,6 +18,9 @@ function showMultiplayerDetails(multiplayer) {
   const code = document.createElement("div");
   code.className = "room-code";
   code.textContent = multiplayer.code;
+  // Keep copy shortcuts on the page instead of forwarding Ctrl+C into DOSBox.
+  code.tabIndex = 0;
+  code.addEventListener("click", () => code.focus());
 
   const players = document.createElement("p");
   players.textContent = "Players: " + multiplayer.expectedPlayers + " · IPX over WebSocket";
@@ -39,6 +42,23 @@ function showMultiplayerDetails(multiplayer) {
   panel.append(heading, codeLabel, code, players, instructions, copy);
   controls.before(panel);
 }
+
+// The emulator listens for keyboard input globally. When the room code has
+// focus, Ctrl+C is a browser copy action, not a DOS keyboard interrupt.
+window.__dosCloudKeyboardOwner = () =>
+  document.activeElement?.closest?.("#dos") ? "dos" : "page";
+window.addEventListener("keydown", event => {
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "c" &&
+      document.activeElement?.closest?.(".multiplayer-panel")) {
+    event.stopImmediatePropagation();
+  }
+}, true);
+window.addEventListener("keyup", event => {
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "c" &&
+      document.activeElement?.closest?.(".multiplayer-panel")) {
+    event.stopImmediatePropagation();
+  }
+}, true);
 
 async function load() {
   const sessionId = new URLSearchParams(location.search).get("session");
@@ -72,16 +92,11 @@ async function load() {
     ipxNet = await window.createIpxWebSocketNet(config.multiplayer, sessionId);
     window.__ipxNet = ipxNet;
 
-    if (!ipxNet.roomReady) {
-      status.textContent = config.multiplayer.role === "host"
-        ? "Waiting for " + config.multiplayer.expectedPlayers + " players to join room " + config.multiplayer.code + "…"
-        : "Waiting for the multiplayer room to be ready…";
-      window.__dosCloudWaitingForPlayers = true;
-      await ipxNet.waitForRoomReady();
-      window.__dosCloudWaitingForPlayers = false;
-    }
-    status.textContent = "All players connected · starting IPX game…";
-    status.classList.add("ok");
+    // The host must start DOSBox-X before guests register. Guests wait for
+    // host-ready in sharedNet.queryAliases(), not for the room to fill here.
+    status.textContent = config.multiplayer.role === "host"
+      ? "Starting IPX host · share code " + config.multiplayer.code
+      : "Connecting to the host IPX server…";
   }
 
   const d = config.dosbox || {};
@@ -122,6 +137,21 @@ async function load() {
     onEvent: (event, ci) => {
       if (event === "ci-ready") {
         window.__ci = ci;
+        if (config.multiplayer?.role === "host" && ipxNet) {
+          const announceIfReady = message => {
+            if (/IPX:\\s*Connected to server/i.test(String(message))) {
+              ipxNet.announceHostReady();
+            }
+          };
+          const events = ci.events?.();
+          events?.onStdout?.(announceIfReady);
+          events?.onMessage?.((type, ...args) => {
+            announceIfReady([type, ...args].join(" "));
+          });
+          // A fallback covers DOSBox builds that do not surface the IPX
+          // loopback registration message through the command interface.
+          setTimeout(() => ipxNet.announceHostReady(), 10000);
+        }
         status.textContent = config.multiplayer
           ? "IPX room " + config.multiplayer.code + " · " + config.multiplayer.role
           : config.mode === "console" ? "DOS console ready" : "Game runtime ready";
