@@ -34,6 +34,10 @@ jobs:
       - run: docker build -t dos-cloud:phase6-ci .
 
   deploy:
+    # Azure resources are shared by all phases; serialize deployment jobs.
+    concurrency:
+      group: dos-cloud-azure-deploy
+      cancel-in-progress: false
     if: github.event_name != 'pull_request'
     needs: test
     runs-on: ubuntu-latest

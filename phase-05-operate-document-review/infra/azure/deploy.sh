@@ -15,6 +15,11 @@ OIDC_CLIENT_SECRET="${DOS_CLOUD_OIDC_CLIENT_SECRET:-}"
 CREATE_RESOURCE_GROUP="${CREATE_RESOURCE_GROUP:-true}"
 UPDATE_ENTRA_REDIRECT="${UPDATE_ENTRA_REDIRECT:-true}"
 
+# Use distinct ARM deployment names, preventing "DeploymentActive" conflicts
+# when an older workflow attempt still owns the default deployment record.
+DEPLOYMENT_RUN_ID="${GITHUB_RUN_ID:-$(date -u +%s)-$}"
+DEPLOYMENT_NAME="doscloud-${DEPLOYMENT_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
+
 PARAMS="$(mktemp)"
 trap 'rm -f "$PARAMS"' EXIT
 chmod 600 "$PARAMS"
@@ -49,7 +54,7 @@ else
 fi
 
 echo "Creating Azure foundation resources..."
-FOUNDATION="$(az deployment group create --resource-group "$RESOURCE_GROUP" --template-file "$SCRIPT_DIR/main.bicep" --parameters "@$PARAMS" --parameters prefix="$PREFIX" imageTag="$IMAGE_TAG" deployApp=false --query properties.outputs --output json)"
+FOUNDATION="$(az deployment group create --name "$DEPLOYMENT_NAME-foundation" --resource-group "$RESOURCE_GROUP" --template-file "$SCRIPT_DIR/main.bicep" --parameters "@$PARAMS" --parameters prefix="$PREFIX" imageTag="$IMAGE_TAG" deployApp=false --query properties.outputs --output json)"
 REGISTRY="$(FOUNDATION="$FOUNDATION" python3 - <<'PY'
 import json, os
 print(json.loads(os.environ["FOUNDATION"])["registryName"]["value"])
@@ -95,7 +100,7 @@ echo "Building and pushing image to $REGISTRY..."
 az acr build --registry "$REGISTRY" --image "dos-cloud:$IMAGE_TAG" "$APP_ROOT" --only-show-errors --output none
 
 echo "Deploying Azure Container App..."
-OUTPUTS="$(az deployment group create --resource-group "$RESOURCE_GROUP" --template-file "$SCRIPT_DIR/main.bicep" --parameters "@$PARAMS" --parameters prefix="$PREFIX" imageTag="$IMAGE_TAG" deployApp=true --query properties.outputs --output json)"
+OUTPUTS="$(az deployment group create --name "$DEPLOYMENT_NAME-application" --resource-group "$RESOURCE_GROUP" --template-file "$SCRIPT_DIR/main.bicep" --parameters "@$PARAMS" --parameters prefix="$PREFIX" imageTag="$IMAGE_TAG" deployApp=true --query properties.outputs --output json)"
 APP_URL="$(OUTPUTS="$OUTPUTS" python3 - <<'PY'
 import json, os
 print(json.loads(os.environ["OUTPUTS"])["containerAppUrl"]["value"])

@@ -36,6 +36,10 @@ jobs:
   # Phase 5 is a historical snapshot. Only deploy it manually; automatic
   # pushes must not replace the current Phase 6 container app.
   deploy:
+    # Azure resources are shared by all phases; serialize deployment jobs.
+    concurrency:
+      group: dos-cloud-azure-deploy
+      cancel-in-progress: false
     if: github.event_name == 'workflow_dispatch'
     needs: test
     runs-on: ubuntu-latest
