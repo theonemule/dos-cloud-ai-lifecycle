@@ -33,8 +33,10 @@ jobs:
       - run: DOS_CLOUD_LOG_TARGET=none npm test
       - run: docker build -t dos-cloud:ci .
 
+  # Phase 5 is a historical snapshot. Only deploy it manually; automatic
+  # pushes must not replace the current Phase 6 container app.
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'workflow_dispatch'
     needs: test
     runs-on: ubuntu-latest
     steps:
