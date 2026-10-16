@@ -139,7 +139,7 @@ async function load() {
         window.__ci = ci;
         if (config.multiplayer?.role === "host" && ipxNet) {
           const announceIfReady = message => {
-            if (/IPX:\\s*Connected to server/i.test(String(message))) {
+            if (/IPX:\s*Connected to server/i.test(String(message))) {
               ipxNet.announceHostReady();
             }
           };
