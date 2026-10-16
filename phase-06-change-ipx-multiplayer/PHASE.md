@@ -12,10 +12,10 @@ Host:
 
 1. Install an IPX-enabled game.
 2. Choose Multiplayer.
-3. Select the expected player count.
+3. Select the player count (passed to games whose setup needs it, such as DOOM's `IPXSETUP -nodes`).
 4. DOS Cloud creates a short room code and a multiplayer launch session.
 5. The runtime opens an authenticated WebSocket to the room relay.
-6. DOSBox-X starts its IPX server inside the host emulator.
+6. DOSBox-X starts its IPX server inside the host emulator, and the runtime announces it to the room once it is accepting registrations.
 7. Share the six-character code with another player.
 
 Guest:

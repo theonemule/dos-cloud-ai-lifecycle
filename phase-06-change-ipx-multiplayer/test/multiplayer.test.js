@@ -248,3 +248,83 @@ test("multiplayer: Duke Nukem 3D uses its original network setup with IPX alread
     await ctx.close();
   }
 });
+
+function nextControl(ws, type, timeoutMs = 3000) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error("control message timeout: " + type));
+    }, timeoutMs);
+    const onMessage = (data, isBinary) => {
+      if (isBinary) return;
+      let message;
+      try { message = JSON.parse(data.toString()); } catch { return; }
+      if (message.type !== type) return;
+      cleanup();
+      resolve(message);
+    };
+    function cleanup() {
+      clearTimeout(timer);
+      ws.off("message", onMessage);
+    }
+    ws.on("message", onMessage);
+  });
+}
+
+test("multiplayer: guests learn the host IPX server is ready only after the host announces it", async () => {
+  const ctx = await startApp();
+  try {
+    const alice = await ctx.login("alice");
+    const bob = await ctx.login("bob");
+    expectOkLogin(alice);
+    expectOkLogin(bob);
+    await install(ctx, alice, "doom");
+    await install(ctx, bob, "doom");
+
+    const hosted = await createRoom(ctx, alice, 2);
+    const joined = await joinRoom(ctx, bob, hosted.room.code);
+    assert.equal(joined.response.status, 201, JSON.stringify(joined.body));
+
+    const host = await connectIpx(ctx, alice.cookie, hosted.session.id);
+    const guest = await connectIpx(ctx, bob.cookie, joined.body.session.id);
+    // Host socket online is NOT the same as the host's emulator accepting IPX registrations.
+    assert.equal(guest.welcome.hostOnline, true);
+    assert.equal(guest.welcome.hostReady, false);
+
+    // A guest cannot claim host readiness, and doing so must not tear down its socket.
+    let forged = false;
+    const forgedWatch = nextControl(guest.ws, "host-ready", 400).then(() => { forged = true; }, () => {});
+    guest.ws.send(JSON.stringify({ type: "ipx-server-ready" }));
+    await forgedWatch;
+    assert.equal(forged, false, "guest was able to announce host readiness");
+    assert.equal(guest.ws.readyState, WebSocket.OPEN);
+
+    const announced = nextControl(guest.ws, "host-ready");
+    host.ws.send(JSON.stringify({ type: "ipx-server-ready" }));
+    const ready = await announced;
+    assert.equal(ready.hostPeerId, 1);
+
+    // A late (re)connecting guest sees readiness in its welcome.
+    guest.ws.close();
+    await new Promise(resolve => setTimeout(resolve, 100));
+    const guestAgain = await connectIpx(ctx, bob.cookie, joined.body.session.id);
+    assert.equal(guestAgain.welcome.hostReady, true);
+
+    // A host reconnect is a new emulator: readiness resets until it announces again.
+    host.ws.close();
+    await nextControl(guestAgain.ws, "peer-left");
+    const hostAgain = await connectIpx(ctx, alice.cookie, hosted.session.id);
+    const guestThird = await connectIpx(ctx, bob.cookie, joined.body.session.id);
+    assert.equal(guestThird.welcome.hostReady, false);
+
+    // Unknown text frames are still a protocol violation.
+    const closed = new Promise(resolve => hostAgain.ws.once("close", code => resolve(code)));
+    hostAgain.ws.send(JSON.stringify({ type: "something-else" }));
+    assert.equal(await closed, 1003);
+
+    guestAgain.ws.close();
+    guestThird.ws.close();
+  } finally {
+    await ctx.close();
+  }
+});

@@ -88,6 +88,10 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
       createdAt: new Date(now).toISOString(),
       expiresAt,
       nextPeerId: 2,
+      // True only while the host's emulator has an IPX server accepting
+      // registrations. Guests must not register before this, or js-dos routes
+      // their registration into the host's own client queue and aborts.
+      hostIpxReady: false,
       members: new Map(),
     };
     const member = {
@@ -207,6 +211,10 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
       try { member.ws.close(1012, "replaced by a newer multiplayer connection"); } catch {}
     }
     member.ws = ws;
+    if (member.role === "host") {
+      // A new host socket means a new emulator instance whose IPX server has not started yet.
+      room.hostIpxReady = false;
+    }
 
     const online = activeMembers(room).filter(next => next.ws && next.ws.readyState === next.ws.OPEN);
     const host = activeMembers(room).find(next => next.role === "host");
@@ -216,6 +224,7 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
       peerId: member.peerId,
       hostPeerId: host?.peerId || 1,
       hostOnline: Boolean(host?.ws && host.ws.readyState === host.ws.OPEN),
+      hostReady: Boolean(room.hostIpxReady && host?.ws && host.ws.readyState === host.ws.OPEN),
       roomCode: room.code,
       role: member.role,
       expectedPlayers: room.expectedPlayers,
@@ -262,6 +271,7 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
     const room = roomsById.get(found.roomId);
     if (!room || found.member.ws !== ws) return;
     found.member.ws = null;
+    if (found.member.role === "host") room.hostIpxReady = false;
     for (const next of activeMembers(room)) {
       if (next !== found.member && next.ws) {
         sendControl(next.ws, { type: "peer-left", peerId: found.member.peerId, role: found.member.role });
@@ -275,6 +285,26 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
       role: found.member.role,
       code,
     });
+  }
+
+  function markHostReady(launchId, ws) {
+    const found = launchMembership.get(launchId);
+    if (!found || found.member.role !== "host" || found.member.ws !== ws) return false;
+    const room = roomsById.get(found.roomId);
+    if (!room) return false;
+    if (room.hostIpxReady) return true;
+    room.hostIpxReady = true;
+    for (const next of activeMembers(room)) {
+      if (next !== found.member && next.ws) {
+        sendControl(next.ws, { type: "host-ready", hostPeerId: found.member.peerId });
+      }
+    }
+    logger.info("multiplayer_host_ipx_ready", {
+      roomId: room.id,
+      roomCode: room.code,
+      hostPeerId: found.member.peerId,
+    });
+    return true;
   }
 
   function relay(launchId, targetPeerId, payload) {
@@ -336,6 +366,7 @@ function createMultiplayerService({ catalog, library, launch, logger, roomTtlMs 
     decorateLaunchConfig,
     attachSocket,
     detachSocket,
+    markHostReady,
     relay,
     cleanup,
     close,

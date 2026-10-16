@@ -33,3 +33,4 @@ Tradeoffs:
 - one application replica is required until room routing is externalized
 - WebSocket relay bandwidth passes through the application service
 - each title still needs a correct multiplayer launch profile
+- guests must not register until the host's emulator IPX server is running; the relay carries an explicit host-readiness handshake for this (see `docs/ipx-multiplayer.md`), and a future transport or js-dos upgrade must preserve that ordering

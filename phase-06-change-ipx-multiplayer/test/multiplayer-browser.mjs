@@ -71,6 +71,26 @@ async function runningProgram(page) {
   }) || "");
 }
 
+async function netStats(page) {
+  return page.evaluate(async () => {
+    const stats = await Promise.race([
+      window.__ci?.asyncifyStats?.(),
+      new Promise(resolve => setTimeout(() => resolve(null), 1500)),
+    ]);
+    return { sent: Number(stats?.netSent || 0), recv: Number(stats?.netRecv || 0) };
+  });
+}
+
+function watchEmulator(page, errors) {
+  page.on("pageerror", err => errors.push(err.message || String(err)));
+  page.on("console", message => {
+    const text = message.text();
+    if (/mistmatch|\[panic\]|Backend crashed|RuntimeError: unreachable/i.test(text)) errors.push(text);
+  });
+}
+
+const isDoom = program => /^DOOM(\.EXE)?$/i.test(String(program).trim());
+
 let host;
 let client;
 try {
@@ -90,20 +110,25 @@ try {
   // Reproduce the real user flow: host opens the runtime before anyone has joined.
   const hostRuntime = await host.context.newPage();
   const hostErrors = [];
-  hostRuntime.on("pageerror", err => hostErrors.push(err.message));
+  watchEmulator(hostRuntime, hostErrors);
   await hostRuntime.goto(
     new URL("/runtime.html?session=" + encodeURIComponent(hosted.body.session.id), base).href,
     { waitUntil: "domcontentloaded" }
   );
   await hostRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
-  await hostRuntime.waitForFunction(() => window.__dosCloudWaitingForPlayers === true, null, { timeout: 10000 });
 
-  // The regression: before the second player arrives, DOS/IPXSETUP must not start.
-  await new Promise(resolve => setTimeout(resolve, 2500));
-  const hostStartedEarly = await hostRuntime.evaluate(() => Boolean(window.__ci));
-  const waitingText = await hostRuntime.locator("#runtime-status").textContent();
-  assert(!hostStartedEarly, "host DOSBox started before the room was full");
-  assert(waitingText?.includes("Waiting for 2 players"), "host does not show an intelligible waiting state");
+  // The host boots straight away (no waiting for the room to fill) and announces its
+  // IPX server once DOSBox-X's own loopback client has registered with it.
+  await hostRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 30000 });
+  await hostRuntime.waitForFunction(() => window.__ipxNet?.localServerReady === true, null, { timeout: 15000 });
+
+  // Regression: the host selects the join code and presses Ctrl+C to copy it while
+  // IPXSETUP is waiting. That keystroke must stay in the page; if it reaches DOS it
+  // sits in the keyboard buffer and aborts IPXSETUP (^C) when the guest arrives.
+  await hostRuntime.click(".room-code");
+  assert(await hostRuntime.evaluate(() => window.__dosCloudKeyboardOwner()) === "page",
+    "clicking the side panel did not return the keyboard to the page");
+  await hostRuntime.keyboard.press("Control+c");
 
   // Join through the real visible UI.
   await client.page.locator("#join-multiplayer-button").click();
@@ -139,12 +164,9 @@ try {
 
   const clientRuntime = await client.context.newPage();
   const clientErrors = [];
-  clientRuntime.on("pageerror", err => clientErrors.push(err.message));
+  watchEmulator(clientRuntime, clientErrors);
   await clientRuntime.goto(clientRuntimeUrl.href, { waitUntil: "domcontentloaded" });
 
-  // Room-ready releases both browsers into DOSBox startup.
-  await hostRuntime.waitForFunction(() => window.__dosCloudWaitingForPlayers === false, null, { timeout: 15000 });
-  await hostRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 30000 });
   await clientRuntime.waitForFunction(() => !!window.__ipxNet, null, { timeout: 15000 });
   await clientRuntime.waitForFunction(() => !!window.__ci, null, { timeout: 30000 });
 
@@ -157,9 +179,23 @@ try {
   while (Date.now() < deadline) {
     hostProgram = await runningProgram(hostRuntime);
     clientProgram = await runningProgram(clientRuntime);
-    if (hostProgram.toUpperCase().includes("DOOM") && clientProgram.toUpperCase().includes("DOOM")) break;
+    if (isDoom(hostProgram) && isDoom(clientProgram)) break;
     await new Promise(resolve => setTimeout(resolve, 750));
   }
+
+  // Prove IPX traffic is actually flowing through the relay in both directions,
+  // not just that the processes started.
+  const hostBefore = await netStats(hostRuntime);
+  const clientBefore = await netStats(clientRuntime);
+  await new Promise(resolve => setTimeout(resolve, 5000));
+  const hostAfter = await netStats(hostRuntime);
+  const clientAfter = await netStats(clientRuntime);
+  const traffic = {
+    hostToClientBytes: hostAfter.sent - hostBefore.sent,
+    clientToHostBytes: clientAfter.sent - clientBefore.sent,
+    hostReceivedBytes: hostAfter.recv - hostBefore.recv,
+    clientReceivedBytes: clientAfter.recv - clientBefore.recv,
+  };
 
   const hostStatus = await hostRuntime.locator("#runtime-status").textContent();
   const clientStatus = await clientRuntime.locator("#runtime-status").textContent();
@@ -168,7 +204,8 @@ try {
 
   console.log(JSON.stringify({
     roomCode: hosted.body.room.code,
-    hostWaitedForClient: true,
+    hostBootedBeforeClientJoined: true,
+    traffic,
     host: { program: hostProgram, status: hostStatus, code: hostCode, errors: hostErrors },
     client: { program: clientProgram, status: clientStatus, code: clientCode, errors: clientErrors },
     ipxConnected: true,
@@ -178,8 +215,11 @@ try {
   assert(hostCode === hosted.body.room.code && clientCode === hosted.body.room.code, "runtime room code mismatch");
   assert(hostErrors.length === 0, "host runtime errors: " + hostErrors.join(" | "));
   assert(clientErrors.length === 0, "client runtime errors: " + clientErrors.join(" | "));
-  assert(hostProgram.toUpperCase().includes("DOOM"), "host did not reach DOOM; running=" + hostProgram);
-  assert(clientProgram.toUpperCase().includes("DOOM"), "client did not reach DOOM; running=" + clientProgram);
+  assert(isDoom(hostProgram), "host did not reach DOOM; running=" + hostProgram);
+  assert(isDoom(clientProgram), "client did not reach DOOM; running=" + clientProgram);
+  for (const [name, bytes] of Object.entries(traffic)) {
+    assert(bytes > 1000, "IPX traffic stalled (" + name + "=" + bytes + ")");
+  }
 } finally {
   if (host) await host.context.close();
   if (client) await client.context.close();

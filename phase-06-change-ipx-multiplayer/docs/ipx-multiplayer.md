@@ -32,7 +32,22 @@ js-dos 8.4.1 accepts a custom `sharedNet` implementation. DOS Cloud supplies a W
 
 For the room host, DOS Cloud also enables `startIpxServer`. js-dos tells DOSBox-X to start its built-in IPX server.
 
-For a guest, DOS Cloud supplies `connectIpxAddress = "host"`. The custom `queryAliases` implementation resolves that alias to peer 1 after the room host is online, and js-dos invokes DOSBox-X's normal IPX connection path.
+For a guest, DOS Cloud supplies `connectIpxAddress = "host"`. The custom `queryAliases` implementation resolves that alias to peer 1 only after the host's emulator has announced that its IPX server is running (see below), and js-dos invokes DOSBox-X's normal IPX connection path. js-dos resolves this alias before it creates the guest emulator, so the guest simply waits at that point.
+
+### Host readiness handshake
+
+A host WebSocket being online is not the same as the host's IPX server accepting registrations. In the js-dos 8.x DOSBox-X build, every inbound network packet on the host is queued for the IPX *server* only once `isIpxServer` is set; before that it lands in the host's own IPX *client* queue. When the host then starts its server and its loopback client connects, that client reads the guest's registration as if it were its own acknowledgement, fails an address check, and calls `abort()`, crashing the host emulator (`ERR! localIpxAddr.netnode mistmatch`).
+
+To prevent this:
+
+1. The host runtime boots immediately. js-dos sends `hand_ipx_startserver` and fires `ci-ready`.
+2. The runtime watches the emulator log for `IPX: Connected to server`, which DOSBox-X prints after the server is running and the host's loopback client has registered. A 10-second fallback timer covers a missed log line.
+3. The host sends `{"type":"ipx-server-ready"}` over `/ws/ipx`. The relay accepts this only from the room's host socket and broadcasts `host-ready` to the other members. Late joiners see `hostReady: true` in their `welcome`.
+4. Guests resolve the `host` alias and connect.
+
+Readiness resets whenever the host socket reconnects or leaves, because that means a new emulator instance. As a second guard, the host adapter drops inbound IPX frames until its own server is ready.
+
+Because of this handshake, the runtime no longer waits for the room to fill before booting. Players can join at any time; the player count only matters to games whose own setup takes a node count, such as DOOM's `IPXSETUP -nodes N`.
 
 The application therefore does not reimplement IPX itself. It replaces the transport beneath the emulator's existing IPX support.
 
@@ -68,7 +83,9 @@ Endpoint:
 
 Authentication uses the existing DOS Cloud session cookie. The server derives room membership from the launch ID. The client never submits a room ID or user ID to the WebSocket relay.
 
-Control messages are UTF-8 JSON and are generated only by the server. Examples include `welcome`, `peer-joined`, and `peer-left`.
+Control messages are UTF-8 JSON. Server-generated messages are `welcome`, `peer-joined`, `peer-left`, `room-ready`, and `host-ready`.
+
+The only client-originated control message is `{"type":"ipx-server-ready"}` (at most 256 bytes), honored only from the room host's current socket and ignored from anyone else. Any other text frame closes the connection with code 1003.
 
 IPX payload messages are binary:
 
