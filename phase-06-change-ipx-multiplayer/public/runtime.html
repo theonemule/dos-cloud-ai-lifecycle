@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>DOS Cloud Runtime</title>
   <link rel="stylesheet" href="/jsdos/js-dos.css">
   <link rel="stylesheet" href="/runtime.css">
+  <link rel="stylesheet" href="/mobile-controls.css">
   <link rel="icon" href="data:,">
   <script src="/jsdos/js-dos.js"></script>
 </head>
@@ -16,19 +17,44 @@
       <h1 id="runtime-title">Starting DOS...</h1>
       <p id="runtime-subtitle"></p>
     </div>
-    <div id="runtime-status">Loading launch session…</div>
+    <div class="runtime-tools">
+      <span id="runtime-status">Loading launch session…</span>
+      <button id="touch-mode-toggle" type="button" class="touch-mode-toggle" aria-pressed="false" title="Enable or disable touch controls">Touch controls: Off</button>
+    </div>
   </header>
   <main>
-    <div id="dos"></div>
+    <div class="game-stage" id="game-stage">
+      <div id="dos"></div>
+      <section id="mobile-gamepad" hidden aria-label="DOS game touch controls">
+        <div class="touch-dpad" role="group" aria-label="Directional pad">
+          <button type="button" data-key="up" aria-label="Up">▲</button>
+          <button type="button" data-key="left" aria-label="Left">◀</button>
+          <button type="button" data-key="right" aria-label="Right">▶</button>
+          <button type="button" data-key="down" aria-label="Down">▼</button>
+        </div>
+        <div class="touch-actions" role="group" aria-label="Game actions">
+          <button type="button" data-key="ctrl" aria-label="Control">CTRL</button>
+          <button type="button" data-key="alt" aria-label="Alt">ALT</button>
+          <button type="button" data-key="space" aria-label="Space">SPACE</button>
+        </div>
+        <div class="touch-utility" role="group" aria-label="Menu keys">
+          <button type="button" data-key="esc" aria-label="Escape">ESC</button>
+          <button type="button" data-key="enter" aria-label="Enter">ENTER</button>
+          <button type="button" data-key="tab" aria-label="Tab">TAB</button>
+        </div>
+      </section>
+    </div>
     <aside>
       <h2 id="mode-label">Runtime</h2>
       <p>Your DOS C: drive is private to your account. Saves, scores, configuration files, and console changes persist here.</p>
       <div id="controls"></div>
       <div class="tip"><strong>Keyboard focus</strong><br>Click inside the DOS window before using game controls.</div>
+      <div class="tip"><strong>Touch controls</strong><br>Automatically enabled on mobile devices, or toggle above. Hold keys together for combined actions; the setting is saved on this device.</div>
       <div class="tip"><strong>DOS console</strong><br>Use DIR, CD, TYPE, and other commands supported by DOSBox.</div>
     </aside>
   </main>
   <script src="/ipx-websocket-net.js"></script>
+  <script src="/mobile-controls.js"></script>
   <script src="/runtime.js"></script>
 </body>
 </html>
