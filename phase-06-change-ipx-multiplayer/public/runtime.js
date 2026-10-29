@@ -84,6 +84,12 @@ async function load() {
     ).join("");
   }
 
+  const mobileGamepad = window.DosCloudTouchControls.attach({
+    panel: document.getElementById("mobile-gamepad"),
+    stage: document.getElementById("game-stage"),
+    toggle: document.getElementById("touch-mode-toggle")
+  });
+
   let ipxNet = null;
   if (config.multiplayer) {
     status.textContent = config.multiplayer.role === "host"
@@ -137,6 +143,8 @@ async function load() {
     onEvent: (event, ci) => {
       if (event === "ci-ready") {
         window.__ci = ci;
+        mobileGamepad.setCommandInterface(ci);
+        ci.events?.()?.onExit?.(() => mobileGamepad.releaseAll());
         if (config.multiplayer?.role === "host" && ipxNet) {
           const announceIfReady = message => {
             if (/IPX:\s*Connected to server/i.test(String(message))) {
