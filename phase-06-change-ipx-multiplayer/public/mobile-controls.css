@@ -1,0 +1,77 @@
+/* Touch controls are off the gameplay area; desktop layout is unchanged. */
+.runtime-tools { display:flex; align-items:center; justify-content:flex-end; gap:10px; }
+.touch-mode-toggle {
+  color:#c6d9ef; background:#1c293a; border:1px solid #405876;
+  border-radius:8px; padding:8px 10px; white-space:nowrap; font:600 12px system-ui,sans-serif;
+  cursor:pointer;
+}
+.touch-mode-toggle[aria-pressed="true"] { border-color:#5ca9cf; color:#eafaff; }
+.game-stage { min-width:0; display:grid; place-items:center; }
+.game-stage #dos { grid-column:1; }
+#mobile-gamepad[hidden] { display:none !important; }
+.game-stage.touch-active { grid-template-columns:minmax(96px,1fr) minmax(0,4fr) minmax(96px,1fr); gap:6px; }
+.game-stage.touch-active #dos {
+  grid-column:2; grid-row:1; width:100%; height:auto; max-height:calc(100dvh - 145px);
+  object-fit:contain;
+}
+.game-stage.touch-active #mobile-gamepad:not([hidden]) { display:contents; }
+.touch-dpad, .touch-actions { position:relative; width:min(100%, 168px); aspect-ratio:1; align-self:center; justify-self:center; }
+.touch-dpad { grid-column:1; grid-row:1; }
+.touch-actions { grid-column:3; grid-row:1; }
+.touch-utility { grid-column:2; grid-row:2; display:flex; justify-content:center; gap:8px; }
+#mobile-gamepad button {
+  display:grid; place-items:center; color:#f4fbff; background:#314b64;
+  border:1px solid #6488a9; border-radius:12px; font:700 13px system-ui,sans-serif;
+  padding:0 4px; min-height:44px; user-select:none; -webkit-user-select:none;
+  -webkit-touch-callout:none; touch-action:none; -webkit-tap-highlight-color:transparent;
+  cursor:pointer; transition:background .08s,transform .08s;
+}
+#mobile-gamepad button.is-down, #mobile-gamepad button:active { background:#1483a1; transform:scale(.96); }
+.touch-dpad button { position:absolute; width:34%; height:34%; }
+.touch-dpad [data-key="up"] { left:33%; top:0; }
+.touch-dpad [data-key="down"] { left:33%; bottom:0; }
+.touch-dpad [data-key="left"] { left:0; top:33%; }
+.touch-dpad [data-key="right"] { right:0; top:33%; }
+.touch-actions button { position:absolute; width:45%; height:35%; border-radius:26px; background:#165b78; }
+.touch-actions [data-key="ctrl"] { left:0; top:10%; }
+.touch-actions [data-key="alt"] { right:0; top:30%; }
+.touch-actions [data-key="space"] { left:0; bottom:2%; width:62%; }
+.touch-utility button { min-width:62px; padding:4px 12px !important; font-size:12px !important; }
+@media (max-width:850px) {
+  header { height:auto; min-height:54px; padding:6px 10px; }
+  header h1 { font-size:15px; }
+  header p { display:none; }
+  #runtime-status { display:none; }
+  main { grid-template-columns:1fr; height:auto; padding:8px; }
+  aside { display:none; }
+  .game-stage.touch-active #dos { height:auto; max-height:none; }
+}
+@media (max-width:600px) and (orientation:portrait) {
+  .game-stage.touch-active { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px 4px; }
+  .game-stage.touch-active #dos { grid-column:1 / -1; grid-row:1; width:min(100%, 480px); aspect-ratio:4/3; }
+  .touch-dpad { grid-column:1; grid-row:2; }
+  .touch-actions { grid-column:2; grid-row:2; }
+  .touch-utility { grid-column:1/-1; grid-row:3; padding-bottom:max(4px,env(safe-area-inset-bottom)); }
+}
+@media (max-width:900px) and (orientation:landscape) {
+  body { min-height:100dvh; }
+  header { min-height:42px; padding:4px 10px; }
+  main { padding:4px 8px; }
+  .game-stage.touch-active {
+    grid-template-columns:minmax(100px,17vw) minmax(0,1fr) minmax(100px,17vw);
+    grid-template-rows:minmax(0,1fr) 38px; min-height:0;
+    height:calc(100dvh - 54px);
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .game-stage.touch-active #dos {
+    grid-column:2; grid-row:1; width:min(100%, calc((100dvh - 102px)*4/3));
+    max-height:calc(100dvh - 102px); justify-self:center;
+  }
+  .touch-dpad, .touch-actions { width:min(100%, 136px); }
+  .touch-utility { align-self:center; }
+  .touch-utility button { min-height:32px !important; }
+  #mobile-gamepad button { min-height:38px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  #mobile-gamepad button { transition:none; }
+}
