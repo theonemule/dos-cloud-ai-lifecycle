@@ -62,7 +62,7 @@ function applySecurityHeaders(res, { allowUnsafeEval = false } = {}) {
         : "script-src 'self'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data:",
-      "connect-src 'self'",
+      "connect-src 'self' https://telemetry.blaize.net",
       "worker-src 'self' blob:",
       "object-src 'none'",
       "base-uri 'none'",
