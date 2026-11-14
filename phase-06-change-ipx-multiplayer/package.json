@@ -22,7 +22,9 @@
     "docker:build": "docker build -t dos-cloud:phase6 .",
     "docker:up": "docker compose up --build",
     "test:multiplayer": "node --test test/multiplayer.test.js",
-    "test:multiplayer:browser": "node test/multiplayer-browser.mjs"
+    "test:multiplayer:browser": "node test/multiplayer-browser.mjs",
+    "build:faro": "node scripts/build-faro.cjs",
+    "test:faro": "node --test test/faro.test.js"
   },
   "dependencies": {
     "@azure/identity": "^4.13.3",
@@ -34,6 +36,8 @@
     "ws": "^8.21.3"
   },
   "devDependencies": {
+    "@grafana/faro-web-sdk": "^2.14.0",
+    "esbuild": "^0.28.2",
     "playwright-core": "1.63.0"
   }
 }
